@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload</title>
+
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <h1>Image Upload</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date"><br>
+
+    <label for="image">Choose a file:</label>
+    <input type="file" id="image" name="image" accept="image/*"><br>
+
+    <button type="button" onclick="uploadImage()">Upload</button>
+  </form>
+
+
+</body>
+</html>
