@@ -10,5 +10,36 @@
 <body>
   <h1>Future-Dated Images</h1>
   <div id="image-container"></div>
+
+
+
+<script>
+    function fetchUpcomingImages() {
+      fetch('/getUpcomingImages')
+        .then(response => response.json())
+        .then(images => {
+          let currentIndex = 0;
+  
+          function displayNextImage() {
+            const imageContainer = document.getElementById('image-container');
+            const currentImage = images[currentIndex];
+  
+            if (currentImage) {
+              // Update the image source with the correct path
+              imageContainer.src = `/uploads/${currentImage.imagePath}`;
+              currentIndex = (currentIndex + 1) % images.length;
+  
+              setTimeout(displayNextImage, 5000);
+            }
+          }
+  
+          displayNextImage();
+        })
+        .catch(error => console.error('Error fetching upcoming images:', error));
+    }
+  
+    fetchUpcomingImages();
+  </script>
+  
 </body>
 </html>
