@@ -6,10 +6,10 @@ function uploadImage() {
 
   const formData = new FormData();
   formData.append('imageData', image.files[0]);
-  formData.append('dateData', date.value);
+  formData.append('validUntil', date.value);
 
 
-  fetch('/uploadImage', {
+  fetch('/api/uploadImage', {
     method: 'POST',
     body: formData
   })
