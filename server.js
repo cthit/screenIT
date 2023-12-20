@@ -1,7 +1,6 @@
 import express from 'express';
-import path from 'path';
-import backRouter from './backend/router.js';
-import exp from 'constants';
+import backRouter from './backend/backendRouter.js';
+
 
 const app = express();
 const port = 3000;
