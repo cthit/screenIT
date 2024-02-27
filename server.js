@@ -1,7 +1,6 @@
 import express from 'express';
 import backRouter from './backend/backendRouter.js';
 
-
 const app = express();
 const port = 3000;
 

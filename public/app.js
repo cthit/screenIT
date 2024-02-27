@@ -5,7 +5,7 @@ const date = document.getElementById('date');
 function uploadImage() {
 
   const formData = new FormData();
-  formData.append('newsImage', image.files[0]);
+  formData.append('image', image.files[0]);
   formData.append('validUntil', date.value);
 
 
