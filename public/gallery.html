@@ -9,18 +9,34 @@
     <link rel="stylesheet" href="css/gallery.css">
 
     <script src="js/script.js" defer></script>
+    <script src="js/login.js" defer></script>   
     <script src="js/gallery.js" defer></script>
 </head>
 
 <body>
-    <div id="optionsMenu">
-        <a href="/index.html" class="optionsButton">Upload Images</a>
-    </div>
+    <aside id="optionsMenu" class="optionsMenu">        
+        <a href="/index.html" class="optionsButton">Upload newspost</a>
+        <div id="openLoginButton">Log in</div>
+    </aside>
 
-    <div id="imageContainer">
+    <aside id="loginDiv" class="popupWindow hidden">
+        <div class="closeButton"></div>
+
+        <div class="loginForm">
+            <input type="text" id="username" placeholder="Användarnamn" required>
+            <input type="password" id="password" placeholder="Lösenord" required>
+            <button id="submitLoginButton">Logga in</button>
+        </div>
+    </aside>
+
+
+
+    <section id="imageContainer">
         <img id="imageCarousel" src="img/faces.svg" alt="imageCarousel">
-    </div>
+    </section>
     
+
+
     <footer>
         <p>Made with 
             <a href="https://wiki.chalmers.it/index.php/Pixeln" class="hiddenLink">

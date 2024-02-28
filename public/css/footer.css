@@ -4,10 +4,15 @@ footer {
     font-size: 1.1rem;
 
     position: absolute;
-    bottom: 0;
+    bottom: .4rem;
 
     text-align: center;
 }
+
+footer>p {
+    margin: 0;
+}
+
 footer * {
     font-family: "Kode Mono";
 }

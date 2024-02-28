@@ -5,6 +5,8 @@ import { addImage } from './imgHandler.js';
 import fs from 'fs';
 import * as path from 'path';
 
+import { isAdminKeyValid, getUsernameFromAdminKey } from '../server.js'
+
 
 const pathToJsonFile = "images.json";
 const pathToEventImages = "public/img/eventImages/";
@@ -12,6 +14,7 @@ const pathToEventImages = "public/img/eventImages/";
 const backRouter = Router();
 
 backRouter.post('/upload', uploadPost.single('image'), (req, res) => {
+	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
 	let newPost = {
 		path: path.basename(req.file.path),
 		date: req.body.validUntil
@@ -19,7 +22,7 @@ backRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 
 	addImage(newPost, pathToJsonFile);
 
-	res.status(200).send("Post uploaded successfully!");
+	res.status(200).send("Image uploaded successfully!");
 });
 
 
@@ -31,8 +34,11 @@ backRouter.get('/getFutureImages', (req, res) => {
 });
 
 
-backRouter.get('/purge', (req, res) => {
+backRouter.post('/purge', (req, res) => {
+	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
+
 	let posts = fs.readFileSync(pathToJsonFile, 'utf8');
+
 	for (const post of JSON.parse(posts)) {
 		try {
 			fs.unlinkSync(pathToEventImages + post.path);
@@ -42,6 +48,7 @@ backRouter.get('/purge', (req, res) => {
 	}
 
 	fs.writeFileSync(pathToJsonFile, JSON.stringify([]));
+	console.log("Purge complete");
 });
 
 

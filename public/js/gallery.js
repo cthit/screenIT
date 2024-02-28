@@ -50,3 +50,4 @@ setTimeout(function() {window.location.reload(true);}, autoRefreshTime);
 
 // hide optionsMenu after a few seconds
 setTimeout(function() {optionsMenu.classList.add('invisible')}, 5 * 1000);
+

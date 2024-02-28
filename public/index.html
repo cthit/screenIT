@@ -9,15 +9,30 @@
     <link rel="stylesheet" href="css/uploadImages.css">
 
     <script src="js/script.js" defer></script>
+    <script src="js/login.js" defer></script>
     <script src="js/upload.js" defer></script>
 </head>
 <body>
-    <div id="optionsMenu">
+    <aside class="optionsMenu">        
         <a href="/gallery.html" class="optionsButton">View Gallery</a>
+        <div id="openLoginButton">Log in</div>
+    </aside>
+
+    <div id="loginDiv" class="popupWindow hidden">
+        <div class="closeButton"></div>
+
+        <div class="loginForm">
+            <input type="text" id="username" placeholder="Användarnamn" required>
+            <input type="password" id="password" placeholder="Lösenord" required>
+            <button id="submitLoginButton">Logga in</button>
+        </div>
     </div>
 
-    <div class="mainDiv">
-      <h1>Image Upload</h1>
+
+    <div id="uploadImageDiv" class="mainDiv">
+        <p id="notification" class="notification">
+        </p>
+        <h1>Image Upload</h1>
 
         <form id="uploadForm" enctype="multipart/form-data">
             <!-- <label for="date">Date:</label> -->

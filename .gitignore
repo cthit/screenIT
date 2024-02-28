@@ -1,5 +1,7 @@
 public/img/*
 images.json
+adminKeys.json
+userCredentials.json
 .gitignore
 
 

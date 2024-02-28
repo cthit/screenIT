@@ -20,32 +20,108 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .invisible {
     opacity: 0;
 }
 
-#optionsMenu {
+/* ------ OPTIONS MENU ------ */
+.optionsMenu {
+    position: absolute;
+    top: .5rem;
+    right: 1rem;
+
     display: flex;
     flex-direction: row;
-    gap: 1rem;
-    justify-content: flex-end;
+    justify-content: space-evenly;
     align-items: center;
+    gap: .5rem;
 
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
+    width: auto;
+    margin: 0;
 }
 
-#optionsMenu>* {
+.optionsMenu>* {
     background: darkslategray;
     color: #fff;
 
-    text-decoration: none;
-    font-size: 1.2rem;
-
     padding: .4rem;
-    border-radius: .1rem ;
+    border-radius: .1rem;
+}
+
+.optionsMenu>*:hover {
+    background: rgb(22, 36, 36);
+    cursor: pointer;
+}
+
+.optionsMenu>a {
+    text-decoration: none;
+}
+
+
+
+.popupWindow{
+    background: #212121;
+    color: #fff;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+
+
+
+    
+    position: fixed;
+    top: calc(50% - 20vw/2 - 2rem);
+    left: calc(50% - 30vw/2 - 2rem);
+
+    height: 20vw;
+    width: 30vw;
+    padding: 2rem;
+    padding-top: 4rem;
+    outline: 3px solid #fff;
+    border-radius: 1rem;
+    min-height: 20rem;
+    min-width: 30rem;
+
+    z-index: 1000;
+}
+
+.closeButton {
+    background: grey;
+    background-image: url("../img//icons/close.svg");
+    background-size: cover;
+    background-position: center; 
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: .5rem;
+    border-radius: 0 0 0 .3rem;
+}
+
+
+ /* LOGIN DIV */
+
+#loginDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginDiv .loginForm {
+    display: flex;
+    flex-direction: column;
+    gap:.5rem;
+    width: max-content;
 }
