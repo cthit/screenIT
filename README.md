@@ -2,7 +2,7 @@
 # screenIT
 ## A system for managing images on the event screen in Hubben
 
-![Github version](https://img.shields.io/badge/version-0.0.0-darkblue?style=flat-square)
+![Github version](https://img.shields.io/badge/version-1.0.0-darkblue?style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/erikpersson0884/ScreenIT?color=blue&style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/erikpersson0884/ScreenIT?color=darkgreen&style=flat-square)
 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
