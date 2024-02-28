@@ -44,8 +44,10 @@ app.post('/login', (req, res) => {
 
 app.post('/testAdminKey', (req, res) => {
     const adminKey = req.body.adminKey; // Extract admin key from request body
+
     if (isAdminKeyValid(adminKey)) {
         res.status(200).json("Adminkey is valid");
+        return;
     }
     res.status(401).json("Adminkey is not valid");
 });

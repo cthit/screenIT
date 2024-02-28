@@ -11,7 +11,11 @@ import { isAdminKeyValid, getUsernameFromAdminKey } from '../server.js'
 const pathToJsonFile = "images.json";
 const pathToEventImages = "public/img/eventImages/";
 
+const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
 const backRouter = Router();
+
+
 
 backRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
@@ -27,11 +31,20 @@ backRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 
 
 backRouter.get('/getFutureImages', (req, res) => {
-	let activePosts = fs.readFileSync(pathToJsonFile, 'utf8');
-	activePosts = JSON.parse(activePosts);
-	activePosts = activePosts.filter(post => new Date(post.date) > new Date());
-	res.status(200).send(activePosts);
+    let currentTime = new Date(); // Define currentTime here
+
+    let activePosts = fs.readFileSync(pathToJsonFile, 'utf8');
+    activePosts = JSON.parse(activePosts);
+
+    activePosts = activePosts.filter(post => {
+        const postDate = new Date(post.date);
+        const timeDifference = postDate - currentTime;
+        return timeDifference >= 0 && timeDifference <= timeWindowBeforeEvents;
+    });
+
+    res.status(200).send(activePosts);
 });
+
 
 
 backRouter.post('/purge', (req, res) => {
