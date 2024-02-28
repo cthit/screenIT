@@ -7,6 +7,7 @@ import * as path from 'path';
 
 
 const pathToJsonFile = "images.json";
+const pathToEventImages = "public/img/eventImages/";
 
 const backRouter = Router();
 
@@ -25,7 +26,22 @@ backRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 backRouter.get('/getFutureImages', (req, res) => {
 	let activePosts = fs.readFileSync(pathToJsonFile, 'utf8');
 	activePosts = JSON.parse(activePosts);
+	activePosts = activePosts.filter(post => new Date(post.date) > new Date());
 	res.status(200).send(activePosts);
+});
+
+
+backRouter.get('/purge', (req, res) => {
+	let posts = fs.readFileSync(pathToJsonFile, 'utf8');
+	for (const post of JSON.parse(posts)) {
+		try {
+			fs.unlinkSync(pathToEventImages + post.path);
+		} catch (err) {
+			console.error("Error deleting image:", err);
+		}
+	}
+
+	fs.writeFileSync(pathToJsonFile, JSON.stringify([]));
 });
 
 

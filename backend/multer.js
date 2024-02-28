@@ -2,7 +2,7 @@ import multer from 'multer';
 
 const postStorage = multer.diskStorage({
 	destination: function (req, file, cb) {
-	  cb(null, 'public/img/')
+	  cb(null, 'public/img/eventImages/')
 	},
 	filename: function (req, file, cb) {
 		const ogFile = file.originalname.split(".");

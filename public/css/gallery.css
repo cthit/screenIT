@@ -1,9 +1,8 @@
 
+#imageCarousel {
+    height: 90vh;
+}
 
-body {
-    background: #212121;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#optionsMenu:hover {
+    opacity: 1;
 }

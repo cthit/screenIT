@@ -1,3 +1,10 @@
+public/img/*
+images.json
+.gitignore
+
+
+
+
 node_modules
 .env
 images/

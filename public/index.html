@@ -1,25 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Upload</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
 
-  <script src="app.js" defer></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/uploadImages.css">
+
+    <script src="js/script.js" defer></script>
+    <script src="js/upload.js" defer></script>
 </head>
 <body>
-  <h1>Image Upload</h1>
-  <form id="uploadForm" enctype="multipart/form-data">
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date"><br>
+    <div id="optionsMenu">
+        <a href="/gallery.html" class="optionsButton">View Gallery</a>
+    </div>
 
-    <label for="image">Choose a file:</label>
-    <input type="file" id="image" name="image" accept="image/*"><br>
+    <div class="mainDiv">
+      <h1>Image Upload</h1>
 
-    <button type="button" onclick="uploadImage()">Upload</button>
-  </form>
-  <a href="/gallery.html">View Gallery</a>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <!-- <label for="date">Date:</label> -->
+            <input type="date" id="date" name="date"><br>
 
+            <!-- <label for="image">Choose a file:</label> -->
+            <input type="file" id="image" name="image" accept="image/*"><br>
+
+            <button type="button" onclick="uploadImage()">Upload</button>
+        </form>
+
+    </div>
+
+
+
+    <footer>
+        <p>Made with 
+            <a href="https://wiki.chalmers.it/index.php/Pixeln" class="hiddenLink">
+                <img class="pixelnheart" src="img/pixelnheart.png" width="20" alt="pixelnheart">
+            </a> 
+            by 
+            <a href="https://wiki.chalmers.it/index.php/G%C3%B6ken" class="hiddenLink goken">
+                Göken
+            </a>
+        </p>
+    </footer>
 
 </body>
 </html>

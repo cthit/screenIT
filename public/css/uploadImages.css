@@ -1,0 +1,16 @@
+
+.mainDiv {
+    /* background: #151515; */
+    color: #fff;
+
+    padding: 2rem;
+    outline: 3px solid #fff;
+    border-radius: 1rem;
+}
+
+.mainDiv form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+}
