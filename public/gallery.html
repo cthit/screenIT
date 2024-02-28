@@ -34,6 +34,33 @@
     <section id="imageContainer">
         <img id="imageCarousel" src="img/faces.svg" alt="imageCarousel">
     </section>
+
+    <div id="settingsDiv">
+
+        <h3>Carousel Speed:</h3>
+        <div >
+            <!-- <label for="carouselSpeedInput">SS</label> -->
+            <input type="number" id="carouselSpeedInput" min="1" value="5">
+        </div>
+
+
+        <h3>Update Interval:</h3>
+        <div class="inputIntervalDiv">
+            <div class="inputDiv">
+                <label for="number">HH</label>
+                <input type="number" id="hours" min="0" value="0">
+            </div>
+            <div class="inputDiv">
+                <label for="number">MM</label>
+                <input type="number" id="minutes" min="0" max="59" value="0">
+            </div>
+            <div class="inputDiv">
+                <label for="number">SS</label>
+                <input type="number" id="seconds" min="0" max="59" value="0">
+            </div>
+        </div>
+
+    </div>
     
 
 

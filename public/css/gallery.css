@@ -3,6 +3,38 @@
     height: 90vh;
 }
 
-#optionsMenu:hover {
+#optionsMenu:hover, #settingsDiv:hover {
     opacity: 1;
+}
+
+#settingsDiv {
+    background: inherit;
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;   
+}
+
+#settingsDiv input {
+    width: 3rem;
+    height: 1.5rem;
+}
+
+.inputIntervalDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem
+}
+
+#settingsDiv .inputDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
 }
