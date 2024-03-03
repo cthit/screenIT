@@ -3,12 +3,13 @@ import fs from 'fs';
 import backRouter from './backend/backendRouter.js';
 
 const app = express();
-const port = 3000;
+const port = 8000;
+
+app.use(express.json());
 
 app.use('/api',backRouter)
 
 app.use(express.static('public'));
-app.use(express.json());
 
 // Serve static files from the 'public' folder
 app.use(express.static('public'));
@@ -20,8 +21,32 @@ app.use('/admin',express.static('public/admin.html'));
 
 
 
-let userCredentials = fs.readFileSync('userCredentials.json', 'utf8');
-userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
+export const pathToImagesFile = "images.json";
+const pathToAdminKeysFile = "adminKeys.json";
+export const pathToUsersFile = "users.json";
+export const pathToEventImages = "public/img/eventImages/";
+export const pathToLogFile = "logs.json";
+
+const lifeTimeForAdminKeys = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
+
+// LOG SYSTEM
+
+function logEvent(eventData) {
+    const currentDate = new Date().toISOString();
+    eventData.date = currentDate;
+    
+    // Read existing events from file, or create an empty array if the file doesn't exist
+    let events = [];
+    if (fs.existsSync(pathToLogFile)) {
+        events = JSON.parse(fs.readFileSync(pathToLogFile, 'utf8'));
+    }
+
+    // Add the new event to the array
+    events.push(eventData);
+
+    // Write the updated events array back to the file
+    fs.writeFileSync(pathToLogFile, JSON.stringify(events, null, 2));
+}
 
 
 
@@ -29,13 +54,10 @@ userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an 
 app.post('/login', (req, res) => {
     const username = req.body.username; // Extract username from request body
     const password = req.body.password; // Extract password from request body
-    console.log('Username:', username);
-    console.log('Password:', password);
 
     if (credentialsIsValid(username, password)) {
         let adminKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         saveAdminKey(adminKey, username);
-        console.log('Admin key:', adminKey);
         res.status(200).json({ adminKey }); // Send the content back to the client
     } else {
         res.status(401).json({ error: 'Invalid credentials' });
@@ -53,22 +75,40 @@ app.post('/testAdminKey', (req, res) => {
 });
 
 function credentialsIsValid(username, pass) {
+    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
+    userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
+
     for (const user of userCredentials) {
-        if (user.name === username && user.password === pass) {
-            console.log('User:', user.name, "pass:", user.password);
+        if (user.username === username && user.password === pass) {
             return true;
         }
     }
     return false;
 }
 
+function findUserFromAdminKey(adminKey) {
+    let loggedInUsers = fs.readFileSync(pathToAdminKeysFile, 'utf8');
+    loggedInUsers = JSON.parse(loggedInUsers);
+    const username = loggedInUsers.find(user => user.key === adminKey).username;
+
+    let allUsers = fs.readFileSync(pathToUsersFile, 'utf8');
+    allUsers = JSON.parse(allUsers);
+
+    const user = allUsers.find(user => user.username === username);
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    return user;
+}
 export function getUsernameFromAdminKey(adminKey) {
-    let adminKeys = fs.readFileSync('adminKeys.json')
-    adminKeys.forEach(key => {
-        if (key.key === adminKey){
-          return key.username
-        }
-    });
+    const user = findUserFromAdminKey(adminKey);
+    return user.username;
+}
+
+export function getAccountTypeFromAdminKey(adminKey) {
+    const user = findUserFromAdminKey(adminKey);
+    return user.accountType;
 }
 
 function saveAdminKey(adminKey, username) {
@@ -77,31 +117,31 @@ function saveAdminKey(adminKey, username) {
 
     // Read existing admin keys from file, or create an empty array if the file doesn't exist
     let adminKeys = [];
-    if (fs.existsSync('adminKeys.json')) {
-        adminKeys = JSON.parse(fs.readFileSync('adminKeys.json', 'utf8'));
+    if (fs.existsSync(pathToAdminKeysFile)) {
+        adminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
     }
 
     // Add the new admin key data to the array
     adminKeys.push(adminKeyData);
 
     // Write the updated admin keys array back to the file
-    fs.writeFileSync('adminKeys.json', JSON.stringify(adminKeys, null, 2));
+    fs.writeFileSync(pathToAdminKeysFile, JSON.stringify(adminKeys, null, 2));
   }
 
 export function isAdminKeyValid(adminKey) {
     const currentDate = new Date();
-    const tenDaysAgo = new Date(currentDate.getTime() - (10 * 24 * 60 * 60 * 1000)); // 10 days ago
-    const adminKeys = JSON.parse(fs.readFileSync('adminKeys.json', 'utf8'));
-
+    const validAdminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
     // Find the admin key in the adminKeys array
-    const adminKeyData = adminKeys.find(keyData => keyData.key === adminKey);
+    const adminKeyData = validAdminKeys.find(keyData => keyData.key === adminKey);
     if (!adminKeyData) {
         return false; // Admin key not found
     }
 
     // Parse the saved date and compare it with ten days ago
     const savedDate = new Date(adminKeyData.date);
-    return savedDate >= tenDaysAgo;
+    const validTimeForAdminKey = new Date(currentDate - lifeTimeForAdminKeys);
+
+    return savedDate >= validTimeForAdminKey;
 }
 
 

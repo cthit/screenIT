@@ -6,15 +6,14 @@
     <title>File Upload</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/uploadImages.css">
+    <link rel="stylesheet" href="css/managePeople.css">
 
     <script src="js/script.js"></script>
     <script src="js/login.js" defer></script>
-    <script src="js/upload.js" defer></script>
+    <script src="js/managePeople.js" defer></script>
 </head>
 <body>
     <aside class="optionsMenu">
-        <a href="/managePeople.html" class="optionsButton">Manage People</a>
         <a href="/allImages.html" class="optionsButton">All images</a>
         <a href="/gallery.html" class="optionsButton">View Gallery</a>
         <div id="openLoginButton">Log in</div>
@@ -31,21 +30,10 @@
     </div>
 
 
-    <div id="uploadImageDiv" class="mainDiv">
-        <p id="notification" class="notification">
-        </p>
-        <h1>Image Upload</h1>
-
-        <form id="uploadForm" enctype="multipart/form-data">
-            <!-- <label for="date">Date:</label> -->
-            <input type="date" id="date" name="date"><br>
-
-            <!-- <label for="image">Choose a file:</label> -->
-            <input type="file" id="image" name="image" accept="image/*"><br>
-
-            <button type="button" onclick="uploadImage()">Upload</button>
-        </form>
-
+    <div id="allPeopleDiv">
+        <h1>Manage People</h1>
+        <div id="peopleList">
+        </div>
     </div>
 
 

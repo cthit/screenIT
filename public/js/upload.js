@@ -11,6 +11,7 @@ function uploadImage() {
     formData.append('adminKey', adminKey);
     formData.append('image', image.files[0]);
     formData.append('validUntil', date.value);
+    formData.append('id', createRandomSuffix());
 
 
     fetch('/api/upload', {

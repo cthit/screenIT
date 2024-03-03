@@ -1,0 +1,58 @@
+
+
+#imagesDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 2rem;
+
+    width: 80vw;
+    margin-top: 6rem;
+
+}
+
+.imgDiv {
+    background-color: #46464666;
+
+    position: relative;
+
+    max-width: 80vw;
+    height: min-content;
+    border-radius: .3rem;
+}
+
+.imgDiv img {
+    height: 14rem;
+}
+
+.imgDiv p {
+    color: #fff;
+
+    padding-bottom: .4rem;
+    margin: 0;
+    margin-left: 1rem;
+}
+
+.removeImageButton {
+    background: rgb(255, 95, 95);
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 3rem;
+    height: 3rem;
+    padding: 0 0 .3rem .3rem;
+    border-bottom-left-radius: 3rem;
+}
+
+.removeImageButton img {
+    width: 100%;
+}

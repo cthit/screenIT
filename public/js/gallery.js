@@ -29,16 +29,12 @@ function displayNextImage() {
     const currentImage = images[currentIndex];
     if (images.length === 0) {
         alert("No images to display");
-    } else if (currentImage) {
+    } else {
         console.log("Next image")
         imageCarousel.src = pathToEventImages + currentImage.path;
         currentIndex = (currentIndex + 1) % images.length;
 
         setTimeout(displayNextImage, carouselSpeed);
-    } else {
-        images.splice(currentIndex, 1);
-
-        displayNextImage();
     }
 }
 
@@ -46,18 +42,17 @@ function fetchUpcomingImages() {
     fetch('/api/getFutureImages')
       .then(response => response.json())
       .then(incomingImages => {
-          images = incomingImages;
-
-          displayNextImage();
+            images = incomingImages;
+            console.log(images);
+            displayNextImage();
       })
           .catch(error => console.error('Error fetching upcoming images:', error));
 }
 
-fetchUpcomingImages();
 
 
 // Automatically refresh the page
-setTimeout(function() {window.location.reload(true);}, autoRefreshTime);
+setTimeout(fetchUpcomingImages, autoRefreshTime);
 
 // hide optionsMenu after a few seconds
 setTimeout(function() {
@@ -70,9 +65,10 @@ carouselSpeedInput.value = carouselSpeed / 1000;
 [hours, minutes, seconds].forEach(time => {
     time.addEventListener('change', function() {
         autoRefreshTime = hours.value * 60 * 60 * 1000 + minutes.value * 60 * 1000 + seconds.value * 1000;
-        if (autoRefreshTime < (10 * 1000)) {
-            autoRefreshTime = 10000;
+        if (autoRefreshTime < (10 * 1000)) { 
+            autoRefreshTime = 10000; // if less than 10 seconds, set to 10 seconds
         }
+        fetchUpcomingImages();
         console.log("Auto refresh time:", autoRefreshTime);
     });
 });
@@ -84,3 +80,5 @@ carouselSpeedInput. addEventListener('change', function() {
     }
     console.log("Carousel speed:", carouselSpeed);
 });
+
+fetchUpcomingImages();

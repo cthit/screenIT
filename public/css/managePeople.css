@@ -1,0 +1,43 @@
+
+h1 {
+    text-align: center;
+}
+
+#peopleList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+}
+.personDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+
+    overflow: hidden;
+
+    height: 3rem;
+    padding: .5rem;
+    padding-inline: 1rem;
+    outline: #fff solid 1px;
+    border-radius: .2rem;
+
+}
+
+.personDiv input {
+    background: inherit;
+    color: #fff;
+
+    font-family: "Kode Mono";
+
+    width: 30%; 
+    border: none;
+    margin: 0;
+}
+
+
+.personDiv .updateButton:active {
+    background-color: #f0f0f0;
+}

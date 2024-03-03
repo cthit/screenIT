@@ -5,6 +5,7 @@
 
 body {
     background: #212121;
+    color: #fff;
 
     font-size: 18px;
     font-family: "Kode Mono";
@@ -25,6 +26,10 @@ body {
 
 .invisible {
     opacity: 0;
+}
+
+.changedField {
+    outline: 1px solid orange;
 }
 
 /* ------ OPTIONS MENU ------ */
