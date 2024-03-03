@@ -1,6 +1,5 @@
 const imageContainer = document.getElementById('imageContainer');
 const imageCarousel = document.getElementById('imageCarousel');
-const optionsMenu = document.getElementById('optionsMenu');
 
 const settingsDiv = document.getElementById('settingsDiv');
 const hours = document.getElementById('hours');
@@ -56,6 +55,8 @@ setTimeout(fetchUpcomingImages, autoRefreshTime);
 
 // hide optionsMenu after a few seconds
 setTimeout(function() {
+    const optionsMenu = document.getElementById('optionsMenu');
+
     optionsMenu.classList.add('invisible')
     settingsDiv.classList.add('invisible')
 }, timeBeforeHidingMenus);

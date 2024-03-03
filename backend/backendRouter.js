@@ -31,7 +31,6 @@ backRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 });
 
 backRouter.post('/removeImage', (req, res) => {
-	console.log((req.body.adminKey));
 	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
 
 	logEvent({
@@ -64,11 +63,6 @@ backRouter.get('/getFutureImages', (req, res) => {
     activePosts = activePosts.filter(post => {
 		const postDate = new Date(post.date);
 		const lastAllowedDay = new Date(currentTime.getTime() + timeWindowBeforeEvents);
-
-		console.log(postDate >= currentTime)
-		console.log(currentTime)
-		console.log(postDate)
-		console.log(lastAllowedDay > postDate)
 
 		return currentTime <= postDate && postDate < lastAllowedDay;
 	});

@@ -31,6 +31,7 @@ let loginButton; // Declare loginButton in the global scope
 // Function to create menu items dynamically
 function createMenu(callback) {
     var menu = document.createElement("aside");
+    menu.id = "optionsMenu";
     menu.classList.add("optionsMenu");
 
     menuItems.forEach(function(item) {
@@ -85,12 +86,6 @@ for (const button of closeButtons) {
         button.parentNode.classList.toggle('hidden');
     });
 };
-
-
-function createRandomSuffix(){
-    let uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    return uniqueSuffix;
-}
 
 
 function notify(notificationDiv, message, notificationTime, color) {

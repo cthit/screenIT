@@ -5,6 +5,14 @@ const uploadImageDiv = document.getElementById('uploadImageDiv');
 
 const notificationTime = 2.5 * 1000;
 
+
+
+function createRandomSuffix(){
+    let uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    return uniqueSuffix;
+}
+
+
 function uploadImage() {
 
     const formData = new FormData();

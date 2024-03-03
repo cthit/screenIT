@@ -143,8 +143,10 @@ function userIsLoggedIn(){
     isLoggedIn = true;
     loginDiv.classList.add('hidden');   
     
-    if (loginButton) loginButton.textContent = 'Log out'; // TODO: if needed for when loginbutton has not loaded
-
+    if (loginButton) {
+        loginButton.textContent = 'Log out'; // TODO: if needed for when loginbutton has not loaded
+    };
+    
     usernameInput.value = '';
     passwordInput.value = '';
 
