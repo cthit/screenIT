@@ -2,6 +2,7 @@ const imagesDiv = document.getElementById("imagesDiv");
 
 let pathToEventImages = "/img/eventImages/";
 
+
 fetch("/api/getAllImages")
 .then(response => response.json())
 .then(incomingImages => {

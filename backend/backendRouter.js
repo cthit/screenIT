@@ -56,15 +56,22 @@ backRouter.post('/removeImage', (req, res) => {
 
 backRouter.get('/getFutureImages', (req, res) => {
     let currentTime = new Date(); // Define currentTime here
+	currentTime.setHours(0, 0, 0, 0);
 
     let activePosts = fs.readFileSync(pathToImagesFile, 'utf8');
     activePosts = JSON.parse(activePosts);
 
     activePosts = activePosts.filter(post => {
-        const postDate = new Date(post.date);
-        const timeDifference = postDate - currentTime;
-        return timeDifference >= 0 && timeDifference <= timeWindowBeforeEvents;
-    });
+		const postDate = new Date(post.date);
+		const lastAllowedDay = new Date(currentTime.getTime() + timeWindowBeforeEvents);
+
+		console.log(postDate >= currentTime)
+		console.log(currentTime)
+		console.log(postDate)
+		console.log(lastAllowedDay > postDate)
+
+		return currentTime <= postDate && postDate < lastAllowedDay;
+	});
 
     res.status(200).send(activePosts);
 });

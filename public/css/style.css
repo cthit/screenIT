@@ -34,9 +34,11 @@ body {
 
 /* ------ OPTIONS MENU ------ */
 .optionsMenu {
+    background: inherit;
+
     position: absolute;
-    top: .5rem;
-    right: 1rem;
+    top: 0rem;
+    right: 0rem;
 
     display: flex;
     flex-direction: row;
@@ -45,6 +47,7 @@ body {
     gap: .5rem;
 
     width: auto;
+    padding: 1rem;
     margin: 0;
 }
 

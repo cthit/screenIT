@@ -28,7 +28,7 @@ imageCarousel.onerror = function() {
 function displayNextImage() {
     const currentImage = images[currentIndex];
     if (images.length === 0) {
-        alert("No images to display");
+        console.log("No images to display");
     } else {
         console.log("Next image")
         imageCarousel.src = pathToEventImages + currentImage.path;
