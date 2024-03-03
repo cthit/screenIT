@@ -18,12 +18,20 @@ let carouselSpeed = 8 * 1000; // time each images is shows before going to the n
 let timeBeforeHidingMenus = 5 * 1000; //milliseconds
 let mouseAutoHideTime = 5 * 1000; // Time until the mosuse is hidden (in milliseconds)
 
+if (localStorage.getItem('carouselSpeed')) {
+    carouselSpeed = localStorage.getItem('carouselSpeed');
+}
+if (localStorage.getItem('autoRefreshTime')) {
+    autoRefreshTime = localStorage.getItem('autoRefreshTime');
+}
+
 
 let mouseAutoHideTimer; // Variable to store the mouseAutoHideTime ID
 
 
 carouselSpeedInput.value = carouselSpeed / 1000; // Set the defualt load value of the carousel speed input
-
+hours.value = Math.floor(autoRefreshTime / (60 * 60 * 1000)); // Set the default load value of the hours input
+minutes.value = Math.floor((autoRefreshTime % (60 * 60 * 1000)) / (60 * 1000)); // Set the default load value of the minutes input
 
 imageCarousel.onerror = function() {
     console.log("Error loading image:", imageCarousel.src);
@@ -81,6 +89,7 @@ setTimeout(function() {
         }
         fetchUpcomingImages();
         console.log("Auto refresh time:", autoRefreshTime);
+        localStorage.setItem('autoRefreshTime', autoRefreshTime);
     });
 });
 
@@ -90,6 +99,7 @@ carouselSpeedInput. addEventListener('change', function() {
         carouselSpeed = 1000;
     }
     console.log("Carousel speed:", carouselSpeed);
+    localStorage.setItem('carouselSpeed', carouselSpeed);
 });
 
 fetchUpcomingImages();
