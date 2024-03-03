@@ -23,35 +23,12 @@ function uploadImage() {
         console.log(response.text());
 
         if (response.status === 200) {
-            notify("image uploaded successfully", '#189618');
+            notify(notification, "image uploaded successfully", notificationTime, '#189618');
         } else {
-            notify("An error was encountered", '#961818')
+            notify(notification, "An error was encountered", notificationTime, '#961818')
         }
     })
     .catch(error => {
         console.error('Error uploading image:', error);
     });
 }
-
-function notify(message, color) {
-    console.log(color);
-
-    if (color) {
-        notification.style.backgroundColor = color;
-    }
-    notification.textContent = message;
-    notification.classList.add('activeNotification')
-
-    setTimeout(() => {
-        notification.textContent = '';
-        notification.classList.remove('activeNotification');
-    }, notificationTime);
-}
-
-
-// if (isLoggedIn) {
-//     console.log('User is logged in');
-//     uploadImageDiv.classList.remove('hidden');
-// } else {
-//     uploadImageDiv.classList.add('hidden');
-// }

@@ -78,21 +78,32 @@ window.onload = function() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    let closeButtons = document.getElementsByClassName('closeButton');
+let closeButtons = document.getElementsByClassName('closeButton');
 
-    for (const button of closeButtons) {
-        button.addEventListener('click', () => {
-            button.parentNode.classList.toggle('hidden');
-        });
-    };
-    
-    
-    function createRandomSuffix(){
-        let uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        return uniqueSuffix;
+for (const button of closeButtons) {
+    button.addEventListener('click', () => {
+        button.parentNode.classList.toggle('hidden');
+    });
+};
+
+
+function createRandomSuffix(){
+    let uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    return uniqueSuffix;
+}
+
+
+function notify(notificationDiv, message, notificationTime, color) {
+    console.log(color);
+
+    if (color) {
+        notificationDiv.style.backgroundColor = color;
     }
+    notificationDiv.textContent = message;
+    notificationDiv.classList.add('activeNotification')
 
-});
-
-
+    setTimeout(() => {
+        notificationDiv.textContent = '';
+        notificationDiv.classList.remove('activeNotification');
+    }, notificationTime);
+}

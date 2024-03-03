@@ -1,11 +1,12 @@
 
-// const loginButton = document.getElementById('openLoginButton');
 createLoginDiv();
 const loginDiv = document.getElementById('loginDiv');
 const submitLoginButton = document.getElementById('submitLoginButton');
 const openCreatePostButton = document.getElementById('openCreatePostButton');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
+
+const loginNotificationDiv = document.getElementById('loginNotification');
 
 let adminButtons = document.getElementsByClassName('adminButton');
 
@@ -16,7 +17,7 @@ let isLoggedIn = false;
 let adminKey = null;
 let username = null;
 
-
+const loginNotificationTime = 3 * 1000; // 3 seconds
 
 
 
@@ -53,6 +54,12 @@ function createLoginDiv() {
     submitLoginButton.textContent = 'Log in';
     loginForm.appendChild(submitLoginButton);
 
+    const notification = document.createElement('div');
+    notification.id = 'loginNotification';
+    notification.classList.add('notification');
+    
+    loginDiv.appendChild(notification);
+
     document.body.appendChild(loginDiv);
 }
 
@@ -83,6 +90,10 @@ function login() {
         body: JSON.stringify(loginCredentials)
     })
     .then(response => {
+        if (response.status === 401) {
+            notify(loginNotificationDiv, 'Invalid credentials', loginNotificationTime, 'red');
+            throw new Error('Invalid credentials');
+        }
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -132,7 +143,7 @@ function userIsLoggedIn(){
     isLoggedIn = true;
     loginDiv.classList.add('hidden');   
     
-    loginButton.textContent = 'Log out';
+    if (loginButton) loginButton.textContent = 'Log out'; // TODO: if needed for when loginbutton has not loaded
 
     usernameInput.value = '';
     passwordInput.value = '';
@@ -143,7 +154,6 @@ function userIsLoggedIn(){
 
     logInFunctions.forEach(func => func());
 };
-
 
 
 submitLoginButton.addEventListener('click', login);

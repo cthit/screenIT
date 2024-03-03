@@ -110,17 +110,29 @@ backRouter.post('/getPeople', (req, res) => {
 	if (!isAdminKeyValid(adminKey)) return res.status(403).send("Adminkey not valid");
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
 	people = JSON.parse(people);
+	if (userHasPermission(adminKey, "admin")) {
+		people.sort((a, b) => {
+			if (a.id === getUserIdFromAdminKey(adminKey)) return -1;
+			if (b.id === getUserIdFromAdminKey(adminKey)) return 1;
+			return 0;
+		});
+	}
 
 	if (userHasPermission(adminKey, "admin")) {
 		res.status(200).send(people);
 	} else if (userHasPermission(adminKey, "pr")) {
+
 		people = people.filter(person => person.id === getUserIdFromAdminKey(adminKey));
+		console.log(people)
+
 		res.status(200).send(people);
+	} else {
+		console.log("user has accoutn type: " + getAccountTypeFromAdminKey(adminKey))
 	}
 });
 
 backRouter.post('/updatePerson', (req, res) => {
-	console.log(req.body);
+	const adminKey = req.body.adminKey;
 	if (!isAdminKeyValid(adminKey)) return res.status(403).send("Adminkey not valid");
 	if(userHasPermission(adminKey, "pr") && req.body.id !== getUserIdFromAdminKey(adminKey)) return res.status(403).send("User does not have permission to update account type to admin");
 
@@ -138,6 +150,8 @@ backRouter.post('/updatePerson', (req, res) => {
 	};
 	if (userHasPermission(adminKey, "admin")) {
 		people[personIndex].accountType = req.body.accountType;
+	} else {
+		people[personIndex].accountType = people[personIndex].accountType;
 	}
 
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');

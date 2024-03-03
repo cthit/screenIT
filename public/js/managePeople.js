@@ -33,8 +33,8 @@ async function getPeople() {
 }
 
 async function populatePeopleList() {
-    if (userIsLoggedIn === true) {
         const people = await getPeople();
+        console.log(people);
 
         peopleList.innerHTML = '';
 
@@ -42,15 +42,14 @@ async function populatePeopleList() {
             const listItem = createPersonDiv(person);
             peopleList.appendChild(listItem);
         });
-        if (people.length > 1) { // user is admin, can add people
+        if (people[0].accountType === "admin") { // user is admin, can add people
                 const addPersonDiv = createAddPersonDiv();
                 peopleList.appendChild(addPersonDiv);
-
         } else { // user is pr, user cannot change account type
             const personDiv = peopleList.getElementsByTagName('div')[0];
             personDiv.getElementsByTagName('select')[0].classList.add('hidden');
         }
-    }
+    
 }
 
 function createPersonDiv(person) {
@@ -214,13 +213,3 @@ function createAddPersonDiv() {
 
     return personDiv;
 };
-
-
-function flashDiv(div, time){
-    div.classList.add("changedPerson");
-    setTimeout(function() {
-        div.classList.remove("changedPerson");
-    }, time); // milliseconds
-}
-
-populatePeopleList();

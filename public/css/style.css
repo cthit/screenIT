@@ -133,3 +133,30 @@ body {
     gap:.5rem;
     width: max-content;
 }
+
+
+/* ------ NOTIFICATION ------ */
+
+.notification {
+    background: #189618;
+    color: #fff;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    position: absolute;
+    top: -5rem;
+
+    width: 80%;
+    max-width: 80%;
+    height: 3rem;
+    margin: 0;
+
+    transition: all .5s ease-in-out;
+}
+
+.activeNotification {
+    top: 0rem;
+    transition: all .5s ease-in-out;
+}
