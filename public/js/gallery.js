@@ -16,8 +16,14 @@ let images = [];
 let autoRefreshTime = 10 * 60 * 1000; //time before fetching from the server again (in milliseconds)
 let carouselSpeed = 8 * 1000; // time each images is shows before going to the next (in milliseconds)
 let timeBeforeHidingMenus = 5 * 1000; //milliseconds
+let mouseAutoHideTime = 5 * 1000; // Time until the mosuse is hidden (in milliseconds)
 
-carouselSpeedInput.value = carouselSpeed / 1000;
+
+let mouseAutoHideTimer; // Variable to store the mouseAutoHideTime ID
+
+
+carouselSpeedInput.value = carouselSpeed / 1000; // Set the defualt load value of the carousel speed input
+
 
 imageCarousel.onerror = function() {
     console.log("Error loading image:", imageCarousel.src);
@@ -88,3 +94,31 @@ carouselSpeedInput. addEventListener('change', function() {
 
 fetchUpcomingImages();
 continueCarousel();
+
+
+
+
+
+// Function to hide the cursor
+function hideCursor() {
+    document.body.style.cursor = 'none';
+}
+
+// Function to reset the mouseAutoHideTimer
+function resetTimer() {
+    // Clear the previous mouseAutoHideTimer
+    clearTimeout(mouseAutoHideTimer);
+
+    // Start a new mouseAutoHideTime
+    mouseAutoHideTimer = setTimeout(hideCursor, mouseAutoHideTime);
+}
+
+// Event listener for mousemove event
+document.addEventListener('mousemove', () => {
+    // Reset the mouseAutoHideTimer when the mouse moves
+    resetTimer();
+    document.body.style.cursor = 'default';
+});
+
+// Initial call to reset the mouseAutoHideTimer
+resetTimer();
