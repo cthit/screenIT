@@ -9,6 +9,9 @@ const passwordInput = document.getElementById('password');
 
 let adminButtons = document.getElementsByClassName('adminButton');
 
+let logInFunctions = [];
+let logOutFunctions = [];
+
 let isLoggedIn = false;
 let adminKey = null;
 let username = null;
@@ -63,6 +66,7 @@ function logout() {
     }
     loginButton.textContent = 'Log in';
 
+    logOutFunctions.forEach(func => func());
 }
 
 function login() {
@@ -136,6 +140,8 @@ function userIsLoggedIn(){
     for (const button of adminButtons) { // show all admin buttons
         button.classList.remove('hidden');
     }
+
+    logInFunctions.forEach(func => func());
 };
 
 

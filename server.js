@@ -9,7 +9,6 @@ app.use(express.json());
 
 app.use('/api',backRouter)
 
-app.use(express.static('public'));
 
 // Serve static files from the 'public' folder
 app.use(express.static('public'));
@@ -46,6 +45,18 @@ export function logEvent(eventData) {
 
     // Write the updated events array back to the file
     fs.writeFileSync(pathToLogFile, JSON.stringify(events, null, 2));
+}
+
+export function userHasPermission(adminKey, accountType) {
+    const userAccountType = getAccountTypeFromAdminKey(adminKey);
+    
+    if (Array.isArray(accountType)) {
+        // If accountType is an array, check if the user's account type matches any of the account types in the array
+        return accountType.includes(userAccountType);
+    } else {
+        // If accountType is a string, check if the user's account type matches the specified account type
+        return userAccountType === accountType;
+    }
 }
 
 
@@ -86,29 +97,37 @@ function credentialsIsValid(username, pass) {
     return false;
 }
 
-function findUserFromAdminKey(adminKey) {
-    let loggedInUsers = fs.readFileSync(pathToAdminKeysFile, 'utf8');
-    loggedInUsers = JSON.parse(loggedInUsers);
-    const username = loggedInUsers.find(user => user.key === adminKey).username;
-
-    let allUsers = fs.readFileSync(pathToUsersFile, 'utf8');
-    allUsers = JSON.parse(allUsers);
-
-    const user = allUsers.find(user => user.username === username);
-    if (!user) {
-        throw new Error('User not found');
+function getUserFromAdminKey(adminKey) {
+    const validAdminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
+    // Find the admin key in the adminKeys array
+    const adminKeyData = validAdminKeys.find(keyData => keyData.key === adminKey);
+    if (!adminKeyData) {
+        return null; // Admin key not found
     }
 
+    // Find the user with the same username as the admin key
+    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
+    userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
+    const user = userCredentials.find(user => user.username === adminKeyData.username);
+
+    // console.log(user);
+
     return user;
-}
+}   
+
 export function getUsernameFromAdminKey(adminKey) {
-    const user = findUserFromAdminKey(adminKey);
+    const user = getUserFromAdminKey(adminKey);
     return user.username;
 }
 
 export function getAccountTypeFromAdminKey(adminKey) {
-    const user = findUserFromAdminKey(adminKey);
+    const user= getUserFromAdminKey(adminKey)
     return user.accountType;
+}
+
+export function getUserIdFromAdminKey(adminKey) {
+    const user = getUserFromAdminKey(adminKey);
+    return user.id;
 }
 
 function saveAdminKey(adminKey, username) {

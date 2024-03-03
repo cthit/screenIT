@@ -1,7 +1,12 @@
 const peopleList = document.getElementById('peopleList');
 
+
 let people = [];
 const accountTypes = ['admin', 'pr'];
+
+logInFunctions.push(populatePeopleList);
+logOutFunctions.push(populatePeopleList);
+
 
 
 async function getPeople() {
@@ -20,7 +25,6 @@ async function getPeople() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             return data; // Return the data
         })
         .catch(error => {
@@ -29,16 +33,24 @@ async function getPeople() {
 }
 
 async function populatePeopleList() {
-    const people = await getPeople();
+    if (userIsLoggedIn === true) {
+        const people = await getPeople();
 
-    peopleList.innerHTML = '';
-    people.forEach(person => {
-        const listItem = createPersonDiv(person);
-        peopleList.appendChild(listItem);
-    });
-    const addPersonDiv = createAddPersonDiv();
-    peopleList.appendChild(addPersonDiv);
+        peopleList.innerHTML = '';
 
+        people.forEach(person => {
+            const listItem = createPersonDiv(person);
+            peopleList.appendChild(listItem);
+        });
+        if (people.length > 1) { // user is admin, can add people
+                const addPersonDiv = createAddPersonDiv();
+                peopleList.appendChild(addPersonDiv);
+
+        } else { // user is pr, user cannot change account type
+            const personDiv = peopleList.getElementsByTagName('div')[0];
+            personDiv.getElementsByTagName('select')[0].classList.add('hidden');
+        }
+    }
 }
 
 function createPersonDiv(person) {
@@ -92,7 +104,6 @@ function createPersonDiv(person) {
             }
         })
         .then( () => {
-            console.log(data);
             populatePeopleList();
         })
         .catch(error => {
@@ -111,7 +122,6 @@ function createPersonDiv(person) {
             adminKey: adminKey,
             id: person.id
         }
-
         await fetch('/api/removePerson', {
             method: 'POST',
             headers: {
@@ -159,6 +169,8 @@ function createAddPersonDiv() {
         option.text = optionText;
         accountTypeSelect.appendChild(option);
     });
+    accountTypeSelect.value = accountTypes[accountTypes.length - 1];
+
     personDiv.appendChild(accountTypeSelect);
 
     const addButton = document.createElement('img');
@@ -211,5 +223,4 @@ function flashDiv(div, time){
     }, time); // milliseconds
 }
 
-getPeople();
 populatePeopleList();
