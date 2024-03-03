@@ -1,5 +1,6 @@
 
-const loginButton = document.getElementById('openLoginButton');
+// const loginButton = document.getElementById('openLoginButton');
+createLoginDiv();
 const loginDiv = document.getElementById('loginDiv');
 const submitLoginButton = document.getElementById('submitLoginButton');
 const openCreatePostButton = document.getElementById('openCreatePostButton');
@@ -14,13 +15,43 @@ let username = null;
 
 
 
-loginButton.addEventListener('click', () => {
-    if (!isLoggedIn) {
-        loginDiv.classList.remove('hidden');
-    } else {
-        logout();
-    }
-});
+
+
+
+function createLoginDiv() {
+    let loginDiv = document.createElement('aside');
+    loginDiv.id = 'loginDiv';
+    loginDiv.classList.add('popupWindow', 'hidden');
+
+    let closeButton = document.createElement('div');
+    closeButton.classList.add('closeButton');
+    loginDiv.appendChild(closeButton);
+
+    let loginForm = document.createElement('div');
+    loginForm.classList.add('loginForm');
+    loginDiv.appendChild(loginForm);
+
+    let usernameInput = document.createElement('input');
+    usernameInput.type = 'text';
+    usernameInput.id = 'username';
+    usernameInput.placeholder = 'Username';
+    usernameInput.required = true;
+    loginForm.appendChild(usernameInput);
+
+    let passwordInput = document.createElement('input');
+    passwordInput.type = 'password';
+    passwordInput.id = 'password';
+    passwordInput.placeholder = 'Password';
+    passwordInput.required = true;
+    loginForm.appendChild(passwordInput);
+
+    let submitLoginButton = document.createElement('button');
+    submitLoginButton.id = 'submitLoginButton';
+    submitLoginButton.textContent = 'Log in';
+    loginForm.appendChild(submitLoginButton);
+
+    document.body.appendChild(loginDiv);
+}
 
 
 function logout() {
@@ -97,7 +128,7 @@ function userIsLoggedIn(){
     isLoggedIn = true;
     loginDiv.classList.add('hidden');   
     
-    loginButton.textContent = 'Logga ut';
+    loginButton.textContent = 'Log out';
 
     usernameInput.value = '';
     passwordInput.value = '';
@@ -112,5 +143,6 @@ function userIsLoggedIn(){
 submitLoginButton.addEventListener('click', login);
 
 testAdminKeyOnLoad();
+
 
 

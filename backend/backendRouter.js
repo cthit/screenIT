@@ -5,7 +5,7 @@ import { addImage } from './imgHandler.js';
 import fs from 'fs';
 import * as path from 'path';
 
-import { isAdminKeyValid, getUsernameFromAdminKey, getAccountTypeFromAdminKey, pathToEventImages, pathToImagesFile, pathToUsersFile } from '../server.js'
+import { isAdminKeyValid, getUsernameFromAdminKey, getAccountTypeFromAdminKey, pathToEventImages, pathToImagesFile, pathToUsersFile, logEvent } from '../server.js'
 
 
 const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -16,7 +16,6 @@ const accountTypesAllowedToAddPeople = ["admin"];
 const backRouter = Router();
 
 function userHasPermission(adminKey, accountType) {
-	console.log(getAccountTypeFromAdminKey(adminKey) === accountType);
 	return getAccountTypeFromAdminKey(adminKey) === accountType;
 }
 
@@ -119,9 +118,6 @@ backRouter.post('/updatePerson', (req, res) => {
 
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
 	people = JSON.parse(people);
-	console.log(people[1].id, req.body.id);
-	console.log(req.body);
-
 
 	if (!people.find(person => person.id === req.body.id)) return res.status(404).send("Person not found!");
 
@@ -137,42 +133,41 @@ backRouter.post('/updatePerson', (req, res) => {
 	res.status(200).send("Person updated successfully!");	
 });
 
-
-
 backRouter.post('/addPerson', (req, res) => {
 	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
-	if(accountTypesAllowedToAddPeople.includes(getAccountTypeFromAdminKey(req.body.adminKey))) return res.status(403).send("Adminkey not valid");
+	if(!userHasPermission(req.body.adminKey, "admin")) return res.status(403).send("User does not have permission to add people");
 
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
 	people = JSON.parse(people);
 
-	if (people.find(person => person.username === req.body.username)) return res.status(409).send("Person already exists!");
-
-	people.push({
+	let newPerson = {
 		username: req.body.username,
 		password: req.body.password,
-		accountType: req.body.accountType
-	});
+		accountType: req.body.accountType,
+		id: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+	};
 
+	people.push(newPerson);
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');
 	res.status(200).send("Person added successfully!");
 });
 
-backRouter.post('/removePerson', (req, res) => {
+backRouter.post('/api/removePerson', (req, res) => {
 	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
-	// if(accountTypesAllowedToAddPeople.includes(getAccountTypeFromAdminKey(req.body.adminKey))) return res.status(403).send("Adminkey not valid");
-	console.log(req.body.adminKey);
+	if(!userHasPermission(req.body.adminKey, "admin")) return res.status(403).send("User does not have permission to remove people");
+
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
 	people = JSON.parse(people);
-	console.log("lol", people);
 
-	// if (!people.find(person => person.username === req.body.username)) return res.status(404).send("Person not found!");
+	if (!people.find(person => person.id === req.body.id)) return res.status(404).send("Person not found!");
 
-	people = people.filter(person => person.username !== req.body.username);
+	people = people.filter(person => person.id !== req.body.id);
 
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');
 	res.status(200).send("Person removed successfully!");
 });
+
+
 
 
 export default backRouter;

@@ -41,3 +41,7 @@ h1 {
 .personDiv .updateButton:active {
     background-color: #f0f0f0;
 }
+
+.addPersonDiv {
+    margin-top: 2rem;
+}

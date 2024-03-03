@@ -31,7 +31,7 @@ const lifeTimeForAdminKeys = 10 * 24 * 60 * 60 * 1000; // 10 days in millisecond
 
 // LOG SYSTEM
 
-function logEvent(eventData) {
+export function logEvent(eventData) {
     const currentDate = new Date().toISOString();
     eventData.date = currentDate;
     
