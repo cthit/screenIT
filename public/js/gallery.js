@@ -13,10 +13,11 @@ const pathToEventImages = '/img/eventImages/';
 let currentIndex = 0;
 let images = [];
 
-let autoRefreshTime = 60 * 1000; //milliseconds
-let carouselSpeed = 8 * 1000; //milliseconds
+let autoRefreshTime = 10 * 60 * 1000; //time before fetching from the server again (in milliseconds)
+let carouselSpeed = 8 * 1000; // time each images is shows before going to the next (in milliseconds)
 let timeBeforeHidingMenus = 5 * 1000; //milliseconds
 
+carouselSpeedInput.value = carouselSpeed / 1000;
 
 imageCarousel.onerror = function() {
     console.log("Error loading image:", imageCarousel.src);
@@ -32,10 +33,14 @@ function displayNextImage() {
         console.log("Next image")
         imageCarousel.src = pathToEventImages + currentImage.path;
         currentIndex = (currentIndex + 1) % images.length;
-
-        setTimeout(displayNextImage, carouselSpeed);
     }
 }
+
+function continueCarousel() {
+    displayNextImage();
+    setTimeout(continueCarousel, carouselSpeed);
+}
+
 
 function fetchUpcomingImages() {
     fetch('/api/getFutureImages')
@@ -61,7 +66,6 @@ setTimeout(function() {
     settingsDiv.classList.add('invisible')
 }, timeBeforeHidingMenus);
 
-carouselSpeedInput.value = carouselSpeed / 1000;
 
 [hours, minutes, seconds].forEach(time => {
     time.addEventListener('change', function() {
@@ -83,3 +87,4 @@ carouselSpeedInput. addEventListener('change', function() {
 });
 
 fetchUpcomingImages();
+continueCarousel();
