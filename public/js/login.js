@@ -160,7 +160,5 @@ function userIsLoggedIn(){
 
 submitLoginButton.addEventListener('click', login);
 
-testAdminKeyOnLoad();
-
 
 

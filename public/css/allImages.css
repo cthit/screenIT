@@ -22,8 +22,7 @@
 }
 
 .imgDiv img {
-    /* height: 14rem; */
-    width: 12rem;
+    width: 15rem;
 }
 
 .imgDiv p {
@@ -35,7 +34,7 @@
 }
 
 .removeImageButton {
-    background: rgb(255, 95, 95);
+    background: rgb(255, 0, 0);
 
     cursor: pointer;
 
@@ -47,12 +46,15 @@
     top: 0;
     right: 0;
 
-    width: 3rem;
-    height: 3rem;
-    padding: 0 0 .3rem .3rem;
-    border-bottom-left-radius: 3rem;
+    width: max-content; 
+    height: max-content;
+    padding: 0 0 1rem 1rem;
+    border-bottom-left-radius: 7.5rem;
 }
 
-.removeImageButton img {
-    width: 100%;
+.removeImageButton img { 
+    /* background-color: blue; */
+    width: min-content;
+    height: 2.5rem;
+    padding: .3rem;
 }

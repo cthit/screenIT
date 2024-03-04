@@ -10,6 +10,7 @@ const carouselSpeedInput = document.getElementById('carouselSpeedInput');
 
 const pathToEventImages = '/img/eventImages/';
 
+
 let currentIndex = 0;
 let images = [];
 
@@ -27,6 +28,8 @@ if (localStorage.getItem('autoRefreshTime')) {
 
 
 let mouseAutoHideTimer; // Variable to store the mouseAutoHideTime ID
+let carouselTimer; // Variable to store the carouselTimer ID
+let refreshContentTimer; // Variable to store the refreshContentTimer ID
 
 
 carouselSpeedInput.value = carouselSpeed / 1000; // Set the defualt load value of the carousel speed input
@@ -35,42 +38,38 @@ minutes.value = Math.floor((autoRefreshTime % (60 * 60 * 1000)) / (60 * 1000)); 
 
 imageCarousel.onerror = function() {
     console.log("Error loading image:", imageCarousel.src);
-    displayNextImage(); 
+    images.splice(currentIndex, 1);
 }
 
 
 function displayNextImage() {
     const currentImage = images[currentIndex];
-    if (images.length === 0) {
-        console.log("No images to display");
-    } else {
-        console.log("Next image")
-        imageCarousel.src = pathToEventImages + currentImage.path;
-        currentIndex = (currentIndex + 1) % images.length;
-    }
+    imageCarousel.src = pathToEventImages + currentImage.path;
+    currentIndex = (currentIndex + 1) % images.length;
+    console.log("Next image");
 }
 
 function continueCarousel() {
-    displayNextImage();
-    setTimeout(continueCarousel, carouselSpeed);
+    clearTimeout(carouselTimer);
+    if (images.length > 0) {
+        displayNextImage();
+    } else {
+        console.log("No images to display");
+    }
+    carouselTimer = setTimeout(continueCarousel, carouselSpeed);
 }
 
 
 function fetchUpcomingImages() {
     fetch('/api/getFutureImages')
-      .then(response => response.json())
-      .then(incomingImages => {
-            images = incomingImages;
-            console.log(images);
-            displayNextImage();
-      })
-          .catch(error => console.error('Error fetching upcoming images:', error));
+    .then(response => response.json())
+    .then(incomingImages => {
+        images = incomingImages;
+        console.log(images);
+        continueCarousel();
+    })
+    .catch(error => console.error('Error fetching upcoming images:', error));
 }
-
-
-
-// Automatically refresh the page
-setTimeout(fetchUpcomingImages, autoRefreshTime);
 
 // hide optionsMenu after a few seconds
 setTimeout(function() {
@@ -87,25 +86,32 @@ setTimeout(function() {
         if (autoRefreshTime < (10 * 1000)) { 
             autoRefreshTime = 10000; // if less than 10 seconds, set to 10 seconds
         }
-        fetchUpcomingImages();
         console.log("Auto refresh time:", autoRefreshTime);
+        fetchUpcomingImages();
         localStorage.setItem('autoRefreshTime', autoRefreshTime);
     });
 });
 
-carouselSpeedInput. addEventListener('change', function() {
+carouselSpeedInput.addEventListener('change', function() {
     carouselSpeed = carouselSpeedInput.value * 1000;
     if (carouselSpeed < 1000) {
         carouselSpeed = 1000;
     }
     console.log("Carousel speed:", carouselSpeed);
+    continueCarousel();
     localStorage.setItem('carouselSpeed', carouselSpeed);
 });
 
-fetchUpcomingImages();
+// Automatically refresh the page
+function automaticallyFetchImages() {
+    clearTimeout(refreshContentTimer);
+    fetchUpcomingImages();
+    refreshContentTimer = setTimeout(automaticallyFetchImages, autoRefreshTime);
+}
+
+
+automaticallyFetchImages();
 continueCarousel();
-
-
 
 
 
