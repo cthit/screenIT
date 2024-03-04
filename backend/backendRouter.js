@@ -137,11 +137,10 @@ backRouter.post('/updatePerson', (req, res) => {
 
 	const personIndex = people.findIndex(person => person.id === req.body.id);
 	
-	people[personIndex] = {
-		username: req.body.username,
-		password: req.body.password,
-		id: req.body.id
-	};
+	people[personIndex].username = req.body.username,
+	people[personIndex].password = req.body.password,
+	people[personIndex].id = req.body.id
+	
 	if (userHasPermission(adminKey, "admin")) {
 		people[personIndex].accountType = req.body.accountType;
 	} else {

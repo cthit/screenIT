@@ -88,7 +88,6 @@ function createPersonDiv(person) {
             id: person.id
         }
 
-
         await fetch('/api/updatePerson', {
             method: 'POST',
             headers: {

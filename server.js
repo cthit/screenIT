@@ -66,9 +66,14 @@ app.post('/login', (req, res) => {
     const username = req.body.username; // Extract username from request body
     const password = req.body.password; // Extract password from request body
 
+    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
+    userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
+
+    const userId = userCredentials.find(user => user.username === username && user.password === password).id;
+
     if (credentialsIsValid(username, password)) {
         let adminKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        saveAdminKey(adminKey, username);
+        saveAdminKey(adminKey, userId);
         res.status(200).json({ adminKey }); // Send the content back to the client
     } else {
         res.status(401).json({ error: 'Invalid credentials' });
@@ -108,8 +113,9 @@ function getUserFromAdminKey(adminKey) {
     // Find the user with the same username as the admin key
     let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
     userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
-    const user = userCredentials.find(user => user.username === adminKeyData.username);
+    const user = userCredentials.find(user => user.id === adminKeyData.id);
 
+    // console.log(adminKey)
     // console.log(user);
 
     return user;
@@ -130,9 +136,9 @@ export function getUserIdFromAdminKey(adminKey) {
     return user.id;
 }
 
-function saveAdminKey(adminKey, username) {
+function saveAdminKey(adminKey, id) {
     const currentDate = new Date().toISOString();
-    const adminKeyData = { key: adminKey, username: username, date: currentDate };
+    const adminKeyData = { key: adminKey, id: id, date: currentDate };
 
     // Read existing admin keys from file, or create an empty array if the file doesn't exist
     let adminKeys = [];
