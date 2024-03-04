@@ -15,6 +15,7 @@
     padding-top: 4rem;
     outline: 3px solid #fff;
     border-radius: 1rem;
+    margin-top: 4rem;
 }
 
 .mainDiv h1 {
@@ -30,7 +31,14 @@
     width: 259px;
 }
 
-.imagePreviewDiv {
+
+/* ------ UPLOAD INPUT DIV ------ */
+
+.uploadInputDiv {
+    margin-bottom: 2rem;
+}
+
+.uploadImagePreview {
     font-family: Arial, sans-serif;
 
     display: flex;
@@ -38,19 +46,19 @@
     align-items: center;
     gap: 1.3rem;
 
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+
+    outline: 1px solid #fff;
+    border-radius: .1rem;
 }
 
-.imagePreviewDiv img {
+.uploadInputDiv img {
     background: var(--inputBackgroundColor);
     border-radius: .1rem;
     height: 2rem;
 }
 
-.imagePreviewDiv p {
+.uploadInputDiv p {
     word-break: break-all;
-
-    /* width: ; */
     margin: 0;
 }
+

@@ -29,6 +29,7 @@ body {
 
     position: relative;
 
+    height: auto;
     min-width: 100vw;
     min-height: calc(100vh  - 4rem); /* To make space for the footer */
     padding: 0;
@@ -50,7 +51,6 @@ body {
 
 body * {
     max-width: 100vw;
-    max-height: 100vh;
 }
 
 /* ------ OPTIONS MENU ------ */

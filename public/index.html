@@ -11,9 +11,6 @@
     <script src="js/script.js"></script>
     <script src="js/login.js" defer></script>
     <script src="js/upload.js" defer></script>
-    
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 <body>
     <div id="uploadImageDiv" class="mainDiv">
@@ -23,13 +20,20 @@
 
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="date">Date of the event:</label>
-            <input type="date" id="date" name="date">
 
-            <!-- <label for="image">Imageposter:</label> -->
+            <!-- <div id="calendarPreviewDiv" class="uploadInputDiv datediv">
+                <img class="imagePreview" src="img/icons/calendar.svg" alt="Calendar">
+                <p class="imagePreviewText">2024-05-12</p>
+            </div> -->
+
+            <input type="date" id="dateInput" class="uploadInputDiv" name="date">
+
+
+            <label for="image">Imageposter:</label>
             <input type="file" id="imageInput" class="hidden" name="image" accept="image/*">
 
-            <div id="imagePreviewDiv" class="imagePreviewDiv">
-                <img id="imagePreview" class="imagePreview" src="img/icons/upload.svg" alt="Image preview">
+            <div id="imagePreviewDiv" class="uploadInputDiv uploadImagePreview">
+                <img id="imagePreview" class="imagePreview" src="img/icons/upload.svg" alt="upload icon">
                 <p id="imagePreviewText" class="imagePreviewText">No file chosen yet</p>
             </div>
 

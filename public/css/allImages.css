@@ -2,14 +2,13 @@
 
 #imagesDiv {
     display: flex;
-    flex-direction: row;
-    align-items: start;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    /* flex-wrap: wrap; */
     gap: 2rem;
 
     width: 80vw;
-    margin-top: 6rem;
-
+    margin-top: 8rem;
 }
 
 .imgDiv {
@@ -23,7 +22,8 @@
 }
 
 .imgDiv img {
-    height: 14rem;
+    /* height: 14rem; */
+    width: 12rem;
 }
 
 .imgDiv p {

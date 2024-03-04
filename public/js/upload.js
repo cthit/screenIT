@@ -1,14 +1,16 @@
-const imageInput = document.getElementById('imageInput');
-const date = document.getElementById('date');
 const notification = document.getElementById('notification');
 const uploadImageDiv = document.getElementById('uploadImageDiv');
 
 const imagePreviewDiv = document.getElementById('imagePreviewDiv');
-const imagePreview = document.getElementById('imagePreview');
 const imagePreviewText = document.getElementById('imagePreviewText');
+const imageInput = document.getElementById('imageInput');
+
+const dateInput = document.getElementById('dateInput');
+
+
+
 
 const notificationTime = 2.5 * 1000;
-
 
 
 function createRandomSuffix(){
@@ -21,7 +23,7 @@ function uploadImage() {
     const formData = new FormData();
     formData.append('adminKey', adminKey);
     formData.append('image', imageInput.files[0]);
-    formData.append('validUntil', date.value);
+    formData.append('validUntil', dateInput.value);
     formData.append('id', createRandomSuffix());
 
     fetch('/api/upload', {
