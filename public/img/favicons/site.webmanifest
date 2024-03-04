@@ -1,6 +1,7 @@
 {
     "name": "screenIT",
     "short_name": "screenIT",
+    "start_url": "/",
     "icons": [
         {
             "src": "/img/favicons/android-chrome-192x192.png",
@@ -13,7 +14,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#212121",
+    "theme_color": "#2f4f4f",
     "background_color": "#212121",
     "display": "standalone"
 }

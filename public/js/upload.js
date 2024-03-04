@@ -1,7 +1,11 @@
-const image = document.getElementById('image');
+const imageInput = document.getElementById('imageInput');
 const date = document.getElementById('date');
 const notification = document.getElementById('notification');
 const uploadImageDiv = document.getElementById('uploadImageDiv');
+
+const imagePreviewDiv = document.getElementById('imagePreviewDiv');
+const imagePreview = document.getElementById('imagePreview');
+const imagePreviewText = document.getElementById('imagePreviewText');
 
 const notificationTime = 2.5 * 1000;
 
@@ -14,13 +18,11 @@ function createRandomSuffix(){
 
 
 function uploadImage() {
-
     const formData = new FormData();
     formData.append('adminKey', adminKey);
-    formData.append('image', image.files[0]);
+    formData.append('image', imageInput.files[0]);
     formData.append('validUntil', date.value);
     formData.append('id', createRandomSuffix());
-
 
     fetch('/api/upload', {
         method: 'POST',
@@ -40,3 +42,13 @@ function uploadImage() {
         console.error('Error uploading image:', error);
     });
 }
+
+imagePreviewDiv.addEventListener('click', () => {
+    imageInput.click();
+});
+
+imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+
+    imagePreviewText.textContent = file.name;
+});

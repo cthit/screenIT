@@ -11,22 +11,11 @@
     <script src="js/script.js"></script>
     <script src="js/login.js" defer></script>
     <script src="js/upload.js" defer></script>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/img/favicons/site.webmanifest">
-    <link rel="mask-icon" href="/img/favicons/safari-pinned-tab.svg" color="#212121">
-    <link rel="shortcut icon" href="/img/favicons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#212121">
-    <meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#212121">
 </head>
 <body>
-
-
     <div id="uploadImageDiv" class="mainDiv">
         <p id="notification" class="notification">
         </p>
@@ -34,10 +23,15 @@
 
         <form id="uploadForm" enctype="multipart/form-data">
             <label for="date">Date of the event:</label>
-            <input type="date" id="date" name="date"><br>
+            <input type="date" id="date" name="date">
 
             <!-- <label for="image">Imageposter:</label> -->
-            <input type="file" id="image" name="image" accept="image/*"><br>
+            <input type="file" id="imageInput" class="hidden" name="image" accept="image/*">
+
+            <div id="imagePreviewDiv" class="imagePreviewDiv">
+                <img id="imagePreview" class="imagePreview" src="img/icons/upload.svg" alt="Image preview">
+                <p id="imagePreviewText" class="imagePreviewText">No file chosen yet</p>
+            </div>
 
             <button type="button" onclick="uploadImage()">Upload</button>
         </form>
