@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import fs from 'fs';
 
-import { isAdminKeyValid, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
+import { getUsernameFromAdminKey, isAdminKeyValid, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
 
 const imageRouter = Router();
 
@@ -31,7 +31,8 @@ imageRouter.post('/testAdminKey', (req, res) => {
     const adminKey = req.body.adminKey; // Extract admin key from request body
 
     if (isAdminKeyValid(adminKey)) {
-        res.status(200).json("Adminkey is valid");
+        const username = getUsernameFromAdminKey(adminKey);
+        res.status(200).json({ username: username});
         return;
     }
     res.status(401).json("Adminkey is not valid");

@@ -130,9 +130,13 @@ function createImgDiv(image) {
     dateP.textContent = sortElement;
     dateP.classList.add("dateP");
     imgDiv.appendChild(dateP);
-
-    let removeImageButton = createRemoveImageButton(image, imgDiv);
-    imgDiv.appendChild(removeImageButton);
+    console.log(username)
+    setTimeout(() => {
+        if (image.createdBy === username){
+            let removeImageButton = createRemoveImageButton(image, imgDiv);
+            imgDiv.appendChild(removeImageButton);
+        }
+    }, 100);
 
     return imgDiv;
 }

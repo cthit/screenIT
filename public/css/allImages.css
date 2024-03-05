@@ -138,14 +138,16 @@ h1 {
 }
 
 .sortControll>p {
-    vertical-align: middle;
-
     padding: .5rem;
     border-right: 1px solid #fff;
     margin: 0;
 }
 
-.selectedSort {
+.sortControll:hover>p {
+    background: var(--lighterBackgroundColor);
+}
+
+.sortControllDiv .sortControll .selectedSort {
     background: #fff;
     color: #000;
 }

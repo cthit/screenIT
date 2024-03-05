@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { uploadPost } from './multer.js';
-import { addImage, removeImage } from './imgHandler.js';
+import { addImage, removeImage, imageIsUploadedByUser } from './imgHandler.js';
 import fs from 'fs';
 import * as path from 'path';
 
 
-import { isAdminKeyValid, getUsernameFromAdminKey, pathToEventImages, pathToImagesFile, logEvent, userHasPermission } from '../server.js'
+import { isAdminKeyValid, getUsernameFromAdminKey, pathToEventImages, pathToImagesFile, pathToUsersFile, logEvent, userHasPermission, getUserIdFromAdminKey } from '../server.js'
 
 const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -22,7 +22,7 @@ imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 		path: path.basename(req.file.path),
 		date: req.body.validUntil,
 		creationDate: new Date().toISOString(),
-		createdBy: getUsernameFromAdminKey(req.body.adminKey)
+		createdBy: getUserIdFromAdminKey(req.body.adminKey)
 	}
 
 	addImage(newPost, pathToImagesFile);
@@ -31,22 +31,23 @@ imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 });
 
 imageRouter.post('/removeImage', (req, res) => {
-	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
+	const image = req.body.image;
+	const adminKey = req.body.adminKey;
+	if (!isAdminKeyValid(adminKey)) return res.status(403).send("Adminkey not valid");
+	if (!userHasPermission(adminKey, "admin" || !imageIsUploadedByUser(image, getUserIdFromAdminKey))) return res.status(403).send("User does not have permission to remove images");
 
-	console.log(req.body);
 	logEvent({
 		event: "Image removed",
 		user: getUsernameFromAdminKey(req.body.adminKey),
 		adminKey: req.body.adminKey,
-		image: req.body.image
+		image: image
 	});
 
-	removeImage(req.body.image, pathToImagesFile, pathToEventImages);
+	removeImage(image, pathToImagesFile, pathToEventImages);
 
 
 	res.status(200).send("Image removed successfully!");
 });
-
 
 
 imageRouter.get('/getFutureImages', (req, res) => {
@@ -63,12 +64,22 @@ imageRouter.get('/getFutureImages', (req, res) => {
 		return currentTime <= postDate && postDate < lastAllowedDay;
 	});
 
+
     res.status(200).send(activePosts);
 });
 
 imageRouter.get('/getAllImages', (req, res) => {
 	let allImages = fs.readFileSync(pathToImagesFile, 'utf8');
 	allImages = JSON.parse(allImages);
+
+	let users = fs.readFileSync(pathToUsersFile, 'utf8');
+	users = JSON.parse(users);
+	allImages.forEach(image => {
+		console.log(users.find(user => user.id === image.createdBy))
+		image.createdBy = users.find(user => user.id === image.createdBy).username;
+	});
+	// console.log(allImages)
+
 	res.status(200).send(allImages);
 });
 

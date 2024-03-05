@@ -15,6 +15,7 @@ let logOutFunctions = [];
 
 let isLoggedIn = false;
 let adminKey = null;
+
 let username = null;
 
 const loginNotificationTime = 3 * 1000; // 3 seconds
@@ -123,7 +124,6 @@ function login() {
 
 function testAdminKeyOnLoad() {
     adminKey = localStorage.getItem('adminKey');
-    // console.log('adminKey: ', adminKey);
     if (adminKey) {
         fetch('/api/auth/testAdminKey', {
             method: 'POST',
@@ -143,8 +143,12 @@ function testAdminKeyOnLoad() {
             } else if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response;
+            return response.json();
         })
+        .then(data => {
+            username = data.username;
+            console.log('username: ', data.username);        
+        });
     }
 }
 
