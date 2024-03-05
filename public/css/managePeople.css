@@ -37,6 +37,7 @@ h1 {
     font-family: "Kode Mono";
 
     width: 30%; 
+    padding-left: .35rem;
     border: none;
     margin: 0;
 }

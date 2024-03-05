@@ -51,10 +51,22 @@
     border-radius: .1rem;
 }
 
-.uploadInputDiv img {
+.imagePreview {
     background: var(--inputBackgroundColor);
-    border-radius: .1rem;
+
     height: 2rem;
+    border-radius: .1rem;
+
+    transition: all .3s ease-in-out;
+}
+
+.imagePreview:hover {
+    background: var(--inputHoverColor);
+
+    border-radius: 100%;
+
+    transform: rotate(360deg);
+    transition: all .3s ease-in-out;
 }
 
 .uploadInputDiv p {

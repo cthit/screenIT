@@ -58,10 +58,18 @@ function createPersonDiv(person) {
 
     const username = document.createElement('input');
     username.value = person.username;
+    username.addEventListener('change', () => {
+        if (username.value !== person.username) username.classList.add('changedField');
+        else username.classList.remove('changedField');
+    });
     personDiv.appendChild(username);
 
     const password = document.createElement('input');
     password.value = person.password;
+    password.addEventListener('change', () => {
+        if (password.value !== person.password) password.classList.add('changedField');
+        else password.classList.remove('changedField');
+    });
     personDiv.appendChild(password);
 
     const accountTypeSelect = document.createElement('select');
@@ -73,7 +81,13 @@ function createPersonDiv(person) {
         accountTypeSelect.appendChild(option);
     });
     accountTypeSelect.value = person.accountType;
+    accountTypeSelect.addEventListener('change', () => {
+        if (accountTypeSelect.value !== person.accountType) accountTypeSelect.classList.add('changedField');
+        else username.classList.remove('changedField');
+    });
     personDiv.appendChild(accountTypeSelect);
+
+  
 
     const updateButton = document.createElement('img');
     updateButton.src = '/img/icons/check.svg';

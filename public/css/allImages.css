@@ -44,15 +44,20 @@ h1 {
 
 
 .imgDiv {
-    outline: 1px solid #fff;
-
+    overflow: hidden;
+    
     position: relative;
 
     max-width: 80vw;
-    border-radius: .3rem;
-
     height: 21rem;
     width: 15rem;
+    outline: 1px solid #fff;
+    border-radius: .3rem;
+}
+
+.imgDiv:hover {
+    background: var(--barelyLighterBackgroundColor);
+    background: radial-gradient(circle, #1d1a2d 0%,  #1d1a2d 50%, #000000 100%);
 }
 
 .imgContainer {
@@ -81,7 +86,7 @@ h1 {
 }
 
 .removeImageButton {
-    background: rgb(255, 0, 0);
+    background: var(--removeButtonColor);
     opacity: 0;
 
     cursor: pointer;
@@ -97,7 +102,14 @@ h1 {
     width: max-content; 
     height: max-content;
     padding: 0 0 1rem 1rem;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
     border-bottom-left-radius: 7.5rem;
+}
+
+.removeImageButton:hover {
+    background: var(--removeButtonHoverColor);
+    /* transform: scale(1.1); */
 }
 
 .imgDiv:hover .removeImageButton {
@@ -133,13 +145,13 @@ h1 {
     flex-direction: row;
     align-items: center;
 
-    border: 1px solid #fff;
+    border: 1px solid var(--borderColor);
     border-radius: .1rem;
 }
 
 .sortControll>p {
     padding: .5rem;
-    border-right: 1px solid #fff;
+    border-right: 1px solid var(--borderColor);
     margin: 0;
 }
 

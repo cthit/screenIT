@@ -5,13 +5,20 @@
 
 :root {
     --backgroundColor: #212121;
+    --barelyLighterBackgroundColor: #1c1c1c;
     --lighterBackgroundColor: #2f2f2f;
     --textColor: #fff;
 
+    --borderColor: #fff;
+
     --buttonColor: #2f4f4f;
     --buttonHoverColor: #162424;
-    --inputBackgroundColor: #f0f0f0
-    ;
+
+    --inputBackgroundColor: #f0f0f0;
+    --inputHoverColor: #c5c5c5;
+
+    --removeButtonColor: #ff0000;
+    --removeButtonHoverColor: #cd0000;
 
     --mainNotificationColor: #189618;
 }
@@ -45,7 +52,9 @@ body {
 }
 
 .changedField {
-    outline: 1px solid orange;
+    /* outline: .1rem solid orange;
+    border-radius: .3rem; */
+    color: orange !important;
 }
 
 body * {
