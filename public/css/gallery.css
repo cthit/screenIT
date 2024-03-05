@@ -48,3 +48,35 @@
     align-items: center;
     margin-bottom: 1rem;
 }
+
+
+
+
+.easterEgg {
+    /* background: red; */
+
+    position: absolute;
+    bottom: 7%;
+    left: 7%;
+
+    width: auto;
+    height: auto;
+}
+
+.easterEgg img {
+    height: 3rem;
+}
+
+.speech-bubble {
+    position: absolute;
+    background-color: #ffffff;
+    color: #000;
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 10px;
+    width: max-content;
+    max-width: 22rem;
+    z-index: 1;
+    top: -2rem; /* Adjust positioning to place the speech bubble above the character */
+    left: 3rem; /* Adjust positioning to place the speech bubble near the character */
+}

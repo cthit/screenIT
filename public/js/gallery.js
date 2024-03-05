@@ -138,3 +138,48 @@ document.addEventListener('mousemove', () => {
 
 // Initial call to reset the mouseAutoHideTimer
 resetTimer();
+
+
+
+
+
+
+
+// Easter egg
+
+const hubbenRattanMessages = [
+    "Aspa Göken :)",
+    "Hubbenråttan gillar eventskärmen",
+    "Finns det några popcorn på free-loot hyllan?",
+    "Jag undrar vad som händer i The cloud just nu..."
+]
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function displayHubbiRatti(message, time) {
+    const hubbiRatti = document.getElementById('hubbiRatti');
+    const hubbiRattiImg = document.getElementById('hubbiRattiImg')
+    const SpeechBubble = document.getElementById('hubbiRattiSpeechBubble');
+
+    hubbiRatti.classList.remove("hidden");
+    SpeechBubble.textContent = message;
+
+    if (getRandomInt(0, 2) === 0) {
+        hubbiRattiImg.src = "../img/easterEggs/hubben-rattan.png"
+    } else {
+        hubbiRattiImg.src = "../img/easterEggs/hubben-rattan-eating.gif"
+    }
+
+    setTimeout(() => {   hubbiRatti.classList.add("hidden");}, time)
+
+    message = hubbenRattanMessages[getRandomInt(0, hubbenRattanMessages.length - 1)];
+    setTimeout(() => {
+        displayHubbiRatti(message, 3 * 1000)
+    }, getRandomInt(10, 30) * 1000); // set how often hubben råttan should appear
+}
+
+
+displayHubbiRatti("Mission accepted", 2 * 1000)
