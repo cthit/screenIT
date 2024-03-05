@@ -30,7 +30,6 @@ body {
     position: relative;
 
     height: auto;
-    min-width: 100vw;
     min-height: calc(100vh  - 4rem); /* To make space for the footer */
     padding: 0;
     padding-bottom: 4rem; /* To make space for the footer */
@@ -51,6 +50,12 @@ body {
 
 body * {
     max-width: 100vw;
+}
+
+/* ------ RESET ------ */
+
+p {
+    margin: 0;
 }
 
 /* ------ OPTIONS MENU ------ */
@@ -106,8 +111,9 @@ body * {
 
     
     position: fixed;
-    top: calc(50% - 20vw/2 - 2rem);
-    left: calc(50% - 30vw/2 - 2rem);
+
+    min-height: 20rem;
+    min-width: 30rem;
 
     height: 20vw;
     width: 30vw;
@@ -115,26 +121,34 @@ body * {
     padding-top: 4rem;
     outline: 3px solid #fff;
     border-radius: 1rem;
-    min-height: 20rem;
-    min-width: 30rem;
 
     z-index: 1000;
 }
 
 .closeButton {
     background: grey;
-    background-image: url("../img//icons/close.svg");
+    /* background-image: url("../img//icons/close.svg");
     background-size: cover;
-    background-position: center; 
+    background-position: center;  */
 
     position: absolute;
     top: 0;
     right: 0;
 
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     padding: .5rem;
     border-radius: 0 0 0 .3rem;
+}
+
+.closeButton:active {
+    transform: scale(0.95);
+}
+
+.closeButton img {
+    width: 100%;
+    height: 100%;
+
 }
 
 

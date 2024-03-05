@@ -1,13 +1,20 @@
 import express from 'express';
 import fs from 'fs';
-import backRouter from './backend/backendRouter.js';
+// import backRouter from './backend/backendRouter.js';
+import imageRouter from './backend/imageRouter.js';
+import peopleRouter from './backend/peopleRouter.js';
+import loginRouter from './backend/loginRouter.js';
+
 
 const app = express();
 const port = 8000;
 
 app.use(express.json());
 
-app.use('/api',backRouter)
+// app.use('/api',backRouter)
+app.use('/api/auth', loginRouter);
+app.use('/api/people', peopleRouter);
+app.use('/api/images', imageRouter);
 
 
 // Serve static files from the 'public' folder
@@ -21,7 +28,7 @@ app.use('/admin',express.static('public/admin.html'));
 
 
 export const pathToImagesFile = "images.json";
-const pathToAdminKeysFile = "adminKeys.json";
+export const pathToAdminKeysFile = "adminKeys.json";
 export const pathToUsersFile = "users.json";
 export const pathToEventImages = "public/img/eventImages/";
 export const pathToLogFile = "logs.json";
@@ -60,48 +67,6 @@ export function userHasPermission(adminKey, accountType) {
 }
 
 
-
-// LOGIN SYSTEM
-app.post('/login', (req, res) => {
-    const username = req.body.username; // Extract username from request body
-    const password = req.body.password; // Extract password from request body
-
-    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
-    userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
-
-    const userId = userCredentials.find(user => user.username === username && user.password === password).id;
-
-    if (credentialsIsValid(username, password)) {
-        let adminKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        saveAdminKey(adminKey, userId);
-        res.status(200).json({ adminKey }); // Send the content back to the client
-    } else {
-        res.status(401).json({ error: 'Invalid credentials' });
-    }
-});
-
-app.post('/testAdminKey', (req, res) => {
-    const adminKey = req.body.adminKey; // Extract admin key from request body
-
-    if (isAdminKeyValid(adminKey)) {
-        res.status(200).json("Adminkey is valid");
-        return;
-    }
-    res.status(401).json("Adminkey is not valid");
-});
-
-function credentialsIsValid(username, pass) {
-    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
-    userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
-
-    for (const user of userCredentials) {
-        if (user.username === username && user.password === pass) {
-            return true;
-        }
-    }
-    return false;
-}
-
 function getUserFromAdminKey(adminKey) {
     const validAdminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
     // Find the admin key in the adminKeys array
@@ -114,9 +79,6 @@ function getUserFromAdminKey(adminKey) {
     let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
     userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
     const user = userCredentials.find(user => user.id === adminKeyData.id);
-
-    // console.log(adminKey)
-    // console.log(user);
 
     return user;
 }   
@@ -136,23 +98,6 @@ export function getUserIdFromAdminKey(adminKey) {
     return user.id;
 }
 
-function saveAdminKey(adminKey, id) {
-    const currentDate = new Date().toISOString();
-    const adminKeyData = { key: adminKey, id: id, date: currentDate };
-
-    // Read existing admin keys from file, or create an empty array if the file doesn't exist
-    let adminKeys = [];
-    if (fs.existsSync(pathToAdminKeysFile)) {
-        adminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
-    }
-
-    // Add the new admin key data to the array
-    adminKeys.push(adminKeyData);
-
-    // Write the updated admin keys array back to the file
-    fs.writeFileSync(pathToAdminKeysFile, JSON.stringify(adminKeys, null, 2));
-  }
-
 export function isAdminKeyValid(adminKey) {
     const currentDate = new Date();
     const validAdminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
@@ -168,8 +113,6 @@ export function isAdminKeyValid(adminKey) {
 
     return savedDate >= validTimeForAdminKey;
 }
-
-
 
 
 

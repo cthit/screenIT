@@ -10,7 +10,7 @@ logOutFunctions.push(populatePeopleList);
 
 
 async function getPeople() {
-    return fetch('/api/getPeople', {
+    return fetch('/api/people/getPeople', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ function createPersonDiv(person) {
             id: person.id
         }
 
-        await fetch('/api/updatePerson', {
+        await fetch('/api/people/updatePerson', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -120,7 +120,7 @@ function createPersonDiv(person) {
             adminKey: adminKey,
             id: person.id
         }
-        await fetch('/api/removePerson', {
+        await fetch('/api/people/removePerson', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -186,7 +186,7 @@ function createAddPersonDiv() {
             accountType: accountTypeSelect.value
         }
 
-        await fetch('/api/addPerson', {
+        await fetch('/api/people/addPerson', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -2,7 +2,7 @@
 createLoginDiv();
 const loginDiv = document.getElementById('loginDiv');
 const submitLoginButton = document.getElementById('submitLoginButton');
-const openCreatePostButton = document.getElementById('openCreatePostButton');
+// const openCreatePostButton = document.getElementById('openCreatePostButton');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 
@@ -28,8 +28,16 @@ function createLoginDiv() {
     loginDiv.classList.add('popupWindow', 'hidden');
 
     let closeButton = document.createElement('div');
+
+        let closeButtonImg = document.createElement('img');
+        closeButtonImg.src = '/img/icons/close.svg';
+        closeButton.appendChild(closeButtonImg);
+    
     closeButton.classList.add('closeButton');
     loginDiv.appendChild(closeButton);
+    closeButton.addEventListener('click', () => {
+        loginDiv.classList.add('hidden');
+    });
 
     let loginForm = document.createElement('div');
     loginForm.classList.add('loginForm');
@@ -39,6 +47,7 @@ function createLoginDiv() {
     usernameInput.type = 'text';
     usernameInput.id = 'username';
     usernameInput.placeholder = 'Username';
+    usernameInput.autocomplete = 'on';
     usernameInput.required = true;
     loginForm.appendChild(usernameInput);
 
@@ -46,6 +55,7 @@ function createLoginDiv() {
     passwordInput.type = 'password';
     passwordInput.id = 'password';
     passwordInput.placeholder = 'Password';
+    passwordInput.autocomplete = 'on';
     passwordInput.required = true;
     loginForm.appendChild(passwordInput);
 
@@ -82,7 +92,7 @@ function login() {
         password: passwordInput.value
     };
 
-    fetch('/login', {
+    fetch('/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -115,7 +125,7 @@ function testAdminKeyOnLoad() {
     adminKey = localStorage.getItem('adminKey');
     // console.log('adminKey: ', adminKey);
     if (adminKey) {
-        fetch('/testAdminKey', {
+        fetch('/api/auth/testAdminKey', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

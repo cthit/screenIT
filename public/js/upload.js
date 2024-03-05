@@ -26,7 +26,7 @@ function uploadImage() {
     formData.append('validUntil', dateInput.value);
     formData.append('id', createRandomSuffix());
 
-    fetch('/api/upload', {
+    fetch('/api/images/upload', {
         method: 'POST',
         body: formData
     })

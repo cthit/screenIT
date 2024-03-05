@@ -61,7 +61,7 @@ function continueCarousel() {
 
 
 function fetchUpcomingImages() {
-    fetch('/api/getFutureImages')
+    fetch('/api/images/getFutureImages')
     .then(response => response.json())
     .then(incomingImages => {
         images = incomingImages;

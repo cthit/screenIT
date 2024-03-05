@@ -1,4 +1,8 @@
 
+.allPeopleDiv {
+    margin-top: 4rem;
+}
+
 h1 {
     text-align: center;
 }
@@ -44,4 +48,12 @@ h1 {
 
 .addPersonDiv {
     margin-top: 2rem;
+}
+
+
+
+@media screen and (max-width: 550px){
+    .allPeopleDiv {
+        margin-top: 6rem;
+    }
 }

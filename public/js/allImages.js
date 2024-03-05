@@ -1,38 +1,100 @@
-const imagesDiv = document.getElementById("imagesDiv");
-
+const imagesList = document.getElementById("imagesList");
+const sortControll = document.getElementById("sortControll");
+const committeeSort = document.getElementById("committeeSort");
+const dateSort = document.getElementById("dateSort");
 
 let pathToEventImages = "/img/eventImages/";
 
 logInFunctions.push(showRemoveButtons);
 logOutFunctions.push(hideRemoveButtons);
 
+let sortMethods = ["committeeSort", "dateSort"];
 
-fetch("/api/getAllImages")
-.then(response => response.json())
-.then(incomingImages => {
-    populateImagesList(incomingImages);
-})
-.catch(error => console.error("Error fetching upcoming images:", error));   
 
-function populateImagesList(images) {
-    let date = null;
+function changeSortMethod(newSort) {
+    if (sortMethods.includes(newSort)) {
+        console.log("sorting in")
+        if (newSort === "committeeSort") {
+            selectedSortMethod = "dateSort"; 
+        } else {
+            selectedSortMethod = "committeeSort";
+        }
+    }
+
+    if (selectedSortMethod === "committeeSort") {
+        selectedSortMethod = "dateSort";
+        committeeSort.classList.remove("selectedSort");
+        dateSort.classList.add("selectedSort");
+    } else {
+        selectedSortMethod = "committeeSort";
+        dateSort.classList.remove("selectedSort");
+        committeeSort.classList.add("selectedSort");
+    }
+    localStorage.setItem("selectedSortMethod", selectedSortMethod);
+    populateImagesList();
+}
+
+
+
+changeSortMethod(localStorage.getItem("selectedSortMethod"));
+
+// console.log(selectedSortMethod);
+
+sortControll.addEventListener("click", () => {
+    changeSortMethod();
+    populateImagesList();
+});
+
+
+async function getImages(){
+    try {
+        const response = await fetch("/api/images/getAllImages");
+        const incomingImages = await response.json();
+        return incomingImages;
+    } catch (error) {
+        console.error("Error fetching upcoming images:", error);
+    }
+}
+
+
+async function populateImagesList() {
+    let images = await getImages();
+    imagesList.innerHTML = "";
+
+
+    let property = null;
     let datePosters = null;
 
+    images.sort((a, b) => {
+        if (selectedSortMethod === "committeeSort"){
+            return a.createdBy.localeCompare(b.createdBy);
+        } else {
+            return a.date.localeCompare(b.date);
+        }
+    });
+
     images.forEach(img => {
-        if (img.date !== date) {
-            date = img.date;
+        let sortElement = null;
+        if (selectedSortMethod === "committeeSort"){
+            sortElement = img.createdBy;
+        } else {
+            sortElement = img.date;
+        }
+
+        if (property !== sortElement) {
+            property = sortElement;
 
             let dateSection = document.createElement("div");
             dateSection.classList.add("dateSection");
         
             let dateP = document.createElement("h2");
-            dateP.textContent = date;
+            dateP.textContent = property;
             dateSection.appendChild(dateP);
 
             datePosters = document.createElement("div");
             dateSection.appendChild(datePosters);
 
-            imagesDiv.appendChild(dateSection);
+            imagesList.appendChild(dateSection);
         }
         datePosters.appendChild(createImgDiv(img));
     });
@@ -46,16 +108,28 @@ function createImgDiv(image) {
     let imgDiv = document.createElement("div");
     imgDiv.classList.add("imgDiv");
 
-    const img = document.createElement("img");
-    img.src = pathToEventImages + image.path;
-    img.classList.add("img")
-    imgDiv.appendChild(img);
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("imgContainer");
+
+        const img = document.createElement("img");
+        img.src = pathToEventImages + image.path;
+        img.classList.add("img")
+        imgContainer.appendChild(img);
+
+    imgDiv.appendChild(imgContainer);
 
 
-    // const dateP = document.createElement("p");
-    // dateP.textContent = image.date;
-    // dateP.classList.add("dateP");
-    // imgDiv.appendChild(dateP);
+    let sortElement = null;
+    if (selectedSortMethod === "dateSort"){
+        sortElement = image.createdBy;
+    } else {
+        sortElement = image.date;
+    }
+
+    const dateP = document.createElement("p");
+    dateP.textContent = sortElement;
+    dateP.classList.add("dateP");
+    imgDiv.appendChild(dateP);
 
     let removeImageButton = createRemoveImageButton(image, imgDiv);
     imgDiv.appendChild(removeImageButton);
@@ -75,14 +149,12 @@ function createRemoveImageButton(image, imgDiv){
 
 
     removeImageButton.addEventListener("click", () => {
-        console.log("Remove image button clicked", adminKey);
-
         const data = {
             adminKey: adminKey,
-            id: image.id
+            image: image
         };
     
-        fetch('/api/removeImage', {
+        fetch('/api/images/removeImage', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,3 +190,5 @@ function hideRemoveButtons(){
         removeButtons[i].classList.add("hidden");
     }
 }
+
+populateImagesList();
