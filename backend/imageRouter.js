@@ -75,10 +75,8 @@ imageRouter.get('/getAllImages', (req, res) => {
 	let users = fs.readFileSync(pathToUsersFile, 'utf8');
 	users = JSON.parse(users);
 	allImages.forEach(image => {
-		console.log(users.find(user => user.id === image.createdBy))
 		image.createdBy = users.find(user => user.id === image.createdBy).username;
 	});
-	// console.log(allImages)
 
 	res.status(200).send(allImages);
 });

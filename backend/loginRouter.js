@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import fs from 'fs';
 
-import { getUsernameFromAdminKey, isAdminKeyValid, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
+import { getUserFromAdminKey, getUsernameFromAdminKey, isAdminKeyValid, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
 
 const imageRouter = Router();
 
@@ -13,15 +13,16 @@ imageRouter.post('/login', (req, res) => {
     const username = req.body.username; // Extract username from request body
     const password = req.body.password; // Extract password from request body
 
-    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
-    userCredentials = JSON.parse(userCredentials); // Parse the JSON string into an object
+    let users = fs.readFileSync(pathToUsersFile, 'utf8');
+    users = JSON.parse(users); // Parse the JSON string into an object
 
-    const userId = userCredentials.find(user => user.username === username && user.password === password).id;
+    const user = users.find(user => user.username === username && user.password === password);
+    // console.log(user)
 
     if (credentialsIsValid(username, password)) {
         let adminKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        saveAdminKey(adminKey, userId);
-        res.status(200).json({ adminKey }); // Send the content back to the client
+        saveAdminKey(adminKey, user.id);
+        res.status(200).json({ adminKey: adminKey, user: user.id }); // Send the content back to the client
     } else {
         res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -31,8 +32,8 @@ imageRouter.post('/testAdminKey', (req, res) => {
     const adminKey = req.body.adminKey; // Extract admin key from request body
 
     if (isAdminKeyValid(adminKey)) {
-        const username = getUsernameFromAdminKey(adminKey);
-        res.status(200).json({ username: username});
+        const user = getUserFromAdminKey(adminKey);
+        res.status(200).json({ user: user});
         return;
     }
     res.status(401).json("Adminkey is not valid");

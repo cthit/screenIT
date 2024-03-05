@@ -67,7 +67,7 @@ export function userHasPermission(adminKey, accountType) {
 }
 
 
-function getUserFromAdminKey(adminKey) {
+export function getUserFromAdminKey(adminKey) {
     const validAdminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
     // Find the admin key in the adminKeys array
     const adminKeyData = validAdminKeys.find(keyData => keyData.key === adminKey);

@@ -130,13 +130,21 @@ function createImgDiv(image) {
     dateP.textContent = sortElement;
     dateP.classList.add("dateP");
     imgDiv.appendChild(dateP);
-    console.log(username)
-    setTimeout(() => {
-        if (image.createdBy === username){
+
+    if (user !== null){
+        if (image.createdBy === user.username || user.accountType === "admin"){
             let removeImageButton = createRemoveImageButton(image, imgDiv);
             imgDiv.appendChild(removeImageButton);
         }
-    }, 100);
+    } else {
+        logInFunctions.push(() => { // when logged in, show remove buttons
+            console.log("after", username)
+            if (image.createdBy === user.username || user.accountType === "admin"){
+                let removeImageButton = createRemoveImageButton(image, imgDiv);
+                imgDiv.appendChild(removeImageButton);
+            }
+        })
+    }
 
     return imgDiv;
 }

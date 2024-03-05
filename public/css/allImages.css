@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Rubik+Mono+One&display=swap');
-.imagesDiv {
-    margin-top: 4rem;
-}
+
 
 h1 {
     text-align: center;
@@ -23,11 +21,9 @@ h1 {
 }
 
 .dateSection>h2 {
-    color: #fff;
-
     width: 100%;
     padding: 0;
-    border-bottom: .1rem solid #fff;
+    border-bottom: .1rem solid var(--borderColor);
     margin: 0;
     margin-bottom: 1.5rem;
 }
@@ -42,7 +38,6 @@ h1 {
     gap: 2rem;
 }
 
-
 .imgDiv {
     overflow: hidden;
     
@@ -51,8 +46,9 @@ h1 {
     max-width: 80vw;
     height: 21rem;
     width: 15rem;
-    outline: 1px solid #fff;
+    outline: 1px solid var(--borderColor);
     border-radius: .3rem;
+    margin-top: 4rem;
 }
 
 .imgDiv:hover {
@@ -102,14 +98,13 @@ h1 {
     width: max-content; 
     height: max-content;
     padding: 0 0 1rem 1rem;
-    border-bottom: 2px solid #fff;
-    border-left: 2px solid #fff;
+    border-bottom: 2px solid var(--borderColor);
+    border-left: 2px solid var(--borderColor);
     border-bottom-left-radius: 7.5rem;
 }
 
 .removeImageButton:hover {
     background: var(--removeButtonHoverColor);
-    /* transform: scale(1.1); */
 }
 
 .imgDiv:hover .removeImageButton {
@@ -134,7 +129,7 @@ h1 {
     height: 2rem;
     padding: .5rem;
     border-radius: .3rem;
-    outline: 1px solid #fff;
+    outline: 1px solid var(--borderColor);
 }
 
 .sortControll {
@@ -172,6 +167,7 @@ h1 {
 
     margin-bottom: 4rem;
 }
+
 
 
 @media screen and (max-width: 768px){

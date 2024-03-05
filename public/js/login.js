@@ -16,7 +16,7 @@ let logOutFunctions = [];
 let isLoggedIn = false;
 let adminKey = null;
 
-let username = null;
+let user = null;
 
 const loginNotificationTime = 3 * 1000; // 3 seconds
 
@@ -112,7 +112,7 @@ function login() {
     })
     .then(data => {
         adminKey = data.adminKey;
-        username = usernameInput.value;
+        user = data.user;
 
         localStorage.setItem('adminKey', adminKey);
         console.log("Login successful");
@@ -135,7 +135,6 @@ function testAdminKeyOnLoad() {
         .then(response => {
             if (response.status === 200) {
                 console.log('Saved adminKey was valid');
-                userIsLoggedIn();
             }
             if (response.status === 401) {
                 localStorage.removeItem('adminKey');
@@ -146,8 +145,9 @@ function testAdminKeyOnLoad() {
             return response.json();
         })
         .then(data => {
-            username = data.username;
-            console.log('username: ', data.username);        
+            user = data.user;
+            console.log(user)
+            userIsLoggedIn();
         });
     }
 }

@@ -116,9 +116,11 @@ p {
     flex-direction: column;
     align-items: center;
 
-    position: relative;
-
-    
+    position: static;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     position: fixed;
 
     min-height: 20rem;

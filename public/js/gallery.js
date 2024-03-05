@@ -19,6 +19,10 @@ let carouselSpeed = 8 * 1000; // time each images is shows before going to the n
 let timeBeforeHidingMenus = 5 * 1000; //milliseconds
 let mouseAutoHideTime = 5 * 1000; // Time until the mosuse is hidden (in milliseconds)
 
+let hubbenrattanFrequency = getRandomInt(10, 15) * 60 * 1000; // Time until the mosuse is hidden (in milliseconds)
+hubbenrattanFrequency = 10 * 1000;
+let hubbenrattanDisplayTime = 6 * 1000; // Time until the mosuse is hidden (in milliseconds)
+
 if (localStorage.getItem('carouselSpeed')) {
     carouselSpeed = localStorage.getItem('carouselSpeed');
 }
@@ -151,7 +155,12 @@ const hubbenRattanMessages = [
     "Aspa Göken :)",
     "Hubbenråttan gillar eventskärmen",
     "Finns det några popcorn på free-loot hyllan?",
-    "Jag undrar vad som händer i The cloud just nu..."
+    "Jag undrar vad som händer i The cloud just nu...",
+    "nom nom nom, vattenrör är mumsigt", 
+    "Jag är en riktig Hubbenråtta",
+    "Du har en fin skärm, kan jag få en bit?",
+    "Hmm, jag undrar om det finns något gott i soptunnan...",
+    "Röda m&m's är min favorit",
 ]
 
 function getRandomInt(min, max) {
@@ -177,8 +186,8 @@ function displayHubbiRatti(message, time) {
 
     message = hubbenRattanMessages[getRandomInt(0, hubbenRattanMessages.length - 1)];
     setTimeout(() => {
-        displayHubbiRatti(message, 6 * 1000)
-    }, getRandomInt(10, 15) * 60 * 1000); // set how often hubben råttan should appear
+        displayHubbiRatti(message, hubbenrattanDisplayTime)
+    }, hubbenrattanFrequency); // set how often hubben råttan should appear
 }
 
 
