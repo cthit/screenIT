@@ -177,8 +177,8 @@ function displayHubbiRatti(message, time) {
 
     message = hubbenRattanMessages[getRandomInt(0, hubbenRattanMessages.length - 1)];
     setTimeout(() => {
-        displayHubbiRatti(message, 3 * 1000)
-    }, getRandomInt(10, 30) * 1000); // set how often hubben råttan should appear
+        displayHubbiRatti(message, 6 * 1000)
+    }, getRandomInt(10, 15) * 60 * 1000); // set how often hubben råttan should appear
 }
 
 

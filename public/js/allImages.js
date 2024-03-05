@@ -9,7 +9,7 @@ logInFunctions.push(showRemoveButtons);
 logOutFunctions.push(hideRemoveButtons);
 
 let sortMethods = ["committeeSort", "dateSort"];
-
+let selectedSortMethod;
 
 function changeSortMethod(newSort) {
     if (sortMethods.includes(newSort)) {
