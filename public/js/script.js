@@ -31,6 +31,15 @@ let loginButton; // Declare loginButton in the global scope
 // Function to create menu items dynamically
 function createMenu(callback) {
     var menu = document.createElement("aside");
+
+    menu.addEventListener('click', () => {
+        if (menu.classList.contains('openOptionsMenu')) {
+            menu.classList.remove('openOptionsMenu');
+        } else {
+            menu.classList.add('openOptionsMenu');
+        }
+    });
+
     menu.id = "optionsMenu";
     menu.classList.add("optionsMenu");
 
@@ -142,19 +151,6 @@ function notify(notificationDiv, message, notificationTime, color) {
 
 
 
-
-
-{/* <link rel="manifest" href="/img/favicons/site.webmanifest">
-
-<link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
-
-<link rel="mask-icon" href="/img/favicons/safari-pinned-tab.svg" color="#212121">
-<link rel="shortcut icon" href="/img/favicons/favicon.ico">
-<meta name="msapplication-TileColor" content="#212121">
-<meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
-<meta name="theme-color" content="#212121"> */}
 
 function addManifestThings(){
     // Create link elements

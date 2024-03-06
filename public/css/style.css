@@ -278,6 +278,10 @@ p {
         transition: all .5s ease-in-out;
     }
 
+    .openOptionsMenu {
+        top: 0;
+    }
+
     .optionsMenu>* {
         flex: 1;
     }
@@ -297,7 +301,6 @@ p {
         height: 3rem;
         margin-inline: auto;
         margin-top: 1rem;
-
     }
 
     .optionsMenu:hover, .optionsMenu:active {
@@ -305,5 +308,4 @@ p {
 
         transition: all .5s ease-in-out;
     }
-
 }
