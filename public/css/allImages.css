@@ -170,8 +170,12 @@ h1 {
 
 
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 680px){
     .removeImageButton {
         opacity: 1;
+    }
+
+    .imagesDiv {
+        margin-top: 3rem;
     }
 }

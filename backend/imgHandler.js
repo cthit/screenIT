@@ -34,7 +34,5 @@ export const imageIsUploadedByUser = (image, userId) => {
         return img.id === image.id;
     });
 
-    console.log(uploadedImage.createdBy === userId)
-
     return userId === uploadedImage.createdBy;
 }

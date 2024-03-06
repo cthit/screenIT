@@ -81,15 +81,12 @@ function logout() {
     isLoggedIn = false;
     adminKey = null;
     localStorage.removeItem('adminKey');
+
     for (const button of adminButtons) {
         button.classList.add('hidden');
     }
     openLoginButtonText.textContent = 'Log in';
-    openLoginImage.src = "/img/icons/login.svg";
-
-    const text = document.createElement("p");
-    text.textContent = "Log in";
-    loginButton.appendChild(text);
+    openLoginButtonImage.src = "/img/icons/login.svg";
 
     logOutFunctions.forEach(func => func());
 }

@@ -51,7 +51,7 @@ h1 {
     color: var(--lighterBackgroundColor);
 }
 
-.personDiv .password:hover {
+.personDiv .password:hover, .personDiv .password:focus {
     color: var(--textColor);
 }
 
