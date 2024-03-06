@@ -1,10 +1,13 @@
 
 createLoginDiv();
+createAccountDiv();
 const loginDiv = document.getElementById('loginDiv');
 const submitLoginButton = document.getElementById('submitLoginButton');
 // const openCreatePostButton = document.getElementById('openCreatePostButton');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
+
+const accountDiv = document.getElementById('accountDiv');
 
 const loginNotificationDiv = document.getElementById('loginNotification');
 
@@ -45,22 +48,26 @@ function createLoginDiv() {
     loginDiv.appendChild(loginForm);
 
     let usernameInput = document.createElement('input');
+    usernameInput.classList.add('darkInput');
+
     usernameInput.type = 'text';
     usernameInput.id = 'username';
     usernameInput.placeholder = 'Username';
-    usernameInput.autocomplete = 'on';
+    // usernameInput.autocomplete = 'on';
     usernameInput.required = true;
     loginForm.appendChild(usernameInput);
 
     let passwordInput = document.createElement('input');
-    passwordInput.type = 'password';
+    passwordInput.classList.add('darkInput');
+    // passwordInput.type = 'password';
     passwordInput.id = 'password';
     passwordInput.placeholder = 'Password';
-    passwordInput.autocomplete = 'on';
+    // passwordInput.autocomplete = 'on';
     passwordInput.required = true;
     loginForm.appendChild(passwordInput);
 
-    let submitLoginButton = document.createElement('button');
+    let submitLoginButton = document.createElement('div');
+    submitLoginButton.classList.add('optionsButton', 'submitLoginButton');
     submitLoginButton.id = 'submitLoginButton';
     submitLoginButton.textContent = 'Log in';
     loginForm.appendChild(submitLoginButton);
@@ -180,23 +187,19 @@ function createAccountDiv() {
         buttonDiv.appendChild(saveChangesButton);
 
         
-        let submitLoginButton = document.createElement('div');
-        submitLoginButton.id = 'submitLoginButton';
-        submitLoginButton.classList.add('optionsButton');
-        submitLoginButton.textContent = 'Log Out';
-        buttonDiv.appendChild(submitLoginButton);
-
+        let logOutButton = document.createElement('div');
+        logOutButton.classList.add('optionsButton');
+        logOutButton.textContent = 'Log Out';
+        logOutButton.addEventListener('click', logout);
         
+        buttonDiv.appendChild(logOutButton);
 
+    
     loginForm.appendChild(buttonDiv);
 
 
 
     usernameInput.classList.add('darkInput');
-
-
-
-
 
 
     const notification = document.createElement('div');
@@ -217,24 +220,29 @@ function openAccountDiv() {
 }
 
 
+function changeVisibleOptionButtons() {
+    for (const button of optionButtons) {
+        button.classList.toggle('hidden');
+    }
+}
 
 
 
 function logout() {
-    openAccountDiv();
-    // const openLoginButtonText = document.getElementById('openLoginButtonText');
-    // const openLoginButtonImage = document.getElementById('openLoginButtonImage');
-    // isLoggedIn = false;
-    // adminKey = null;
-    // localStorage.removeItem('adminKey');
+    accountDiv.classList.add('hidden');
+    const openLoginButtonText = document.getElementById('openLoginButtonText');
+    const openLoginButtonImage = document.getElementById('openLoginButtonImage');
+    isLoggedIn = false;
+    adminKey = null;
+    localStorage.removeItem('adminKey');
 
-    // for (const button of adminButtons) {
-    //     button.classList.add('hidden');
-    // }
-    // openLoginButtonText.textContent = 'Log in';
-    // openLoginButtonImage.src = "/img/icons/login.svg";
+    for (const button of adminButtons) {
+        button.classList.add('hidden');
+    }
+    openLoginButtonText.textContent = 'Log in';
+    openLoginButtonImage.src = "/img/icons/login.svg";
 
-    // logOutFunctions.forEach(func => func());
+    logOutFunctions.forEach(func => func());
 }
 
 function login() {
@@ -298,7 +306,6 @@ function testAdminKeyOnLoad() {
         })
         .then(data => {
             user = data.user;
-            console.log(user)
             userIsLoggedIn();
         });
     }
@@ -310,8 +317,8 @@ async function userIsLoggedIn(){
     loginDiv.classList.add('hidden');   
     
     if (loginButton) {
-        openLoginButtonText.textContent = 'Log out'; // TODO: if needed for when loginbutton has not loaded
-        openLoginButtonImage.src = "/img/icons/logout.svg";
+        openLoginButtonText.textContent = 'Account';
+        openLoginButtonImage.src = "/img/icons/person.svg";
     };
     
     usernameInput.value = '';
@@ -326,7 +333,3 @@ async function userIsLoggedIn(){
 
 
 submitLoginButton.addEventListener('click', login);
-
-
-
-createAccountDiv();

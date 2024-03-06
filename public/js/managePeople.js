@@ -10,7 +10,6 @@ logOutFunctions.push(populatePeopleList);
 
 
 async function getPeople() {
-    console.log(adminKey)
     return fetch('/api/people/getPeople', {
         method: 'POST',
         headers: {
@@ -35,8 +34,9 @@ async function getPeople() {
 }
 
 async function populatePeopleList() {
+    if (isLoggedIn === false) return; // dont do anything if not signed in
+    else {
         const people = await getPeople();
-        console.log(people);
 
         peopleList.innerHTML = '';
 
@@ -51,7 +51,7 @@ async function populatePeopleList() {
             const personDiv = peopleList.getElementsByTagName('div')[0];
             personDiv.getElementsByTagName('select')[0].classList.add('hidden');
         }
-    
+    }
 }
 
 function createPersonDiv(person) {
@@ -59,6 +59,7 @@ function createPersonDiv(person) {
     personDiv.classList.add('personDiv');
 
     const username = document.createElement('input');
+    username.classList.add('darkInput');
     username.value = person.username;
     username.addEventListener('change', () => {
         if (username.value !== person.username) username.classList.add('changedField');
@@ -68,7 +69,7 @@ function createPersonDiv(person) {
 
     const password = document.createElement('input');
     password.value = person.password;
-    password.classList.add('password');
+    password.classList.add('darkInput', 'password');
 
     password.addEventListener('change', () => {
         if (password.value !== person.password) password.classList.add('changedField');
@@ -173,10 +174,12 @@ function createAddPersonDiv() {
     personDiv.classList.add('addPersonDiv');
 
     const username = document.createElement('input');
+    username.classList.add('darkInput');
     username.placeholder = 'Username';
     personDiv.appendChild(username);
 
     const password = document.createElement('input');
+    password.classList.add('darkInput');
     password.placeholder = 'Password';
     personDiv.appendChild(password);
 
@@ -221,7 +224,6 @@ function createAddPersonDiv() {
             }
         })
         .then( () => {
-            console.log(data);
             populatePeopleList();
         })
         .catch(error => {

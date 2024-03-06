@@ -24,10 +24,16 @@
     align-items: flex-end;
 
     position: absolute;
-    right: 2rem;
-    bottom: 2rem;   
+    right: 0rem;
+    bottom: 0rem;   
 
+    padding: 1rem 2rem 2rem 1rem;
+    outline: .1rem solid var(--borderColor);
     transition: all .5s ease;
+}
+
+#settingsDiv h3:first-of-type {
+    margin-top: 0rem;
 }
 
 #settingsDiv input {
@@ -50,7 +56,7 @@
 }
 
 
-
+/*  ============== EASTER EGG STYLES ===================== */
 
 .easterEgg {
     /* background: red; */

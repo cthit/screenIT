@@ -52,7 +52,7 @@ body {
 }
 
 .darkInput {
-    background: var(--lighterBackgroundColor);
+    background: var(--lighterBackgroundColor) !important;
     color: #fff;
 
     font-family: "Kode Mono";
@@ -204,16 +204,20 @@ p {
 .credentialsDiv .loginForm {
     display: flex;
     flex-direction: column;
-    gap:.5rem;
+    gap: .8rem;
     width: max-content;
+}
+
+.submitLoginButton {
+    margin-top: 1.2rem;
+    text-align: center; 
+    justify-content: center;
 }
 
 .accountbuttonDiv {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-    margin-top: .5rem;
 }
 
 .accountbuttonDiv .saveAccountCredentials {

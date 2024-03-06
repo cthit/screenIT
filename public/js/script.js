@@ -1,8 +1,8 @@
 var menuItems = [
-    { text: "Upload Images", href: "/index.html", image: "/img/icons/upload.svg"},
-    { text: "Gallery", href: "/gallery.html", image: "/img/icons/slideshow.svg"},
-    { text: "Manage images", href: "/allImages.html", image: "/img/icons/filter1.svg"},
-    { text: "Manage People", href: "/managePeople.html", image: "/img/icons/group.svg" }
+    { text: "Gallery", href: "/gallery.html", image: "/img/icons/slideshow.svg", visibleTo: ["admin", "pr", "user"]},
+    { text: "Upload Images", href: "/index.html", image: "/img/icons/upload.svg", visibleTo: ["admin", "pr"]},
+    { text: "Manage images", href: "/allImages.html", image: "/img/icons/filterImages.svg", visibleTo: ["admin", "pr"]},
+    { text: "Manage People", href: "/managePeople.html", image: "/img/icons/group.svg", visibleTo: ["admin", "pr"]}
 ];
 
 
@@ -39,6 +39,22 @@ function createMenu(callback) {
             const link = document.createElement("a");
             link.href = item.href;
             link.classList.add("optionsButton");
+            if (!item.visibleTo.includes("user")) {
+                link.classList.add("hidden");
+            }
+            logInFunctions.push(() => {
+                if (isLoggedIn && item.visibleTo.includes(user.accountType)) {
+                    link.classList.remove("hidden");
+                } else {
+                    link.classList.add("hidden");
+                }
+            });
+
+            logOutFunctions.push(() => {
+                if (!item.visibleTo.includes("user")) {
+                    link.classList.add("hidden");
+                }
+            });
 
                 const image = document.createElement("img");
                 image.src = item.image;
@@ -51,6 +67,9 @@ function createMenu(callback) {
             menu.appendChild(link);
         }
     });
+
+
+
     
     // Add login button
     loginButton = document.createElement("div"); // Assign to the global loginButton variable
@@ -75,7 +94,7 @@ function createMenu(callback) {
         if (!isLoggedIn) {
             loginDiv.classList.remove('hidden');
         } else {
-            logout();
+            openAccountDiv();
         }
     });
 
