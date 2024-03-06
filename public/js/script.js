@@ -38,7 +38,7 @@ function createMenu(callback) {
         if (item.href !== window.location.pathname) {
             const link = document.createElement("a");
             link.href = item.href;
-            link.classList.add("optionsButton");
+            link.classList.add("optionsButton", "button");
             if (!item.visibleTo.includes("user")) {
                 link.classList.add("hidden");
             }
@@ -74,7 +74,7 @@ function createMenu(callback) {
     // Add login button
     loginButton = document.createElement("div"); // Assign to the global loginButton variable
     loginButton.id = "openLoginButton";
-    loginButton.classList.add("optionsButton");
+    loginButton.classList.add("optionsButton", "button");
         const image = document.createElement("img");
         image.id = "openLoginButtonImage";
         image.src = "/img/icons/login.svg";

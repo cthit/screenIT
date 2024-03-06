@@ -56,4 +56,9 @@ h1 {
     .allPeopleDiv {
         margin-top: 6rem;
     }
+
+    /* .personDiv {
+        flex-wrap: wrap;
+        height: max-content;
+    } */
 }

@@ -136,6 +136,8 @@ h1 {
     font-family: "Rubik Mono One";
     font-size: .8rem;
 
+    cursor: pointer;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -147,7 +149,7 @@ h1 {
 .sortControll>p {
     padding: .5rem;
     border-right: 1px solid var(--borderColor);
-    margin: 0;
+    margin: 0;  
 }
 
 .sortControll:hover>p {
@@ -155,7 +157,7 @@ h1 {
 }
 
 .sortControllDiv .sortControll .selectedSort {
-    background: #fff;
+    background: #189618;
     color: #000;
 }
 

@@ -1,13 +1,13 @@
 const notification = document.getElementById('notification');
 const uploadImageDiv = document.getElementById('uploadImageDiv');
 
+const dateInput = document.getElementById('dateInput');
+
 const imagePreviewDiv = document.getElementById('imagePreviewDiv');
 const imagePreviewText = document.getElementById('imagePreviewText');
 const imageInput = document.getElementById('imageInput');
 
-const dateInput = document.getElementById('dateInput');
-
-
+const uploadImageButton = document.getElementById('uploadImageButton');
 
 
 const notificationTime = 2.5 * 1000;
@@ -53,4 +53,8 @@ imageInput.addEventListener('change', () => {
     const file = imageInput.files[0];
 
     imagePreviewText.textContent = file.name;
+});
+
+uploadImageButton.addEventListener('click', () => {
+    uploadImage();
 });

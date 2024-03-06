@@ -176,13 +176,7 @@ function displayHubbiRatti(message, time) {
     hubbiRatti.classList.remove("hidden");
     SpeechBubble.textContent = message;
 
-    if (getRandomInt(0, 2) === 0) {
-        hubbiRattiImg.src = "../img/easterEggs/hubben-rattan.png"
-    } else {
-        hubbiRattiImg.src = "../img/easterEggs/hubben-rattan-eating.gif"
-    }
-
-    setTimeout(() => {   hubbiRatti.classList.add("hidden");}, time)
+    setTimeout(() => { hubbiRatti.classList.add("hidden"); }, time)
 
     message = hubbenRattanMessages[getRandomInt(0, hubbenRattanMessages.length - 1)];
     setTimeout(() => {

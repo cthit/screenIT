@@ -67,7 +67,7 @@ function createLoginDiv() {
     loginForm.appendChild(passwordInput);
 
     let submitLoginButton = document.createElement('div');
-    submitLoginButton.classList.add('optionsButton', 'submitLoginButton');
+    submitLoginButton.classList.add('button', 'submitLoginButton');
     submitLoginButton.id = 'submitLoginButton';
     submitLoginButton.textContent = 'Log in';
     loginForm.appendChild(submitLoginButton);
@@ -149,7 +149,7 @@ function createAccountDiv() {
 
         const saveChangesButton = document.createElement('div');
         saveChangesButton.id = 'saveChangesButton';
-        saveChangesButton.classList.add('saveAccountCredentials', 'optionsButton');
+        saveChangesButton.classList.add('saveAccountCredentials', 'button');
         saveChangesButton.textContent = 'Save';
 
 
@@ -188,7 +188,7 @@ function createAccountDiv() {
 
         
         let logOutButton = document.createElement('div');
-        logOutButton.classList.add('optionsButton');
+        logOutButton.classList.add('button');
         logOutButton.textContent = 'Log Out';
         logOutButton.addEventListener('click', logout);
         

@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@300&family=Island+Moments&family=Koulen&family=Poppins&family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacques+Francois+Shadow&family=Kode+Mono:wght@400..700&family=Koulen&family=Rubik+Mono+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacques+Francois+Shadow&family=Kode+Mono:wght@400..700&family=Koulen&family=Rubik+Mono+One&display=swap');
+
+
+body    {
+    background: #212121;
+    color: #fff;
+
+    font-size: 18px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    align-items: top;
+    justify-content:space-evenly;
+
+    width: 95vw;
+    height: 15rem;
+    margin-inline: auto;
+}
+
+    
+h1 {
+    font-size: 4.5rem;
+    font-family: "Bebas Neue";
+    font-weight: lighter;
+    text-align: center;
+
+    margin-bottom: 0;
+}
+
+h2 {
+
+    margin-bottom: 1rem;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+
+
+/* ARTICLE */
+
+article {
+    background: #080808;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    gap: 4rem;
+
+    width: 40rem;
+    padding: 1rem 2rem;
+    margin-inline: auto;
+    margin-bottom: 7rem;
+}
+
+section {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+section .imageDiv {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 20%;
+    padding-top: 5%;
+}
+
+.imageDiv img {
+    width: 100%;
+}
+
+.textDiv {
+    flex: 4; /* Takes up two-thirds of the space */
+}
+
+a {
+    color: aqua;
+
+    font-style: normal;
+    text-decoration: none;
+
+    padding: .5rem;
+    border-radius: .1rem;
+    margin-left: -.5rem;
+}
+
+a:hover {
+    background-color: #212121;
+    color: rgb(127, 234, 255);
+
+    font-style: italic;
+}
+
+footer {
+    position: relative !important;
+    /* left: auto; */
+}
