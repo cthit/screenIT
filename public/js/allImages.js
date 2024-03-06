@@ -13,7 +13,6 @@ let selectedSortMethod;
 
 function changeSortMethod(newSort) {
     if (sortMethods.includes(newSort)) {
-        console.log("sorting in")
         if (newSort === "committeeSort") {
             selectedSortMethod = "dateSort"; 
         } else {
@@ -138,7 +137,6 @@ function createImgDiv(image) {
         }
     } else {
         logInFunctions.push(() => { // when logged in, show remove buttons
-            console.log("after", username)
             if (image.createdBy === user.username || user.accountType === "admin"){
                 let removeImageButton = createRemoveImageButton(image, imgDiv);
                 imgDiv.appendChild(removeImageButton);
@@ -174,12 +172,14 @@ function createRemoveImageButton(image, imgDiv){
             body: JSON.stringify(data)
         })
         .then(response => {
-            if (response.ok) {
+            if (response.status === 200) {
                 console.log('Image removed successfully!');
-                imgDiv.parentNode.removeChild(imgDiv);
+                removeImage(imgDiv)
             }
             else {
-                throw new Error('Network response was not ok');
+                return response.text().then(errorMessage => {
+                    console.log(errorMessage);
+                });
             }
             return response;
         })
@@ -188,6 +188,14 @@ function createRemoveImageButton(image, imgDiv){
         });
     });
     return removeImageButton;
+}
+
+function removeImage(imgDiv) {
+    if (imgDiv.parentNode.children.length === 1){ // if dateSection has no images left, remove it
+        imgDiv.parentNode.parentNode.parentNode.removeChild(imgDiv.parentNode.parentNode);
+    } else {
+        imgDiv.parentNode.removeChild(imgDiv);
+    }
 }
 
 function showRemoveButtons(){

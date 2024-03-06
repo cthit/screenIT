@@ -1,8 +1,8 @@
 var menuItems = [
-    { text: "Manage People", href: "/managePeople.html" },
-    { text: "Manage images", href: "/allImages.html" },
-    { text: "Gallery", href: "/gallery.html" },
-    { text: "Upload Images", href: "/index.html" }
+    { text: "Manage People", href: "/managePeople.html", image: "/img/icons/group.svg" },
+    { text: "Manage images", href: "/allImages.html", image: "/img/icons/filter1.svg"},
+    { text: "Gallery", href: "/gallery.html", image: "/img/icons/slideshow.svg"},
+    { text: "Upload Images", href: "/index.html", image: "/img/icons/upload.svg"}
 ];
 
 
@@ -36,10 +36,18 @@ function createMenu(callback) {
 
     menuItems.forEach(function(item) {
         if (item.href !== window.location.pathname) {
-            var link = document.createElement("a");
+            const link = document.createElement("a");
             link.href = item.href;
-            link.textContent = item.text;
             link.classList.add("optionsButton");
+
+                const image = document.createElement("img");
+                image.src = item.image;
+                link.appendChild(image);
+
+                const text = document.createElement("p");
+                text.textContent = item.text;
+                link.appendChild(text);
+
             menu.appendChild(link);
         }
     });
@@ -47,7 +55,16 @@ function createMenu(callback) {
     // Add login button
     loginButton = document.createElement("div"); // Assign to the global loginButton variable
     loginButton.id = "openLoginButton";
-    loginButton.textContent = "Log in";
+    loginButton.classList.add("optionsButton");
+        const image = document.createElement("img");
+        image.id = "openLoginButtonImage";
+        image.src = "/img/icons/login.svg";
+        loginButton.appendChild(image);
+
+        const text = document.createElement("p");
+        text.id = "openLoginButtonText";
+        text.textContent = "Log in";
+        loginButton.appendChild(text);
     menu.appendChild(loginButton);
     
     // Append the menu to the body

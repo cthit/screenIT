@@ -87,21 +87,34 @@ p {
     margin: 0;
 }
 
-.optionsMenu>* {
+.optionsButton {
     background: var(--buttonColor);
     color: #fff;
+
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
 
     padding: .4rem;
     border-radius: .1rem;
 }
 
-.optionsMenu>*:hover {
+.optionsButton img {
+    /* filter: invert(100%); */
+
+}
+
+.optionsButton:hover {
     background: var(--buttonHoverColor);
     cursor: pointer;
 }
 
 .optionsMenu>a {
     text-decoration: none;
+}
+
+.optionsButton img {
+    vertical-align: middle;
 }
 
 

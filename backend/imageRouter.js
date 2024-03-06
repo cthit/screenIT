@@ -33,8 +33,13 @@ imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 imageRouter.post('/removeImage', (req, res) => {
 	const image = req.body.image;
 	const adminKey = req.body.adminKey;
+	const allowedToRemove = userHasPermission(adminKey,"admin") || imageIsUploadedByUser(image, getUserIdFromAdminKey(adminKey))
+
 	if (!isAdminKeyValid(adminKey)) return res.status(403).send("Adminkey not valid");
-	if (!userHasPermission(adminKey, "admin" || !imageIsUploadedByUser(image, getUserIdFromAdminKey))) return res.status(403).send("User does not have permission to remove images");
+	
+
+	if (!allowedToRemove) return res.status(403).send("User does not have permission to remove this image");
+
 
 	logEvent({
 		event: "Image removed",

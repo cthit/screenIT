@@ -26,11 +26,15 @@ export const removeImage = (imgData, pathToJsonFile, pathToEventImages) => {
     fs.writeFileSync(pathToJsonFile, JSON.stringify(images, null, 2));
 }
 
-export const imageIsUploadedByUser = (image, user) => {
-    const images = fs.readFileSync(pathToImagesFile, 'utf8');
+export const imageIsUploadedByUser = (image, userId) => {
+    let images = fs.readFileSync(pathToImagesFile, 'utf8');
+    images = JSON.parse(images);
+
     const uploadedImage = images.find(img => {
         return img.id === image.id;
     });
 
-    return user.id === uploadedImage.createdBy;
+    console.log(uploadedImage.createdBy === userId)
+
+    return userId === uploadedImage.createdBy;
 }

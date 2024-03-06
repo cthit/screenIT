@@ -66,6 +66,8 @@ function createPersonDiv(person) {
 
     const password = document.createElement('input');
     password.value = person.password;
+    password.classList.add('password');
+
     password.addEventListener('change', () => {
         if (password.value !== person.password) password.classList.add('changedField');
         else password.classList.remove('changedField');
@@ -125,35 +127,38 @@ function createPersonDiv(person) {
 
     personDiv.appendChild(updateButton);
 
+    if (user.accountType === "admin") { // Make sure only admins see the button to remove people
 
-    const deleteButton = document.createElement('img');
-    deleteButton.src = '/img/icons/remove.svg';
-    
-    deleteButton.addEventListener('click', async () => {
-        const data = {
-            adminKey: adminKey,
-            id: person.id
-        }
-        await fetch('/api/people/removePerson', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => {
-            if (response.status === 200) {
-                populatePeopleList();
+        const deleteButton = document.createElement('img');
+        deleteButton.src = '/img/icons/remove.svg';
+        
+        deleteButton.addEventListener('click', async () => {
+            const data = {
+                adminKey: adminKey,
+                id: person.id
             }
-            else {
-                console.log(response.message);
-                throw new Error('Network response was not ok');
-            }
-        })
+            await fetch('/api/people/removePerson', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    populatePeopleList();
+                }
+                else {
+                    console.log(response.message);
+                    throw new Error('Network response was not ok');
+                }
+            })
 
-    });
+        });
 
-    personDiv.appendChild(deleteButton);
+        personDiv.appendChild(deleteButton);
+    }
+
     
 
 

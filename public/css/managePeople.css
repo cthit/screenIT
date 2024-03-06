@@ -31,7 +31,7 @@ h1 {
 }
 
 .personDiv input {
-    background: inherit;
+    background: var(--lighterBackgroundColor);
     color: #fff;
 
     font-family: "Kode Mono";
@@ -39,12 +39,20 @@ h1 {
     width: 30%; 
     padding-left: .35rem;
     border: none;
+    border-radius: .2rem;
     margin: 0;
 }
 
-
 .personDiv .updateButton:active {
-    background-color: #f0f0f0;
+    background-color: #02601e;
+}
+
+.personDiv .password {
+    color: var(--lighterBackgroundColor);
+}
+
+.personDiv .password:hover {
+    color: var(--textColor);
 }
 
 .addPersonDiv {

@@ -76,13 +76,20 @@ function createLoginDiv() {
 
 
 function logout() {
+    const openLoginButtonText = document.getElementById('openLoginButtonText');
+    const openLoginButtonImage = document.getElementById('openLoginButtonImage');
     isLoggedIn = false;
     adminKey = null;
     localStorage.removeItem('adminKey');
     for (const button of adminButtons) {
         button.classList.add('hidden');
     }
-    loginButton.textContent = 'Log in';
+    openLoginButtonText.textContent = 'Log in';
+    openLoginImage.src = "/img/icons/login.svg";
+
+    const text = document.createElement("p");
+    text.textContent = "Log in";
+    loginButton.appendChild(text);
 
     logOutFunctions.forEach(func => func());
 }
@@ -158,7 +165,8 @@ function userIsLoggedIn(){
     loginDiv.classList.add('hidden');   
     
     if (loginButton) {
-        loginButton.textContent = 'Log out'; // TODO: if needed for when loginbutton has not loaded
+        openLoginButtonText.textContent = 'Log out'; // TODO: if needed for when loginbutton has not loaded
+        openLoginButtonImage.src = "/img/icons/logout.svg";
     };
     
     usernameInput.value = '';
