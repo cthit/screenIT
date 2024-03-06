@@ -1,13 +1,11 @@
 
 createLoginDiv();
 createAccountDiv();
-const loginDiv = document.getElementById('loginDiv');
+
 const submitLoginButton = document.getElementById('submitLoginButton');
-// const openCreatePostButton = document.getElementById('openCreatePostButton');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 
-const accountDiv = document.getElementById('accountDiv');
 
 const loginNotificationDiv = document.getElementById('loginNotification');
 
@@ -24,12 +22,24 @@ let user = null;
 const loginNotificationTime = 3 * 1000; // 3 seconds
 
 
+function createShadowBox(id) {
+    const shadowBox = document.createElement('div');
+    shadowBox.id = id;
+    shadowBox.classList.add('shadowBox', 'hidden');
 
+    shadowBox.addEventListener('click', () => {
+        shadowBox.classList.add('hidden');
+    });
+
+    return shadowBox
+}
 
 function createLoginDiv() {
+    const shadowBox = createShadowBox('loginDivShadowBox');
+
     let loginDiv = document.createElement('aside');
     loginDiv.id = 'loginDiv';
-    loginDiv.classList.add('popupWindow', 'credentialsDiv', 'hidden');
+    loginDiv.classList.add('popupWindow', 'credentialsDiv');
 
     let closeButton = document.createElement('div');
 
@@ -40,7 +50,7 @@ function createLoginDiv() {
     closeButton.classList.add('closeButton');
     loginDiv.appendChild(closeButton);
     closeButton.addEventListener('click', () => {
-        loginDiv.classList.add('hidden');
+        shadowBox.classList.add('hidden');
     });
 
     let loginForm = document.createElement('div');
@@ -78,8 +88,47 @@ function createLoginDiv() {
     
     loginDiv.appendChild(notification);
 
-    document.body.appendChild(loginDiv);
+    shadowBox.appendChild(loginDiv);
+    
+    loginDiv.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
+    document.body.appendChild(shadowBox);
+}   
+
+
+function openLoginDiv() {
+    const loginDivShadowBox = document.getElementById('loginDivShadowBox');
+    console.log(loginDivShadowBox)
+    loginDivShadowBox.classList.remove('hidden');
 }
+
+function closeLoginDiv() {
+    const loginDivShadowBox = document.getElementById('loginDivShadowBox');
+    loginDivShadowBox.classList.add('hidden');
+}
+
+function openAccountDiv() {
+    const usernameInput = document.getElementById('accountDivUsernameInput');
+    const passwordInput = document.getElementById('accountDivPasswordInput');
+    usernameInput.value = user.username;
+    passwordInput.value = user.password;
+
+    const accountDivShadowBox = document.getElementById('accountDivShadowBox');
+    accountDivShadowBox.classList.remove('hidden');
+}
+
+function closeAccountDiv() {
+    const accountDivShadowBox = document.getElementById('accountDivShadowBox');
+
+    accountDivShadowBox.classList.add('hidden');
+}
+    
+
+
+
+
 
 function createCloseButton(parentElement) {
     let closeButton = document.createElement('div');
@@ -98,9 +147,11 @@ function createCloseButton(parentElement) {
 }
 
 function createAccountDiv() {
+    const shadowBox = createShadowBox('accountDivShadowBox');
+    
     let accountDiv = document.createElement('aside');
     accountDiv.id = 'accountDiv';
-    accountDiv.classList.add('popupWindow', 'credentialsDiv', 'hidden');
+    accountDiv.classList.add('popupWindow', 'credentialsDiv');
 
     const closeButton = createCloseButton(accountDiv);
     accountDiv.appendChild(closeButton);
@@ -177,9 +228,11 @@ function createAccountDiv() {
             .then( () => {
                 usernameInput.classList.remove('changedFieldBorder');
                 passwordInput.classList.remove('changedFieldBorder');
-                saveChangesButton.classList.remove('accountInputChanged')
-                notify(loginNotificationDiv, 'Changes saved', loginNotificationTime, 'green');}
-            )
+
+                saveChangesButton.classList.remove('accountInputChanged');
+
+                notify(loginNotificationDiv, 'Changes saved', loginNotificationTime, 'green');
+            })
             .catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
             });
@@ -208,17 +261,14 @@ function createAccountDiv() {
     
     accountDiv.appendChild(notification);
 
-    document.body.appendChild(accountDiv);
-}
+    shadowBox.appendChild(accountDiv);
 
-function openAccountDiv() {
-    accountDiv.classList.remove('hidden');
-    const usernameInput = document.getElementById('accountDivUsernameInput');
-    const passwordInput = document.getElementById('accountDivPasswordInput');
-    usernameInput.value = user.username;
-    passwordInput.value = user.password;
-}
+    accountDiv.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
 
+    document.body.appendChild(shadowBox);
+}
 
 function changeVisibleOptionButtons() {
     for (const button of optionButtons) {
@@ -229,7 +279,8 @@ function changeVisibleOptionButtons() {
 
 
 function logout() {
-    accountDiv.classList.add('hidden');
+    closeAccountDiv();
+    
     const openLoginButtonText = document.getElementById('openLoginButtonText');
     const openLoginButtonImage = document.getElementById('openLoginButtonImage');
     isLoggedIn = false;
@@ -314,7 +365,7 @@ function testAdminKeyOnLoad() {
 
 async function userIsLoggedIn(){
     isLoggedIn = true;
-    loginDiv.classList.add('hidden');   
+    closeLoginDiv();
     
     if (loginButton) {
         openLoginButtonText.textContent = 'Account';

@@ -81,19 +81,29 @@ function createMenu(callback) {
     loginButton = document.createElement("div"); // Assign to the global loginButton variable
     loginButton.id = "openLoginButton";
     loginButton.classList.add("optionsButton", "button");
-    loginButton.addEventListener('click', (event) => {
+
+    loginButton.addEventListener('click', () => {
         event.stopPropagation();
+
+        if (!isLoggedIn) {
+            openLoginDiv();
+        } else {
+            openAccountDiv();
+        }
     });
 
-        const image = document.createElement("img");
-        image.id = "openLoginButtonImage";
-        image.src = "/img/icons/login.svg";
-        loginButton.appendChild(image);
 
-        const text = document.createElement("p");
-        text.id = "openLoginButtonText";
-        text.textContent = "Log in";
-        loginButton.appendChild(text);
+
+    const image = document.createElement("img");
+    image.id = "openLoginButtonImage";
+    image.src = "/img/icons/login.svg";
+    loginButton.appendChild(image);
+
+    const text = document.createElement("p");
+    text.id = "openLoginButtonText";
+    text.textContent = "Log in";
+    loginButton.appendChild(text);
+
     menu.appendChild(loginButton);
  
 
@@ -101,13 +111,7 @@ function createMenu(callback) {
     document.body.appendChild(menu);
 
     // Now that the menu and login button are created, find the login button and add event listener
-    loginButton.addEventListener('click', () => {
-        if (!isLoggedIn) {
-            loginDiv.classList.remove('hidden');
-        } else {
-            openAccountDiv();
-        }
-    });
+
 
     // Invoke the callback function if provided
     if (callback && typeof callback === "function") {
@@ -139,11 +143,11 @@ window.onload = function() {
 
 let closeButtons = document.getElementsByClassName('closeButton');
 
-for (const button of closeButtons) {
-    button.addEventListener('click', () => {
-        button.parentNode.classList.toggle('hidden');
-    });
-};
+// for (const button of closeButtons) {
+//     button.addEventListener('click', () => {
+//         button.parentNode.parentNode.classList.toggle('hidden');
+//     });
+// };
 
 
 function notify(notificationDiv, message, notificationTime, color) {

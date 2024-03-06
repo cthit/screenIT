@@ -26,6 +26,8 @@
 
 body {
     background: var(--backgroundColor);
+    background: radial-gradient(circle, #000 0%,   #0d0343 100%);
+
     color: var(--textColor);
 
     font-size: 18px;
@@ -144,6 +146,8 @@ p {
 
 .popupWindow{
     background: var(--darkerBackgroundColor);
+    background: radial-gradient(circle, #1d1a2d 0%,  #1d1a2d 50%, #000000 100%);
+
 
     overflow: hidden;
 
@@ -159,10 +163,7 @@ p {
 
     max-width: 85vw;
     max-height: 85vh;
-
-    /* height: 20vw;
-    width: 30vw;
-    padding: 2rem; */
+    
     height: 14rem;
     width: 20.5rem;
     padding: 2rem;
@@ -170,7 +171,7 @@ p {
     outline: 3px solid #fff;
     border-radius: 1rem;
 
-    z-index: 1000;
+    z-index: 1010;
 }
 
 .closeButton {
@@ -201,6 +202,24 @@ p {
 
 
  /* LOGIN DIV */
+
+ .shadowBox {
+    background: #00000092;
+    /* background: radial-gradient(circle, #1d1a2d 0%,  #1d1a2d 50%, #000000 100%); */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1001;
+ }
 
  .credentialsDiv {
     display: flex;
