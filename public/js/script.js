@@ -7,6 +7,7 @@ var menuItems = [
 
 
 
+
 function createIcon() {
     let link = document.createElement('link');
     link.rel = 'icon';
@@ -31,14 +32,7 @@ let loginButton; // Declare loginButton in the global scope
 // Function to create menu items dynamically
 function createMenu(callback) {
     var menu = document.createElement("aside");
-
-    menu.addEventListener('click', () => {
-        if (menu.classList.contains('openOptionsMenu')) {
-            menu.classList.remove('openOptionsMenu');
-        } else {
-            menu.classList.add('openOptionsMenu');
-        }
-    });
+    optionsMenu = menu;
 
     menu.id = "optionsMenu";
     menu.classList.add("optionsMenu");
@@ -73,6 +67,9 @@ function createMenu(callback) {
                 text.textContent = item.text;
                 link.appendChild(text);
 
+            link.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
             menu.appendChild(link);
         }
     });
@@ -84,6 +81,10 @@ function createMenu(callback) {
     loginButton = document.createElement("div"); // Assign to the global loginButton variable
     loginButton.id = "openLoginButton";
     loginButton.classList.add("optionsButton", "button");
+    loginButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+
         const image = document.createElement("img");
         image.id = "openLoginButtonImage";
         image.src = "/img/icons/login.svg";
@@ -94,7 +95,8 @@ function createMenu(callback) {
         text.textContent = "Log in";
         loginButton.appendChild(text);
     menu.appendChild(loginButton);
-    
+ 
+
     // Append the menu to the body
     document.body.appendChild(menu);
 
@@ -111,12 +113,23 @@ function createMenu(callback) {
     if (callback && typeof callback === "function") {
         callback(loginButton); // Pass loginButton to the callback function
     }
+
+    menu.addEventListener('click', () => {
+        if (menu.classList.contains('openOptionsMenu')) {
+            menu.classList.remove('openOptionsMenu');
+        } else {
+            menu.classList.add('openOptionsMenu');
+        }
+    });
 }
 
 // Call the function to create the menu when the page loads
 window.onload = function() {
     createMenu(function(loginButton) {
+        resizeOptionsMenu();
         testAdminKeyOnLoad();
+        logInFunctions.push(resizeOptionsMenu);
+        logOutFunctions.push(resizeOptionsMenu);
         // You may also call other functions here that depend on the loginButton element
     });
 };
@@ -210,3 +223,19 @@ function addManifestThings(){
 }
 
 addManifestThings();
+
+function resizeOptionsMenu() {
+    let optionsMenu = document.getElementById('optionsMenu');
+
+    if (window.getComputedStyle(optionsMenu).getPropertyValue('flex-direction') === 'column') {
+        let optionsMenuHeight = optionsMenu.offsetHeight;
+        console.log(optionsMenuHeight)
+        optionsMenuHeight = optionsMenuHeight - 48;
+        optionsMenu.style.top = `-${optionsMenuHeight}px`;
+    }
+}
+
+window.addEventListener('resize', () => {
+    resizeOptionsMenu();
+});
+

@@ -271,7 +271,7 @@ p {
         flex-direction: column;
         justify-content: center;
 
-        top: -13rem;
+        /* top: -13rem; */
 
         width: 100%;
 
@@ -279,11 +279,14 @@ p {
     }
 
     .openOptionsMenu {
-        top: 0;
+        top: 0 !important;
+
+        transition: all .5s ease-in-out;
+
     }
 
-    .optionsMenu>* {
-        flex: 1;
+    .optionsButton {
+        width: 60%; /* Make each item take up the full width */
     }
 
     .optionsMenu::after {
@@ -297,15 +300,9 @@ p {
 
         vertical-align: middle;
 
-        width: 40%;
-        height: 3rem;
+        width: 30%;
+        height: 2rem;
         margin-inline: auto;
         margin-top: 1rem;
-    }
-
-    .optionsMenu:hover, .optionsMenu:active {
-        top: 0;
-
-        transition: all .5s ease-in-out;
     }
 }
