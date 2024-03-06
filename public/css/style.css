@@ -7,6 +7,7 @@
     --backgroundColor: #212121;
     --barelyLighterBackgroundColor: #1c1c1c;
     --lighterBackgroundColor: #2f2f2f;
+    --darkerBackgroundColor: #1a1a1a;
     --textColor: #fff;
 
     --borderColor: #fff;
@@ -137,7 +138,7 @@ p {
 /* ------ POPUP WINDOW ------ */
 
 .popupWindow{
-    background: inherit;
+    background: var(--darkerBackgroundColor);
 
     overflow: hidden;
 
@@ -145,20 +146,22 @@ p {
     flex-direction: column;
     align-items: center;
 
-    position: static;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     position: fixed;
 
-    min-height: 20rem;
-    min-width: 30rem;
+    max-width: 85vw;
+    max-height: 85vh;
 
-    height: 20vw;
+    /* height: 20vw;
     width: 30vw;
+    padding: 2rem; */
+    height: 14rem;
+    width: 20.5rem;
     padding: 2rem;
-    padding-top: 4rem;
+
     outline: 3px solid #fff;
     border-radius: 1rem;
 
@@ -199,6 +202,10 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.credentialsDiv input {
+    /* font-size: 1.2rem; */
 }
 
 .credentialsDiv .loginForm {
