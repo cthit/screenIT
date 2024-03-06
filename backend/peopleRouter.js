@@ -2,7 +2,7 @@ import { Router } from 'express';
 import fs from 'fs';
 
 
-import { isAdminKeyValid, userHasPermission, pathToUsersFile, getUserIdFromAdminKey } from '../server.js'
+import { isAdminKeyValid, userHasPermission, pathToUsersFile, getUserIdFromAdminKey, getAccountTypeFromAdminKey } from '../server.js'
 
 
 const peopleRouter = Router();
@@ -13,7 +13,7 @@ const peopleRouter = Router();
 // PEOPLE MANAGEMENT
 
 peopleRouter.post('/getPeople', (req, res) => {
-	const adminKey = req.body.adminKey;
+	const adminKey = req.body.adminKey;	
 
 	if (!isAdminKeyValid(adminKey)) return res.status(403).send("Adminkey not valid");
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
@@ -29,13 +29,11 @@ peopleRouter.post('/getPeople', (req, res) => {
 	if (userHasPermission(adminKey, "admin")) {
 		res.status(200).send(people);
 	} else if (userHasPermission(adminKey, "pr")) {
-
 		people = people.filter(person => person.id === getUserIdFromAdminKey(adminKey));
-		console.log(people)
-
 		res.status(200).send(people);
 	} else {
-		console.log("user has accoutn type: " + getAccountTypeFromAdminKey(adminKey))
+		res.status(403).send();
+		console.log("user has account type: " + getAccountTypeFromAdminKey(adminKey))
 	}
 });
 
@@ -55,10 +53,9 @@ peopleRouter.post('/updatePerson', (req, res) => {
 	people[personIndex].password = req.body.password,
 	people[personIndex].id = req.body.id
 	
-	if (userHasPermission(adminKey, "admin")) {
+	if (userHasPermission(adminKey, "admin") && req.body.accountType) {
+		console.log("aboit to change", req.body.accountType)
 		people[personIndex].accountType = req.body.accountType;
-	} else {
-		people[personIndex].accountType = people[personIndex].accountType;
 	}
 
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');

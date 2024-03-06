@@ -89,7 +89,7 @@ export function getUsernameFromAdminKey(adminKey) {
 }
 
 export function getAccountTypeFromAdminKey(adminKey) {
-    const user= getUserFromAdminKey(adminKey)
+    const user = getUserFromAdminKey(adminKey)
     return user.accountType;
 }
 

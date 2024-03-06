@@ -10,6 +10,7 @@ logOutFunctions.push(populatePeopleList);
 
 
 async function getPeople() {
+    console.log(adminKey)
     return fetch('/api/people/getPeople', {
         method: 'POST',
         headers: {
@@ -18,8 +19,9 @@ async function getPeople() {
         body: JSON.stringify({ adminKey: adminKey })
         })
         .then(response => {
-
-            if (!response.ok) {
+            if (response.status === 403) {
+                console.log('Not authorized');
+            } else if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();

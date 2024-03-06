@@ -1,8 +1,8 @@
 var menuItems = [
-    { text: "Manage People", href: "/managePeople.html", image: "/img/icons/group.svg" },
-    { text: "Manage images", href: "/allImages.html", image: "/img/icons/filter1.svg"},
+    { text: "Upload Images", href: "/index.html", image: "/img/icons/upload.svg"},
     { text: "Gallery", href: "/gallery.html", image: "/img/icons/slideshow.svg"},
-    { text: "Upload Images", href: "/index.html", image: "/img/icons/upload.svg"}
+    { text: "Manage images", href: "/allImages.html", image: "/img/icons/filter1.svg"},
+    { text: "Manage People", href: "/managePeople.html", image: "/img/icons/group.svg" }
 ];
 
 

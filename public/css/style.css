@@ -51,10 +51,27 @@ body {
     opacity: 0;
 }
 
+.darkInput {
+    background: var(--lighterBackgroundColor);
+    color: #fff;
+
+    font-family: "Kode Mono";
+
+    padding-left: .35rem;
+    border: none;
+    border-radius: .2rem;
+    margin: 0;
+}
+
 .changedField {
     /* outline: .1rem solid orange;
     border-radius: .3rem; */
     color: orange !important;
+}
+
+.changedFieldBorder {
+    outline: .1rem solid orange;
+    border-radius: .3rem;
 }
 
 body * {
@@ -101,7 +118,6 @@ p {
 
 .optionsButton img {
     /* filter: invert(100%); */
-
 }
 
 .optionsButton:hover {
@@ -178,18 +194,35 @@ p {
 
  /* LOGIN DIV */
 
-#loginDiv {
+ .credentialsDiv {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#loginDiv .loginForm {
+.credentialsDiv .loginForm {
     display: flex;
     flex-direction: column;
     gap:.5rem;
     width: max-content;
+}
+
+.accountbuttonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: .5rem;
+}
+
+.accountbuttonDiv .saveAccountCredentials {
+    background-color: var(--lighterBackgroundColor);
+}
+
+.accountInputChanged {
+    background: var(--mainNotificationColor) !important;
+    border-radius: .3rem;
 }
 
 

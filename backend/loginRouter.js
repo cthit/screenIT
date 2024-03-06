@@ -22,7 +22,7 @@ imageRouter.post('/login', (req, res) => {
     if (credentialsIsValid(username, password)) {
         let adminKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         saveAdminKey(adminKey, user.id);
-        delete user.password;
+        // delete user.password;
         res.status(200).json({ adminKey: adminKey, user: user }); // Send the content back to the client
     } else {
         res.status(401).json({ error: 'Invalid credentials' });
@@ -34,7 +34,7 @@ imageRouter.post('/testAdminKey', (req, res) => {
 
     if (isAdminKeyValid(adminKey)) {
         const user = getUserFromAdminKey(adminKey);
-        delete user.password;
+        // delete user.password;
         res.status(200).json({ user: user});
         return;
     }
