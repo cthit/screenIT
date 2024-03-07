@@ -104,7 +104,7 @@ function createPersonDiv(person) {
             username: username.value,
             password: password.value,
             accountType: accountTypeSelect.value,
-            id: person.id
+            userId: person.id
         }
 
         await fetch('/api/people/updatePerson', {

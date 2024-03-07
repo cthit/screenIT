@@ -236,6 +236,8 @@ function resizeOptionsMenu() {
         console.log(optionsMenuHeight)
         optionsMenuHeight = optionsMenuHeight - 48;
         optionsMenu.style.top = `-${optionsMenuHeight}px`;
+    } else {
+        optionsMenu.style.top = '0px';
     }
 }
 

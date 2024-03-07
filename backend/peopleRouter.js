@@ -2,7 +2,7 @@ import { Router } from 'express';
 import fs from 'fs';
 
 
-import { isAdminKeyValid, userHasPermission, pathToUsersFile, getUserIdFromAdminKey, getAccountTypeFromAdminKey } from '../server.js'
+import { isAdminKeyValid, userHasPermission, pathToUsersFile, getUserFromUserId, getUserIdFromAdminKey, getAccountTypeFromAdminKey, logEvent } from '../server.js'
 
 
 const peopleRouter = Router();
@@ -28,12 +28,26 @@ peopleRouter.post('/getPeople', (req, res) => {
 
 	if (userHasPermission(adminKey, "admin")) {
 		res.status(200).send(people);
+		logEvent({
+			event: "People list requested by admin",
+			user: getUserIdFromAdminKey(adminKey),
+			adminKey: adminKey
+		});
 	} else if (userHasPermission(adminKey, "pr")) {
 		people = people.filter(person => person.id === getUserIdFromAdminKey(adminKey));
 		res.status(200).send(people);
+		logEvent({
+			event: "People list requested by pr",
+			user: getUserIdFromAdminKey(adminKey),
+			adminKey: adminKey
+		});
 	} else {
 		res.status(403).send();
-		console.log("user has account type: " + getAccountTypeFromAdminKey(adminKey))
+		logEvent({
+			event: "People list requested by user without permission",
+			user: getUserIdFromAdminKey(adminKey),
+			adminKey: adminKey
+		});
 	}
 });
 
@@ -45,22 +59,26 @@ peopleRouter.post('/updatePerson', (req, res) => {
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
 	people = JSON.parse(people);
 
-	if (!people.find(person => person.id === req.body.id)) return res.status(404).send("Person not found!");
+	if (!people.find(person => person.id === req.body.userId)) return res.status(404).send("Person not found!");
 
-	const personIndex = people.findIndex(person => person.id === req.body.id);
+	const personIndex = people.findIndex(person => person.id === req.body.userId);
 	
-	people[personIndex].username = req.body.username,
-	people[personIndex].password = req.body.password,
-	people[personIndex].id = req.body.id
+	people[personIndex].username = req.body.username;
+	people[personIndex].password = req.body.password;
 	
 	if (userHasPermission(adminKey, "admin") && req.body.accountType) {
-		console.log("aboit to change", req.body.accountType)
 		people[personIndex].accountType = req.body.accountType;
 	}
 
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');
 	res.status(200).send("Person updated successfully!");	
+	logEvent({
+		event: "Person updated",
+		userUpdated: req.body.userId,
+		updateDoneByUser: getUserIdFromAdminKey(adminKey),
+		adminKey: adminKey
 	});
+});
 
 peopleRouter.post('/addPerson', (req, res) => {
 	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
@@ -79,6 +97,11 @@ peopleRouter.post('/addPerson', (req, res) => {
 	people.push(newPerson);
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');
 	res.status(200).send("Person added successfully!");
+	logEvent({
+		event: "Person added",
+		userAdded: newPerson.id,
+		addedByUser: getUserIdFromAdminKey(req.body.adminKey),
+	});
 });
 
 peopleRouter.post('/removePerson', (req, res) => {
@@ -94,6 +117,13 @@ peopleRouter.post('/removePerson', (req, res) => {
 
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');
 	res.status(200).send("Person removed successfully!");
+
+	logEvent({
+		event: "Person removed",
+		userRemoved: getUserFromUserId(req.body.id),
+		removedByUser: getUserIdFromAdminKey(req.body.adminKey),
+		adminKey: req.body.adminKey
+	});
 });
 
 

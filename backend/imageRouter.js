@@ -5,7 +5,7 @@ import fs from 'fs';
 import * as path from 'path';
 
 
-import { isAdminKeyValid, getUsernameFromAdminKey, pathToEventImages, pathToImagesFile, pathToUsersFile, logEvent, userHasPermission, getUserIdFromAdminKey } from '../server.js'
+import { isAdminKeyValid, getUserFromAdminKey, getUsernameFromAdminKey, pathToEventImages, pathToImagesFile, pathToUsersFile, logEvent, userHasPermission, getUserIdFromAdminKey } from '../server.js'
 
 const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
@@ -28,6 +28,12 @@ imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 	addImage(newPost, pathToImagesFile);
 
 	res.status(200).send("Image uploaded successfully!");
+	logEvent( {
+		event: "Image uploaded",
+		user: getUsernameFromAdminKey(req.body.adminKey),
+		adminKey: req.body.adminKey,
+		image: newPost
+	});
 });
 
 imageRouter.post('/removeImage', (req, res) => {

@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import fs from 'fs';
 
-import { getUserFromAdminKey, getUsernameFromAdminKey, isAdminKeyValid, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
+import { getUserFromAdminKey, getUsernameFromAdminKey, isAdminKeyValid, logEvent, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
 
 const imageRouter = Router();
 
@@ -20,11 +20,12 @@ imageRouter.post('/login', (req, res) => {
     // console.log(user)
 
     if (credentialsIsValid(username, password)) {
+        
         let adminKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         saveAdminKey(adminKey, user.id);
-        // delete user.password;
         res.status(200).json({ adminKey: adminKey, user: user }); // Send the content back to the client
     } else {
+        logEvent("Invalid login attempt", { username: username, password: password })
         res.status(401).json({ error: 'Invalid credentials' });
     }
 });

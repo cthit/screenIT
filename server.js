@@ -48,7 +48,7 @@ export function logEvent(eventData) {
     }
 
     // Add the new event to the array
-    events.push(eventData);
+    events.push({ eventData });
 
     // Write the updated events array back to the file
     fs.writeFileSync(pathToLogFile, JSON.stringify(events, null, 2));
@@ -64,6 +64,13 @@ export function userHasPermission(adminKey, accountType) {
         // If accountType is a string, check if the user's account type matches the specified account type
         return userAccountType === accountType;
     }
+}
+
+export function getUserFromUserId(userId) {
+    let userCredentials = fs.readFileSync(pathToUsersFile, 'utf8');
+    userCredentials = JSON.parse(userCredentials);
+    const user = userCredentials.find(user => user.id === userId);
+    return user;
 }
 
 
