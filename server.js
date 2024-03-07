@@ -4,10 +4,14 @@ import fs from 'fs';
 import imageRouter from './backend/imageRouter.js';
 import peopleRouter from './backend/peopleRouter.js';
 import loginRouter from './backend/loginRouter.js';
+import dotenv from 'dotenv';
 
 
 const app = express();
-const port = 8000;
+dotenv.config();
+
+
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
