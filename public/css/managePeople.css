@@ -52,13 +52,13 @@ h1 {
 
 
 
-@media screen and (max-width: 550px){
-    .allPeopleDiv {
-        margin-top: 6rem;
-    }
-
-    /* .personDiv {
+@media screen and (max-width: 768px){
+    .personDiv {
+        flex-direction: column;
+        justify-content: center;
         flex-wrap: wrap;
-        height: max-content;
-    } */
+        gap: 1rem;
+
+        height: 4rem;
+    }
 }

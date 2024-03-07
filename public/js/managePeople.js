@@ -78,6 +78,7 @@ function createPersonDiv(person) {
     personDiv.appendChild(password);
 
     const accountTypeSelect = document.createElement('select');
+    accountTypeSelect.classList.add('darkInput');
     
     accountTypes.forEach(optionText =>{
         const option = document.createElement('option');
@@ -87,8 +88,8 @@ function createPersonDiv(person) {
     });
     accountTypeSelect.value = person.accountType;
     accountTypeSelect.addEventListener('change', () => {
-        if (accountTypeSelect.value !== person.accountType) accountTypeSelect.classList.add('changedField');
-        else username.classList.remove('changedField');
+        if (accountTypeSelect.value !== person.accountType) accountTypeSelect.classList.add('changedFieldBorder');
+        else username.classList.remove('changedFieldBorder');
     });
     personDiv.appendChild(accountTypeSelect);
 
@@ -184,6 +185,7 @@ function createAddPersonDiv() {
     personDiv.appendChild(password);
 
     const accountTypeSelect = document.createElement('select');
+    accountTypeSelect.classList.add('darkInput');
     
     accountTypes.forEach(optionText =>{
         const option = document.createElement('option');
@@ -231,7 +233,10 @@ function createAddPersonDiv() {
         });
     });
     
+    addButton.style.flex = '1';
     personDiv.appendChild(addButton);
+    
+    
 
     return personDiv;
 };
