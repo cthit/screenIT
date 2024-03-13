@@ -25,7 +25,7 @@ imageRouter.post('/login', (req, res) => {
         saveAdminKey(adminKey, user.id);
         res.status(200).json({ adminKey: adminKey, user: user }); // Send the content back to the client
     } else {
-        logEvent("Invalid login attempt", { username: username, password: password })
+        logEvent({event: "Invalid login attempt", username: username, password: password })
         res.status(401).json({ error: 'Invalid credentials' });
     }
 });
