@@ -62,8 +62,8 @@ function createPersonDiv(person) {
     username.classList.add('darkInput');
     username.value = person.username;
     username.addEventListener('change', () => {
-        if (username.value !== person.username) username.classList.add('changedField');
-        else username.classList.remove('changedField');
+        if (username.value !== person.username) username.classList.add('changedFieldText');
+        else username.classList.remove('changedFieldText');
     });
     personDiv.appendChild(username);
 
@@ -72,8 +72,8 @@ function createPersonDiv(person) {
     password.classList.add('darkInput', 'password');
 
     password.addEventListener('change', () => {
-        if (password.value !== person.password) password.classList.add('changedField');
-        else password.classList.remove('changedField');
+        if (password.value !== person.password) password.classList.add('changedFieldText');
+        else password.classList.remove('changedFieldText');
     });
     personDiv.appendChild(password);
 

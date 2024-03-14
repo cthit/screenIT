@@ -49,9 +49,7 @@ function createLoginDiv() {
     
     closeButton.classList.add('closeButton');
     loginDiv.appendChild(closeButton);
-    closeButton.addEventListener('click', () => {
-        shadowBox.classList.add('hidden');
-    });
+
 
     let loginForm = document.createElement('div');
     loginForm.classList.add('loginForm');
@@ -130,7 +128,7 @@ function closeAccountDiv() {
 
 
 
-function createCloseButton(parentElement) {
+function createCloseButton(divForCloseButton) {
     let closeButton = document.createElement('div');
 
     let closeButtonImg = document.createElement('img');
@@ -138,9 +136,9 @@ function createCloseButton(parentElement) {
     closeButton.appendChild(closeButtonImg);
 
     closeButton.classList.add('closeButton');
-    parentElement.appendChild(closeButton);
+
     closeButton.addEventListener('click', () => {
-        parentElement.classList.add('hidden');
+        divForCloseButton.classList.add('hidden');
     });
 
     return closeButton;
@@ -153,7 +151,7 @@ function createAccountDiv() {
     accountDiv.id = 'accountDiv';
     accountDiv.classList.add('popupWindow', 'credentialsDiv');
 
-    const closeButton = createCloseButton(accountDiv);
+    const closeButton = createCloseButton(shadowBox);
     accountDiv.appendChild(closeButton);
 
     let loginForm = document.createElement('div');
@@ -209,7 +207,8 @@ function createAccountDiv() {
                 adminKey: adminKey,
                 username: usernameInput.value,
                 password: passwordInput.value,
-                id: user.id
+                // accountType: user.accountType,
+                userId: user.id
             }
     
             await fetch('/api/people/updatePerson', {

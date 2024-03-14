@@ -39,6 +39,7 @@ h1 {
 }
 
 .imgDiv {
+    background: var(--backgroundColor);
     overflow: hidden;
     
     position: relative;

@@ -1,7 +1,6 @@
 
 .mainDiv {
-    /* background: #151515; */
-    color: #fff;
+    background: var(--backgroundColor);
 
     overflow: hidden;
 
@@ -13,7 +12,7 @@
 
     padding: 2rem;
     padding-top: 4rem;
-    outline: 3px solid #fff;
+    outline: 3px solid var(--borderColor);
     border-radius: 1rem;
     margin-top: 4rem;
 }
@@ -47,7 +46,7 @@
     gap: 1.3rem;
 
 
-    outline: 1px solid #fff;
+    outline: 1px solid var(--borderColor);
     border-radius: .1rem;
 }
 

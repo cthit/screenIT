@@ -22,6 +22,8 @@
     --removeButtonHoverColor: #cd0000;
 
     --mainNotificationColor: #189618;
+
+    --changedFieldColor: #ffa500;
 }
 
 body {
@@ -66,10 +68,8 @@ body {
     margin: 0;
 }
 
-.changedField {
-    /* outline: .1rem solid orange;
-    border-radius: .3rem; */
-    color: orange !important;
+.changedFieldText {
+    color: var(--changedFieldColor) !important;
 }
 
 .changedFieldBorder {
@@ -83,9 +83,11 @@ body * {
 
 .button {
     background: var(--buttonColor);
-    color: #fff;
+    color: var(--textColor);
 
     text-align: center;
+
+    cursor:pointer;
 
     padding: .4rem;
     border-radius: .1rem;
@@ -100,7 +102,7 @@ p {
 
 /* ------ OPTIONS MENU ------ */
 .optionsMenu {
-    background: inherit;
+    background: none;
 
     position: absolute;
     top: 0rem;
@@ -168,7 +170,7 @@ p {
     width: 20.5rem;
     padding: 2rem;
 
-    outline: 3px solid #fff;
+    outline: 3px solid var(--borderColor);
     border-radius: 1rem;
 
     z-index: 1010;
@@ -260,7 +262,7 @@ p {
 /* ------ NOTIFICATION ------ */
 
 .notification {
-    background: #189618;
+    background: var(--mainNotificationColor);
 
     text-align: center;
 
@@ -287,10 +289,10 @@ p {
 
 @media screen and (max-width: 768px){
     .optionsMenu {
+        background: inherit;
+
         flex-direction: column;
         justify-content: center;
-
-        /* top: -13rem; */
 
         width: 100%;
 
@@ -298,10 +300,10 @@ p {
     }
 
     .openOptionsMenu {
+        background: var(--backgroundColor);
         top: 0 !important;
-
+        
         transition: all .5s ease-in-out;
-
     }
 
     .optionsButton {

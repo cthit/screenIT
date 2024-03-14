@@ -85,10 +85,10 @@ function createMenu(callback) {
     loginButton.addEventListener('click', () => {
         event.stopPropagation();
 
-        if (!isLoggedIn) {
-            openLoginDiv();
-        } else {
+        if (isLoggedIn) {
             openAccountDiv();
+        } else {
+            openLoginDiv();
         }
     });
 
@@ -151,7 +151,7 @@ let closeButtons = document.getElementsByClassName('closeButton');
 
 
 function notify(notificationDiv, message, notificationTime, color) {
-    console.log(color);
+    console.log(message);
 
     if (color) {
         notificationDiv.style.backgroundColor = color;
