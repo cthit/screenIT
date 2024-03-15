@@ -347,6 +347,11 @@ function testAdminKeyOnLoad() {
         .then(response => {
             if (response.status === 200) {
                 console.log('Saved adminKey was valid');
+
+                data = response.json().then(data => {
+                    user = data.user;
+                    userIsLoggedIn();
+                });
             }
             if (response.status === 401) {
                 localStorage.removeItem('adminKey');
@@ -354,12 +359,7 @@ function testAdminKeyOnLoad() {
             } else if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
         })
-        .then(data => {
-            user = data.user;
-            userIsLoggedIn();
-        });
     }
 }
 

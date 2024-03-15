@@ -31,15 +31,11 @@ imageRouter.post('/login', (req, res) => {
 });
 
 imageRouter.post('/testAdminKey', (req, res) => {
-    const adminKey = req.body.adminKey; // Extract admin key from request body
+    const adminKey = req.body.adminKey; 
+    if (!isAdminKeyValid(adminKey)) return res.status(401).json("Adminkey is not valid");
 
-    if (isAdminKeyValid(adminKey)) {
-        const user = getUserFromAdminKey(adminKey);
-        // delete user.password;
-        res.status(200).json({ user: user});
-        return;
-    }
-    res.status(401).json("Adminkey is not valid");
+    const user = getUserFromAdminKey(adminKey);
+    res.status(200).json({ user: user});
 });
 
 function saveAdminKey(adminKey, id) {

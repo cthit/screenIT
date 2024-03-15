@@ -112,11 +112,13 @@ export function getUserIdFromAdminKey(adminKey) {
 export function isAdminKeyValid(adminKey) {
     const currentDate = new Date();
     const validAdminKeys = JSON.parse(fs.readFileSync(pathToAdminKeysFile, 'utf8'));
-    // Find the admin key in the adminKeys array
+
     const adminKeyData = validAdminKeys.find(keyData => keyData.key === adminKey);
     if (!adminKeyData) {
         return false; // Admin key not found
-    }
+    } 
+
+    // if (getUserFromAdminKey(adminKey) === null) return false;
 
     // Parse the saved date and compare it with ten days ago
     const savedDate = new Date(adminKeyData.date);

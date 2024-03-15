@@ -43,7 +43,6 @@ function displayNextImage() {
     const currentImage = images[currentIndex];
     imageCarousel.src = pathToEventImages + currentImage.path;
     currentIndex = (currentIndex + 1) % images.length;
-    console.log("Next image");
 }
 
 function continueCarousel() {
@@ -52,7 +51,6 @@ function continueCarousel() {
         displayNextImage();
     } else {
         imageCarousel.src = pathToPlaceHolderImage;
-        console.log("No images to display");
     }
     carouselTimer = setTimeout(continueCarousel, carouselSpeed);
 }
@@ -63,7 +61,6 @@ function fetchUpcomingImages() {
     .then(response => response.json())
     .then(incomingImages => {
         images = incomingImages;
-        console.log(images);
         continueCarousel();
     })
     .catch(error => console.error('Error fetching upcoming images:', error));
