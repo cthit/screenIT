@@ -35,6 +35,10 @@ function uploadImage() {
         console.log(response.text());
 
         if (response.status === 200) {
+            imageInput.value = '';
+            dateInput.value = '';
+            imagePreviewText.textContent = 'No file selected';
+
             notify(notification, "image uploaded successfully", notificationTime, '#189618');
         } else {
             notify(notification, "An error was encountered", notificationTime, '#961818')
@@ -56,5 +60,11 @@ imageInput.addEventListener('change', () => {
 });
 
 uploadImageButton.addEventListener('click', () => {
-    uploadImage();
+    if (dateInput.value === '') { // if the date is empty, notify the user
+        notify(notification, "Date is empty", notificationTime, '#961818');
+    } else if (new Date(dateInput.value) > new Date()) { // if the date is in the future, upload, else notify the user
+        uploadImage();
+    } else {
+        notify(notification, "Date is in the past", notificationTime, '#961818');
+    }
 });

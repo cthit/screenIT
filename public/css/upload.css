@@ -47,7 +47,8 @@
 
 
     outline: 1px solid var(--borderColor);
-    border-radius: .1rem;
+
+    border-radius: 10rem .1rem .10rem 10rem;
 }
 
 .imagePreview {
@@ -55,6 +56,7 @@
 
     height: 2rem;
     border-radius: .1rem;
+    outline: 1px solid var(--borderColor);
 
     transition: all .3s ease-in-out;
 }
@@ -65,12 +67,11 @@
     border-radius: 100%;
 
     transform: rotate(360deg);
-    transition: all .3s ease-in-out;
+    transition: all .3s linear;
 }
 
 .uploadInputDiv p {
     word-break: break-all;
+
     margin: 0;
 }
-
-.upload

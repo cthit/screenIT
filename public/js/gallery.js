@@ -6,7 +6,7 @@ const carouselSpeedInput = document.getElementById('carouselSpeedInput');
 const fetchIntervalInput = document.getElementById('fetchIntervalInput');
 
 const pathToEventImages = '/img/eventImages/';
-
+const pathToPlaceHolderImage = 'img/icons/sad.svg';
 
 let currentIndex = 0;
 let images = [];
@@ -51,6 +51,7 @@ function continueCarousel() {
     if (images.length > 0) {
         displayNextImage();
     } else {
+        imageCarousel.src = pathToPlaceHolderImage;
         console.log("No images to display");
     }
     carouselTimer = setTimeout(continueCarousel, carouselSpeed);
@@ -79,9 +80,16 @@ function fetchUpcomingImages() {
 
 fetchIntervalInput.addEventListener('change', function() {
     autoRefreshTime = fetchIntervalInput.value * 60 * 1000;
-    if (autoRefreshTime < (10 * 1000)) { 
-        autoRefreshTime = 10000; // if less than 10 seconds, set to 10 seconds
+
+    if (autoRefreshTime < 60 * 1000) { 
+        autoRefreshTime = 60 * 1000; // if less than 1 min seconds, set to 1 min
+    } 
+    if (autoRefreshTime < carouselSpeed) {
+        autoRefreshTime = carouselSpeed;
     }
+    fetchIntervalInput.value = autoRefreshTime / 60000;
+
+
     console.log("Auto refresh time:", autoRefreshTime);
     fetchUpcomingImages();
     localStorage.setItem('autoRefreshTime', autoRefreshTime);
