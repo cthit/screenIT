@@ -74,9 +74,6 @@ body {
 
 }
 
-/* .hubbenrattanIntervalDiv {
-    border-bottom: 2px solid rgba(124, 124, 124, 0.578);
-} */
 
 
 
@@ -109,4 +106,21 @@ body {
     z-index: 1;
     top: -2rem; /* Adjust positioning to place the speech bubble above the character */
     left: 3rem; /* Adjust positioning to place the speech bubble near the character */
+}
+
+
+
+
+
+@media screen and (max-width: 768px){
+
+    .settingsDiv {
+        width: calc(100% - 2rem);
+        padding: 1rem 1rem 1rem 1rem;
+    }
+
+    .speech-bubble {
+        top: -3rem;
+        left: 1rem;
+    }
 }

@@ -67,12 +67,12 @@ function fetchUpcomingImages() {
 }
 
 // hide optionsMenu after a few seconds
-// setTimeout(function() {
-//     const optionsMenu = document.getElementById('optionsMenu');
+setTimeout(function() {
+    const optionsMenu = document.getElementById('optionsMenu');
 
-//     optionsMenu.classList.add('invisible')
-//     settingsDiv.classList.add('invisible')
-// }, timeBeforeHidingMenus);
+    optionsMenu.classList.add('invisible')
+    settingsDiv.classList.add('invisible')
+}, timeBeforeHidingMenus);
 
 
 fetchIntervalInput.addEventListener('change', function() {
@@ -138,11 +138,3 @@ document.addEventListener('mousemove', () => {
 
 // Initial call to reset the mouseAutoHideTimer
 resetTimer();
-
-
-
-
-
-
-
-
