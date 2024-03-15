@@ -249,13 +249,17 @@ p {
     justify-content: space-between;
 }
 
-.accountbuttonDiv .saveAccountCredentials {
+.saveAccountCredentials {
     background-color: var(--lighterBackgroundColor);
+
+    cursor: default;
 }
 
 .accountInputChanged {
     background: var(--mainNotificationColor) !important;
     border-radius: .3rem;
+
+    cursor: pointer;
 }
 
 

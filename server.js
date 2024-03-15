@@ -118,7 +118,7 @@ export function isAdminKeyValid(adminKey) {
         return false; // Admin key not found
     } 
 
-    // if (getUserFromAdminKey(adminKey) === null) return false;
+    if (getUserFromAdminKey(adminKey) === undefined) return false;
 
     // Parse the saved date and compare it with ten days ago
     const savedDate = new Date(adminKeyData.date);
