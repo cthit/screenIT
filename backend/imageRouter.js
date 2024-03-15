@@ -1,17 +1,30 @@
 import { Router } from 'express';
 import { uploadPost } from './multer.js';
-import { addImage, removeImage, imageIsUploadedByUser } from './imgHandler.js';
+import { addImage, removeImage, imageIsUploadedByUser, removeOldImages } from './imgHandler.js';
 import fs from 'fs';
 import * as path from 'path';
 
 
 import { isAdminKeyValid, getUserFromAdminKey, getUsernameFromAdminKey, pathToEventImages, pathToImagesFile, pathToUsersFile, logEvent, userHasPermission, getUserIdFromAdminKey } from '../server.js'
 
-const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-
-
-
 const imageRouter = Router();
+
+
+const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const intervalForRemovingOldImages = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+// Remove old images upon server start and then every 24 hours
+setTimeout(removeOldImages, 1000);
+let removeOldImagesTimer = setTimeout(() => {
+	repeatedlyRemoveOldImages();
+}, intervalForRemovingOldImages);
+
+function repeatedlyRemoveOldImages() {
+	removeOldImages();
+	removeOldImagesTimer = setTimeout(repeatedlyRemoveOldImages, intervalForRemovingOldImages);
+}
+
+
 
 imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 	if (!isAdminKeyValid(req.body.adminKey)) return res.status(403).send("Adminkey not valid");
@@ -91,6 +104,7 @@ imageRouter.get('/getAllImages', (req, res) => {
 
 	res.status(200).send(allImages);
 });
+
 
 
 export default imageRouter;

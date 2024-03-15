@@ -1,9 +1,11 @@
 import fs from 'fs';
 
-import { pathToImagesFile } from '../server.js';
+import { pathToImagesFile, pathToEventImages } from '../server.js';
 
-export const addImage = (imgData, pathToJsonFile) => {
-        let images = fs.readFileSync(pathToJsonFile, 'utf8');
+
+
+export const addImage = (imgData) => {
+        let images = fs.readFileSync(pathToImagesFile, 'utf8');
         images = JSON.parse(images);
         images.push(imgData);
 
@@ -12,18 +14,18 @@ export const addImage = (imgData, pathToJsonFile) => {
         });
         
         console.log("WOHO! Image added!");
-        fs.writeFileSync(pathToJsonFile, JSON.stringify(images, null, 2));
+        fs.writeFileSync(pathToImagesFile, JSON.stringify(images, null, 2));
 }
 
-export const removeImage = (imgData, pathToJsonFile, pathToEventImages) => {
-    let images = fs.readFileSync(pathToJsonFile, 'utf8');
+export const removeImage = (imgData) => {
+    let images = fs.readFileSync(pathToImagesFile, 'utf8');
     images = JSON.parse(images);
     images = images.filter(image => image.id !== imgData.id);
     console.log("WOHO! Image removed!");
 
     fs.unlinkSync(pathToEventImages + imgData.path);
 
-    fs.writeFileSync(pathToJsonFile, JSON.stringify(images, null, 2));
+    fs.writeFileSync(pathToImagesFile, JSON.stringify(images, null, 2));
 }
 
 export const imageIsUploadedByUser = (image, userId) => {
@@ -36,3 +38,18 @@ export const imageIsUploadedByUser = (image, userId) => {
 
     return userId === uploadedImage.createdBy;
 }
+
+export const removeOldImages = () => {
+    let imagesData = fs.readFileSync(pathToImagesFile);
+    imagesData = JSON.parse(imagesData);
+    let currentTime = new Date();
+    currentTime.setHours(0, 0, 0, 0);
+
+    for (const image of imagesData) {
+
+        if (new Date(image.date) < currentTime) {
+            removeImage(image, pathToImagesFile, pathToEventImages);
+        }
+    }
+};
+

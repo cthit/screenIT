@@ -71,7 +71,8 @@ peopleRouter.post('/updatePerson', (req, res) => {
 	}
 
 	fs.writeFileSync(pathToUsersFile, JSON.stringify(people, null, 2), 'utf8');
-	res.status(200).send("Person updated successfully!");	
+	res.status(200).send(people[personIndex]);
+		
 	logEvent({
 		event: "Person updated",
 		userUpdated: req.body.userId,

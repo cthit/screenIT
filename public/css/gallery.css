@@ -3,7 +3,6 @@ body {
     background: var(--backgroundColor);
 }
 
-
 #imageCarousel {
     min-height: 50vh;
     max-width: 80vw;
@@ -20,7 +19,7 @@ body {
     transition: all .5s ease;
 }
 
-#settingsDiv {
+.settingsDiv {
     background: inherit;
     color: #fff;
 
@@ -74,6 +73,10 @@ body {
     margin-bottom: .1rem;
 
 }
+
+/* .hubbenrattanIntervalDiv {
+    border-bottom: 2px solid rgba(124, 124, 124, 0.578);
+} */
 
 
 

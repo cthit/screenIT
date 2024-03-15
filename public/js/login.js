@@ -222,12 +222,15 @@ function createAccountDiv() {
                     console.log(response.message);
                     throw new Error('Network response was not ok');
                 }
+                return response.json();
             })
-            .then( () => {
+            .then( (data) => {
                 usernameInput.classList.remove('changedFieldBorder');
                 passwordInput.classList.remove('changedFieldBorder');
 
                 saveChangesButton.classList.remove('accountInputChanged');
+
+                user = data;
 
                 notify(loginNotificationDiv, 'Changes saved', loginNotificationTime, 'green');
             })
