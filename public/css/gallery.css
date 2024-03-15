@@ -26,19 +26,33 @@ body {
 
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 
     position: absolute;
     right: 0rem;
     bottom: 0rem;   
 
+    width: max-content;
     padding: 1rem 2rem 2rem 1rem;
     outline: .1rem solid var(--borderColor);
     transition: all .5s ease;
 }
 
-#settingsDiv h3:first-of-type {
-    margin-top: 0rem;
+.settingsDiv>div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    width: 100%;
+}
+
+.settingsDiv>div>div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 #settingsDiv input {
@@ -46,19 +60,21 @@ body {
     height: 1.5rem;
 }
 
-.inputIntervalDiv {
+.settingsDiv .inputDiv {
+    font-size: .9rem;
+
     display: flex;
     flex-direction: row;
-    align-items: center;
-    gap: .5rem
+    align-items: end;
+    justify-content: space-between;
+    gap: .3rem;
 }
 
-#settingsDiv .inputDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
+.settingsDiv .inputDiv label {
+    margin-bottom: .1rem;
+
 }
+
 
 
 /*  ============== EASTER EGG STYLES ===================== */

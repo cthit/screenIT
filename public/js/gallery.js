@@ -2,11 +2,8 @@ const imageContainer = document.getElementById('imageContainer');
 const imageCarousel = document.getElementById('imageCarousel');
 
 const settingsDiv = document.getElementById('settingsDiv');
-const hours = document.getElementById('hours');
-const minutes = document.getElementById('minutes');
-const seconds = document.getElementById('seconds');
 const carouselSpeedInput = document.getElementById('carouselSpeedInput');
-
+const fetchIntervalInput = document.getElementById('fetchIntervalInput');
 
 const pathToEventImages = '/img/eventImages/';
 
@@ -19,9 +16,6 @@ let carouselSpeed = 8 * 1000; // time each images is shows before going to the n
 let timeBeforeHidingMenus = 5 * 1000; //milliseconds
 let mouseAutoHideTime = 5 * 1000; // Time until the mosuse is hidden (in milliseconds)
 
-let hubbenrattanFrequency = getRandomInt(10, 15) * 60 * 1000; // Time until the mosuse is hidden (in milliseconds)
-hubbenrattanFrequency = 10 * 1000;
-let hubbenrattanDisplayTime = 6 * 1000; // Time until the mosuse is hidden (in milliseconds)
 
 if (localStorage.getItem('carouselSpeed')) {
     carouselSpeed = localStorage.getItem('carouselSpeed');
@@ -37,8 +31,7 @@ let refreshContentTimer; // Variable to store the refreshContentTimer ID
 
 
 carouselSpeedInput.value = carouselSpeed / 1000; // Set the defualt load value of the carousel speed input
-hours.value = Math.floor(autoRefreshTime / (60 * 60 * 1000)); // Set the default load value of the hours input
-minutes.value = Math.floor((autoRefreshTime % (60 * 60 * 1000)) / (60 * 1000)); // Set the default load value of the minutes input
+fetchIntervalInput.value = Math.floor((autoRefreshTime % (60 * 60 * 1000)) / (60 * 1000)); // Set the default load value of the minutes input
 
 imageCarousel.onerror = function() {
     console.log("Error loading image:", imageCarousel.src);
@@ -76,24 +69,22 @@ function fetchUpcomingImages() {
 }
 
 // hide optionsMenu after a few seconds
-setTimeout(function() {
-    const optionsMenu = document.getElementById('optionsMenu');
+// setTimeout(function() {
+//     const optionsMenu = document.getElementById('optionsMenu');
 
-    optionsMenu.classList.add('invisible')
-    settingsDiv.classList.add('invisible')
-}, timeBeforeHidingMenus);
+//     optionsMenu.classList.add('invisible')
+//     settingsDiv.classList.add('invisible')
+// }, timeBeforeHidingMenus);
 
 
-[hours, minutes, seconds].forEach(time => {
-    time.addEventListener('change', function() {
-        autoRefreshTime = hours.value * 60 * 60 * 1000 + minutes.value * 60 * 1000 + seconds.value * 1000;
-        if (autoRefreshTime < (10 * 1000)) { 
-            autoRefreshTime = 10000; // if less than 10 seconds, set to 10 seconds
-        }
-        console.log("Auto refresh time:", autoRefreshTime);
-        fetchUpcomingImages();
-        localStorage.setItem('autoRefreshTime', autoRefreshTime);
-    });
+fetchIntervalInput.addEventListener('change', function() {
+    autoRefreshTime = fetchIntervalInput.value * 60 * 1000;
+    if (autoRefreshTime < (10 * 1000)) { 
+        autoRefreshTime = 10000; // if less than 10 seconds, set to 10 seconds
+    }
+    console.log("Auto refresh time:", autoRefreshTime);
+    fetchUpcomingImages();
+    localStorage.setItem('autoRefreshTime', autoRefreshTime);
 });
 
 carouselSpeedInput.addEventListener('change', function() {
@@ -149,40 +140,4 @@ resetTimer();
 
 
 
-// Easter egg
 
-const hubbenRattanMessages = [
-    "Aspa Göken :)",
-    "Hubbenråttan gillar eventskärmen",
-    "Finns det några popcorn på free-loot hyllan?",
-    "Jag undrar vad som händer i The cloud just nu...",
-    "nom nom nom, vattenrör är mumsigt", 
-    "Jag är en riktig Hubbenråtta",
-    "Du har en fin skärm, kan jag få en bit?",
-    "Hmm, jag undrar om det finns något gott i soptunnan...",
-    "Röda m&m's är min favorit",
-]
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-function displayHubbiRatti(message, time) {
-    const hubbiRatti = document.getElementById('hubbiRatti');
-    const hubbiRattiImg = document.getElementById('hubbiRattiImg')
-    const SpeechBubble = document.getElementById('hubbiRattiSpeechBubble');
-
-    hubbiRatti.classList.remove("hidden");
-    SpeechBubble.textContent = message;
-
-    setTimeout(() => { hubbiRatti.classList.add("hidden"); }, time)
-
-    message = hubbenRattanMessages[getRandomInt(0, hubbenRattanMessages.length - 1)];
-    setTimeout(() => {
-        displayHubbiRatti(message, hubbenrattanDisplayTime)
-    }, hubbenrattanFrequency); // set how often hubben råttan should appear
-}
-
-
-displayHubbiRatti("Mission accepted", 2 * 1000)

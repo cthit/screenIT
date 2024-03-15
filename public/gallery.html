@@ -11,42 +11,63 @@
     <script src="js/script.js"></script>
     <script src="js/login.js" defer></script>   
     <script src="js/gallery.js" defer></script>
+    <script src="js/hubbenrattan.js" defer></script>
 </head>
 
 <body>
     <section id="imageContainer">
-        <img id="imageCarousel" src="" alt="imageCarousel">
+        <img id="imageCarousel" src="img/icons/slideshow.svg" alt="imageCarousel">
     </section>
 
-    <div id="settingsDiv">
 
-        <h3>Carousel Speed:</h3>
+    <div id="settingsDiv" class="settingsDiv">
+        <div>
+            <div>
+                <h3>Show Hubbenråttan </h3>
+                <input type="checkbox" id="hubbenrattanCheckbox" class="darkInput">
+            </div>
+        </div>
+
+        <div>
+            <h3>Hubbenråttan Displaytime:</h3>
+            <div class="inputDiv">
+                <input type="number" id="hubbenrattanDisplayTimeInput" min="1" value="10" max="60" class="darkInput">
+                <label for="hubbenrattanDisplayTimeInput">sec</label>
+            </div>
+        </div>
+
+        <div>
+            <h3>Hubbenråttan Interval:</h3>
+            <div class="inputDiv">
+                <input type="number" id="hubbenrattanIntervalInput" min="1" value="10" class="darkInput">
+                <label for="hubbenrattanIntervalInput">sec</label>
+            </div>
+        </div>
+
+
         <div >
-            <input type="number" id="carouselSpeedInput" min="1" value="5">
+            <h3>Carousel Speed:</h3>
+            <div class="inputDiv">
+                <input type="number" id="carouselSpeedInput" min="1" value="5" max="60" class="darkInput">
+                <label for="carouselSpeedInput">sec</label>
+            </div>
         </div>
 
 
-        <h3>Fetch Interval:</h3>
-        <div class="inputIntervalDiv">
+        <div>
+            <h3>Fetch Interval:</h3>
             <div class="inputDiv">
-                <label for="number">HH</label>
-                <input type="number" id="hours" min="0" value="0">
-            </div>
-            <div class="inputDiv">
-                <label for="number">MM</label>
-                <input type="number" id="minutes" min="0" max="59" value="0">
-            </div>
-            <div class="inputDiv">
-                <label for="number">SS</label>
-                <input type="number" id="seconds" min="0" max="59" value="0">
+                <input type="number" id="fetchIntervalInput" min="0" value="0" max="59" class="darkInput">
+                <label for="minutes">min</label>
             </div>
         </div>
+
     </div>
     
 
-    <div id="hubbiRatti" class="easterEgg">
-        <img id="hubbiRattiImg" src="img/easterEggs/hubben-rattan-eating.gif" alt="Mouse character" height="40">
-        <div id="hubbiRattiSpeechBubble" class="speech-bubble">
+    <div id="hubbenrattan" class="easterEgg hidden">
+        <img id="hubbenrattanImg" src="img/easterEggs/hubben-rattan-eating.gif" alt="Mouse character" height="40">
+        <div id="hubbenrattanSpeechBubble" class="speech-bubble">
             Hello, I am a mouse!
         </div>
     </div>

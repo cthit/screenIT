@@ -207,7 +207,6 @@ function createAccountDiv() {
                 adminKey: adminKey,
                 username: usernameInput.value,
                 password: passwordInput.value,
-                // accountType: user.accountType,
                 userId: user.id
             }
     
