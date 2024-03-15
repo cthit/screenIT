@@ -48,8 +48,19 @@ export const removeOldImages = () => {
     for (const image of imagesData) {
 
         if (new Date(image.date) < currentTime) {
-            removeImage(image, pathToImagesFile, pathToEventImages);
+            removeImage(image);
         }
     }
 };
 
+export const removeUnlinkedImages = () => {
+    let imagesData = fs.readFileSync(pathToImagesFile);
+    imagesData = JSON.parse(imagesData);
+    let images = fs.readdirSync(pathToEventImages);
+
+    for (const image of imagesData) {
+        if (!images.includes(image.path)) {
+            removeImage(image);
+        }
+    }
+}

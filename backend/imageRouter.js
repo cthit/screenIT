@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { uploadPost } from './multer.js';
-import { addImage, removeImage, imageIsUploadedByUser, removeOldImages } from './imgHandler.js';
+import { addImage, removeImage, imageIsUploadedByUser, removeOldImages, removeUnlinkedImages } from './imgHandler.js';
 import fs from 'fs';
 import * as path from 'path';
 
@@ -13,15 +13,16 @@ const imageRouter = Router();
 const timeWindowBeforeEvents = 14 * 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 const intervalForRemovingOldImages = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-// Remove old images upon server start and then every 24 hours
+// Remove old and unlinked images upon server start and then every 24 hours
 setTimeout(removeOldImages, 1000);
 let removeOldImagesTimer = setTimeout(() => {
-	repeatedlyRemoveOldImages();
+	repeatedlyRemoveBadImages();
 }, intervalForRemovingOldImages);
 
-function repeatedlyRemoveOldImages() {
+function repeatedlyRemoveBadImages() {
 	removeOldImages();
-	removeOldImagesTimer = setTimeout(repeatedlyRemoveOldImages, intervalForRemovingOldImages);
+	removeUnlinkedImages
+	removeOldImagesTimer = setTimeout(repeatedlyRemoveBadImages, intervalForRemovingOldImages);
 }
 
 
@@ -38,7 +39,7 @@ imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 		createdBy: getUserIdFromAdminKey(req.body.adminKey)
 	}
 
-	addImage(newPost, pathToImagesFile);
+	addImage(newPost);
 
 	res.status(200).send("Image uploaded successfully!");
 	logEvent( {
@@ -67,7 +68,7 @@ imageRouter.post('/removeImage', (req, res) => {
 		image: image
 	});
 
-	removeImage(image, pathToImagesFile, pathToEventImages);
+	removeImage(image);
 
 
 	res.status(200).send("Image removed successfully!");
