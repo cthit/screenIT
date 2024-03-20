@@ -5,6 +5,8 @@ const settingsDiv = document.getElementById('settingsDiv');
 const carouselSpeedInput = document.getElementById('carouselSpeedInput');
 const fetchIntervalInput = document.getElementById('fetchIntervalInput');
 
+const upcomingEventsDiv = document.getElementById('upcomingEventsDiv');
+
 const pathToEventImages = '/img/eventImages/';
 const pathToPlaceHolderImage = 'img/icons/sad.svg';
 
@@ -62,6 +64,7 @@ function fetchUpcomingImages() {
     .then(incomingImages => {
         images = incomingImages;
         continueCarousel();
+        populateUpcomingEventsDiv();
     })
     .catch(error => console.error('Error fetching upcoming images:', error));
 }
@@ -102,6 +105,22 @@ carouselSpeedInput.addEventListener('change', function() {
     localStorage.setItem('carouselSpeed', carouselSpeed);
 });
 
+
+function populateUpcomingEventsDiv() {
+    images.forEach(image => {
+        if (image.eventName) {
+            const newEvent = document.createElement('p');
+            newEvent.classList.add('upcomingEvent');
+            newEvent.textContent = image.date + " - " + image.eventName;
+            upcomingEventsDiv.appendChild(newEvent);
+        }
+    }
+    );
+}
+
+
+
+
 // Automatically refresh the page
 function automaticallyFetchImages() {
     clearTimeout(refreshContentTimer);
@@ -138,3 +157,4 @@ document.addEventListener('mousemove', () => {
 
 // Initial call to reset the mouseAutoHideTimer
 resetTimer();
+

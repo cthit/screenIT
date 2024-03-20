@@ -6,6 +6,7 @@ const dateInput = document.getElementById('dateInput');
 const imagePreviewDiv = document.getElementById('imagePreviewDiv');
 const imagePreviewText = document.getElementById('imagePreviewText');
 const imageInput = document.getElementById('imageInput');
+const eventNameInput = document.getElementById('eventNameInput');
 
 const uploadImageButton = document.getElementById('uploadImageButton');
 
@@ -25,6 +26,9 @@ function uploadImage() {
     formData.append('image', imageInput.files[0]);
     formData.append('validUntil', dateInput.value);
     formData.append('id', createRandomSuffix());
+    if (eventNameInput.value !== '') {
+        formData.append('eventName', eventNameInput.value);
+    }
 
     fetch('/api/images/upload', {
         method: 'POST',
@@ -36,6 +40,7 @@ function uploadImage() {
 
         if (response.status === 200) {
             imageInput.value = '';
+            eventNameInput.value = '';
             dateInput.value = '';
             imagePreviewText.textContent = 'No file selected';
 

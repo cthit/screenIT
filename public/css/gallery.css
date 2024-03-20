@@ -4,8 +4,7 @@ body {
 }
 
 #imageCarousel {
-    min-height: 50vh;
-    max-width: 80vw;
+    max-width: 60vw;
     max-height: 90vh;
 }
 
@@ -75,6 +74,26 @@ body {
 }
 
 
+
+/* ============== UPCOMING EVENTS STYLES ===================== */
+
+.upcomingEventsDiv {
+    background: var(--backgroundColor);
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+
+    width: max-content;
+    height: max-content;
+    padding: .5rem;
+}
+.upcomingEventsDiv h2 {
+    margin-top: 0;
+}
+
+.upcomingEventsDiv .upcomingEvent {
+    margin-bottom: 1rem;
+}
 
 
 /*  ============== EASTER EGG STYLES ===================== */

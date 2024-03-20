@@ -33,9 +33,7 @@
 
 /* ------ UPLOAD INPUT DIV ------ */
 
-.uploadInputDiv {
-    margin-bottom: 2rem;
-}
+
 
 .uploadImagePreview {
     font-family: Arial, sans-serif;
@@ -70,8 +68,14 @@
     transition: all .3s linear;
 }
 
+.uploadInputDiv {
+    margin-bottom: 1rem;
+}
+
 .uploadInputDiv p {
     word-break: break-all;
 
     margin: 0;
 }
+
+

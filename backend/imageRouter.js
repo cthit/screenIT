@@ -38,6 +38,7 @@ imageRouter.post('/upload', uploadPost.single('image'), (req, res) => {
 		creationDate: new Date().toISOString(),
 		createdBy: getUserIdFromAdminKey(req.body.adminKey)
 	}
+	if (req.body.eventName) newPost.eventName = req.body.eventName;
 
 	addImage(newPost);
 
