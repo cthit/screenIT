@@ -126,6 +126,10 @@ p {
     gap: .4rem;
 }
 
+.optionsButton:active {
+    transform: scale(0.95);
+}
+
 .optionsButton img {
     /* filter: invert(100%); */
 }
