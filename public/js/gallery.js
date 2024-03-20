@@ -5,7 +5,8 @@ const settingsDiv = document.getElementById('settingsDiv');
 const carouselSpeedInput = document.getElementById('carouselSpeedInput');
 const fetchIntervalInput = document.getElementById('fetchIntervalInput');
 
-const upcomingEventsDiv = document.getElementById('upcomingEventsDiv');
+const upcomingEventsContainer = document.getElementById('upcomingEventsContainer');
+const upcomingEvents = document.getElementById('upcomingEvents');
 
 const pathToEventImages = '/img/eventImages/';
 const pathToPlaceHolderImage = 'img/icons/sad.svg';
@@ -107,15 +108,22 @@ carouselSpeedInput.addEventListener('change', function() {
 
 
 function populateUpcomingEventsDiv() {
+    let imagesContainsName = false;
+    
     images.forEach(image => {
         if (image.eventName) {
+            console.log(image)
+            imagesContainsName = true;
+
             const newEvent = document.createElement('p');
             newEvent.classList.add('upcomingEvent');
             newEvent.textContent = image.date + " - " + image.eventName;
-            upcomingEventsDiv.appendChild(newEvent);
+            upcomingEvents.appendChild(newEvent);
         }
-    }
-    );
+    });
+
+    if (imagesContainsName) upcomingEventsContainer.classList.remove('hidden');
+    else upcomingEventsContainer.classList.add('hidden');
 }
 
 

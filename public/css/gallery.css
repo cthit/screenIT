@@ -70,14 +70,16 @@ body {
 
 .settingsDiv .inputDiv label {
     margin-bottom: .1rem;
-
 }
 
 
 /* ============== UPCOMING EVENTS STYLES ===================== */
 
-.upcomingEventsDiv {
+.upcomingEventsContainer {
     background: var(--backgroundColor);
+
+    display: hidden;
+
     position: absolute;
     top: 2rem;
     left: 1rem;
@@ -87,11 +89,11 @@ body {
     padding: .5rem;
 }
 
-.upcomingEventsDiv h2 {
+.upcomingEventsContainer h2 {
     margin-top: 0;
 }
 
-.upcomingEventsDiv .upcomingEvent {
+.upcomingEventsContainer .upcomingEvent {
     margin-bottom: 1rem;
 }
 
