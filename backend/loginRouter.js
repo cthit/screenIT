@@ -4,12 +4,12 @@ import fs from 'fs';
 
 import { getUserFromAdminKey, getUsernameFromAdminKey, isAdminKeyValid, logEvent, pathToAdminKeysFile, pathToUsersFile  } from '../server.js';
 
-const imageRouter = Router();
+const loginRouter = Router();
 
 
 
 // LOGIN SYSTEM
-imageRouter.post('/login', (req, res) => {
+loginRouter.post('/login', (req, res) => {
     const username = req.body.username; // Extract username from request body
     const password = req.body.password; // Extract password from request body
 
@@ -30,7 +30,7 @@ imageRouter.post('/login', (req, res) => {
     }
 });
 
-imageRouter.post('/testAdminKey', (req, res) => {
+loginRouter.post('/testAdminKey', (req, res) => {
     const adminKey = req.body.adminKey; 
     if (!isAdminKeyValid(adminKey)) return res.status(401).json("Adminkey is not valid");
 
@@ -67,4 +67,4 @@ function credentialsIsValid(username, pass) {
     return false;
 }
 
-export default imageRouter;
+export default loginRouter;

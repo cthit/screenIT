@@ -5,7 +5,18 @@ var menuItems = [
     { text: "Manage People", href: "/managePeople.html", image: "/img/icons/group.svg", visibleTo: ["admin", "pr"]}
 ];
 
-
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(err => {
+        console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
+  
 
 
 function createIcon() {
