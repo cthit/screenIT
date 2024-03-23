@@ -109,10 +109,11 @@ carouselSpeedInput.addEventListener('change', function() {
 
 function populateUpcomingEventsDiv() {
     let imagesContainsName = false;
+    upcomingEvents.innerHTML = '';
     
     images.forEach(image => {
         if (image.eventName) {
-            console.log(image)
+            console.log("image")
             imagesContainsName = true;
 
             const newEvent = document.createElement('p');
