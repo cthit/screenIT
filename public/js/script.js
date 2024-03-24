@@ -105,11 +105,10 @@ function createMenu(callback) {
         }
     });
 
-
-
     const image = document.createElement("img");
     image.id = "openLoginButtonImage";
     image.src = "/img/icons/login.svg";
+    image.alt = "Log in image";
     loginButton.appendChild(image);
 
     const text = document.createElement("p");

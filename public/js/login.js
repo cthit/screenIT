@@ -372,6 +372,7 @@ async function userIsLoggedIn(){
     if (loginButton) {
         openLoginButtonText.textContent = 'Account';
         openLoginButtonImage.src = "/img/icons/person.svg";
+        openLoginButtonImage.alt = "Account image";
     };
     
     usernameInput.value = '';
