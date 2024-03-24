@@ -70,13 +70,7 @@ function fetchUpcomingImages() {
     .catch(error => console.error('Error fetching upcoming images:', error));
 }
 
-// hide optionsMenu after a few seconds
-setTimeout(function() {
-    const optionsMenu = document.getElementById('optionsMenu');
 
-    optionsMenu.classList.add('invisible')
-    settingsDiv.classList.add('invisible')
-}, timeBeforeHidingMenus);
 
 
 fetchIntervalInput.addEventListener('change', function() {
@@ -113,7 +107,6 @@ function populateUpcomingEventsDiv() {
     
     images.forEach(image => {
         if (image.eventName) {
-            console.log("image")
             imagesContainsName = true;
 
             const newEvent = document.createElement('p');
@@ -164,6 +157,43 @@ document.addEventListener('mousemove', () => {
     document.body.style.cursor = 'default';
 });
 
+
+
+// hide optionsMenu after a few seconds
+function hideMenus() {
+    setTimeout(function() {
+        const optionsMenu = document.getElementById('optionsMenu');
+    
+        optionsMenu.classList.add('invisible')
+        settingsDiv.classList.add('invisible')
+    }, timeBeforeHidingMenus);
+}
+
+function showMenus() {
+
+    optionsMenu.classList.remove('invisible')
+    settingsDiv.classList.remove('invisible')
+}
+
+
+settingsDiv.addEventListener('mouseenter', function() {
+    showMenus();
+    hideMenus();
+});
+
+
+// to make sure optionsmenu exists when the event listener is added
+setTimeout(() => {
+    const optionsMenu = document.getElementById('optionsMenu');
+
+optionsMenu.addEventListener('mouseenter', function() {
+    showMenus();
+    hideMenus();
+});
+}, 2000);
+
+
+
 // Initial call to reset the mouseAutoHideTimer
 resetTimer();
-
+hideMenus();

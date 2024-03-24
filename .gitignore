@@ -1,6 +1,9 @@
 
 public/img/eventImages/*
-*.json
+
+data/adminkeys.json
+data/images.json
+data/logs.json
 
 TODO.md
 

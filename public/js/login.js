@@ -45,6 +45,7 @@ function createLoginDiv() {
 
         let closeButtonImg = document.createElement('img');
         closeButtonImg.src = '/img/icons/close.svg';
+        closeButtonImg.alt = 'Close login window';
         closeButton.appendChild(closeButtonImg);
     
     closeButton.classList.add('closeButton');

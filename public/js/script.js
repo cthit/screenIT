@@ -71,6 +71,7 @@ function createMenu(callback) {
             });
 
                 const image = document.createElement("img");
+                image.alt = item.text;
                 image.src = item.image;
                 link.appendChild(image);
 
@@ -92,6 +93,7 @@ function createMenu(callback) {
     loginButton = document.createElement("div"); // Assign to the global loginButton variable
     loginButton.id = "openLoginButton";
     loginButton.classList.add("optionsButton", "button");
+    
 
     loginButton.addEventListener('click', () => {
         event.stopPropagation();

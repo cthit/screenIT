@@ -30,12 +30,13 @@ app.use('/',express.static('public'));
 app.use('/admin',express.static('public/admin.html'));
 
 
-
-export const pathToImagesFile = "images.json";
-export const pathToAdminKeysFile = "adminKeys.json";
-export const pathToUsersFile = "users.json";
+const dataPath = 'data/';
+export const pathToImagesFile = dataPath + "images.json";
+export const pathToAdminKeysFile = dataPath + "adminKeys.json";
+export const pathToUsersFile = dataPath + "users.json";
+export const pathToLogFile = dataPath + "logs.json";
 export const pathToEventImages = "public/img/eventImages/";
-export const pathToLogFile = "logs.json";
+
 
 const lifeTimeForAdminKeys = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
 

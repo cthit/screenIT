@@ -24,7 +24,8 @@ footer * {
 
 .pixelnheart {
     height: 1rem;
-
+    width: auto;
+    
     vertical-align: middle; /* Adjust alignment as needed */
 }
 

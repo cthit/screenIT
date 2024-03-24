@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>screenIT - File Upload</title>
+
+    <meta name="description" content="A page to upload and show images for coming events">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>screenIT - File Upload</title>
+    
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/upload.css">
@@ -19,15 +22,15 @@
         <h1>Image Upload</h1>
 
         <form id="uploadForm" enctype="multipart/form-data">
-            <label for="date">Date of the event:</label>
+            <label for="dateInput">Date of the event:</label>
 
             <input type="date" id="dateInput" class="uploadInputDiv" name="date">
 
-            <label for="eventName">Event name:</label>
+            <label for="eventNameInput">Event name:</label>
             <input type="text" id="eventNameInput" class="uploadInputDiv" name="eventName">
 
 
-            <label for="image">Imageposter:</label>
+            <label for="imageInput">Imageposter:</label>
             <input type="file" id="imageInput" class="hidden" name="image" accept="image/*">
 
             <div id="imagePreviewDiv" class="uploadInputDiv uploadImagePreview">
