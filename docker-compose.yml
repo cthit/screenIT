@@ -1,6 +1,6 @@
 services:
   vevit:
-    image: ghcr.io/cthit/screenit:latest
+    image: ghcr.io/erikpersson0884/screenit:latest
     ports:
       - 3000:3000
     volumes:

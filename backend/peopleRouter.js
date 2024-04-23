@@ -54,7 +54,7 @@ peopleRouter.post('/getPeople', (req, res) => {
 peopleRouter.post('/updatePerson', (req, res) => {
 	const adminKey = req.body.adminKey;
 	if (!isAdminKeyValid(adminKey)) return res.status(403).send("Adminkey not valid");
-	if(userHasPermission(adminKey, "pr") && req.body.id !== getUserIdFromAdminKey(adminKey)) return res.status(403).send("User does not have permission to update account type to admin");
+	if(userHasPermission(adminKey, "pr") && req.body.userId !== getUserIdFromAdminKey(adminKey)) return res.status(403).send("User does not have permission to update account type to admin");
 
 	let people = fs.readFileSync(pathToUsersFile, 'utf8');
 	people = JSON.parse(people);

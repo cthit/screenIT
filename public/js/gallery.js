@@ -178,7 +178,11 @@ function showMenus() {
 
 settingsDiv.addEventListener('mouseenter', function() {
     showMenus();
-    hideMenus();
+
+    settingsDiv.addEventListener('mouseleave', function() {
+        settingsDiv.removeEventListener('mouseleave', this);
+        hideMenus();
+    });
 });
 
 
