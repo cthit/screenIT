@@ -164,7 +164,7 @@ function createAccountDiv() {
     usernameInput.id = 'accountDivUsernameInput';
     usernameInput.placeholder = 'Username';
 
-    usernameInput.addEventListener('change', () => {
+    usernameInput.oninput = () => {
         if (usernameInput.value !== user.username) {
             usernameInput.classList.add('changedFieldBorder');
             saveChangesButton.classList.add('accountInputChanged')
@@ -172,7 +172,7 @@ function createAccountDiv() {
             usernameInput.classList.remove('changedFieldBorder');
             saveChangesButton.classList.remove('accountInputChanged')
         }
-    });
+    };
 
     loginForm.appendChild(usernameInput);
 
@@ -182,7 +182,7 @@ function createAccountDiv() {
     passwordInput.placeholder = 'Password';
     passwordInput.classList.add('darkInput');
 
-    passwordInput.addEventListener('change', () => {
+    passwordInput.oninput = () => {
         if (passwordInput.value !== user.password) {
             passwordInput.classList.add('changedFieldBorder');
             saveChangesButton.classList.add('accountInputChanged')
@@ -190,7 +190,7 @@ function createAccountDiv() {
             passwordInput.classList.remove('changedFieldBorder');
             saveChangesButton.classList.remove('accountInputChanged')
         }
-    });    
+    };    
     loginForm.appendChild(passwordInput);
 
 

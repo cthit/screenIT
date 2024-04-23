@@ -53,6 +53,7 @@
     background: var(--inputBackgroundColor);
 
     height: 2rem;
+    width: auto;
     border-radius: .1rem;
     outline: 1px solid var(--borderColor);
 

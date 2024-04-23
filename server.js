@@ -38,7 +38,7 @@ export const pathToAdminKeysFile = dataPath + "adminKeys.json";
 export const pathToUsersFile = dataPath + "users.json";
 export const pathToLogFile = dataPath + "logs.json";
 
-function initialize_files() {
+async function initialize_files() {
     [dataPath, pathToEventImages].forEach((path) => {
         if (!fs.existsSync(dataPath)) {
             fs.mkdirSync(dataPath);
@@ -57,18 +57,16 @@ function initialize_files() {
 
     if (!fs.existsSync(pathToUsersFile)) {
         const newUser = {
-            id: MAIN_USER_ID || "1",
+            id: process.env.MAIN_USER_ID || "1",
             username: process.env.MAIN_USER_USERNAME || "Göken",
             password: process.env.MAIN_USER_PASSWORD || "1234",
             accountType: "admin"
         }
-        fs.writeFileSync(pathToUsersFile, JSON.stringify([]));
+        fs.writeFileSync(pathToUsersFile, JSON.stringify([newUser], null, 2));
     }
 }
 
-
-
-
+initialize_files();
 
 
 const lifeTimeForAdminKeys = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
