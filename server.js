@@ -31,11 +31,44 @@ app.use('/admin',express.static('public/admin.html'));
 
 
 const dataPath = 'data/';
+export const pathToEventImages = "public/img/eventImages/";
+
 export const pathToImagesFile = dataPath + "images.json";
 export const pathToAdminKeysFile = dataPath + "adminKeys.json";
 export const pathToUsersFile = dataPath + "users.json";
 export const pathToLogFile = dataPath + "logs.json";
-export const pathToEventImages = "public/img/eventImages/";
+
+function initialize_files() {
+    [dataPath, pathToEventImages].forEach((path) => {
+        if (!fs.existsSync(dataPath)) {
+            fs.mkdirSync(dataPath);
+        }
+    });
+
+    [pathToImagesFile, pathToAdminKeysFile, pathToLogFile].forEach((path) => {
+        if (!fs.existsSync(path)) {
+            fs.writeFileSync(path, JSON.stringify([]));
+        }
+    });
+
+    if (!fs.existsSync(pathToEventImages)) {
+        fs.mkdirSync(pathToEventImages);
+    }
+
+    if (!fs.existsSync(pathToUsersFile)) {
+        const newUser = {
+            id: MAIN_USER_ID || "1",
+            username: process.env.MAIN_USER_USERNAME || "Göken",
+            password: process.env.MAIN_USER_PASSWORD || "1234",
+            accountType: "admin"
+        }
+        fs.writeFileSync(pathToUsersFile, JSON.stringify([]));
+    }
+}
+
+
+
+
 
 
 const lifeTimeForAdminKeys = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
