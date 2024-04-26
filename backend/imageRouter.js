@@ -104,7 +104,7 @@ imageRouter.get('/getAllImages', (req, res) => {
 	allImages.forEach(image => {
 		const creator = users.find(user => user.id === image.createdBy);
 		if (creator) image.createdBy = creator.username;
-		else image.createdBy = "Unknown user";
+		else image.createdBy = "Unknown user";	
 	});
 
 	res.status(200).send(allImages);

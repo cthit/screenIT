@@ -170,7 +170,6 @@ function hideMenus() {
 }
 
 function showMenus() {
-
     optionsMenu.classList.remove('invisible')
     settingsDiv.classList.remove('invisible')
 }
@@ -190,10 +189,10 @@ settingsDiv.addEventListener('mouseenter', function() {
 setTimeout(() => {
     const optionsMenu = document.getElementById('optionsMenu');
 
-optionsMenu.addEventListener('mouseenter', function() {
-    showMenus();
-    hideMenus();
-});
+    optionsMenu.addEventListener('mouseenter', function() {
+        showMenus();
+        hideMenus();
+    });
 }, 2000);
 
 
