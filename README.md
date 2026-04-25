@@ -1,4 +1,4 @@
-
+> ⚠️ **Note:** This project has been discontinued in favor of the rebuild, screenIT2, which you can find [here](https://github.com/erikpersson0884/screenIT-v2).
 # screenIT
 ## A system for managing images on the event screen in Hubben
 
